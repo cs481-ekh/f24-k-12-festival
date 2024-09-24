@@ -27,4 +27,4 @@ jobs:
       run: npm install
 
     - name: Run test script
-      run: bash ${{ github.workspace }}/test.sh
+      run: bash /test.sh

@@ -5,10 +5,10 @@ name: Build
 on:
   push:
     branches:
-      - main  # Triggers on push to the main branch
+      - main
   pull_request:
     branches:
-      - main  # Triggers on PR to the main branch
+      - main
 
 jobs:
   build:
@@ -25,9 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Run tests
-        run: bash ./test.sh
 
       - name: Build the project
         run: bash ./build.sh
