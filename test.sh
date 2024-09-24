@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Step 1: Check if Docker is installed
 if ! [ -x "$(command -v docker)" ]; then
