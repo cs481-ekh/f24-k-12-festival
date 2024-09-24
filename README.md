@@ -1,4 +1,7 @@
 # K-12 STEM Festival Web App
+[![Build](https://github.com/cs481-ekh/f24-k-12-festival/actions/workflows/build.yaml/badge.svg)](https://github.com/cs481-ekh/f24-k-12-festival/actions/workflows/build.yaml)
+[![Test](https://github.com/cs481-ekh/f24-k-12-festival/actions/workflows/test.yaml/badge.svg)](https://github.com/cs481-ekh/f24-k-12-festival/actions/workflows/test.yaml)
+
 The College of Engineering at Boise State University will host the 18th Annual Engineering and
 Science Festival on February 22, 2025. This event aims to inspire over 4,000 K-12 students and their
 families to explore STEM fields. To enhance the experience for attendees, our team is developing a
