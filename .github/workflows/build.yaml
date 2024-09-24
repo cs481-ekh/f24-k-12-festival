@@ -27,7 +27,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: test.sh
+        run: bash ./test.sh
 
       - name: Build the project
         run: bash ./build.sh
