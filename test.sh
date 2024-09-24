@@ -6,7 +6,16 @@ if ! [ -x "$(command -v docker)" ]; then
   exit 1
 fi
 
-# Step 2: Ensure the container is built (Optional check)
+# Step 2: Build the Docker container
+echo "Building the Docker container..."
+docker build -t nextjs_project_container .
+
+if [ $? -ne 0 ]; then
+  echo "Docker build failed."
+  exit 1
+fi
+
+# Step 3: Ensure the container is built (Optional check)
 echo "Checking if the Docker container is built..."
 docker image inspect nextjs_project_container > /dev/null 2>&1
 if [ $? -ne 0 ]; then
@@ -14,7 +23,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Step 3: Run tests inside the container
+# Step 4: Run tests inside the container
 echo "Running tests..."
 docker run --rm nextjs_project_container /bin/bash -c "
     echo 'Running tests...'
