@@ -1,6 +1,9 @@
 # Use Node.js base image from the official Node repository
 FROM node:18-alpine
 
+# Install bash
+RUN apk add --no-cache bash
+
 # Set the working directory inside the container
 WORKDIR /app
 
