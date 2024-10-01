@@ -17,3 +17,12 @@ By integrating these features into a single, easy to use web application, the pl
 user engagement, increase accessibility, and encourage repeat visits to the University. The enhanced
 website will serve as an essential tool for managing the event and fostering a deeper connection
 between Boise State University and the community.
+
+# Build & Run
+Step 1: Clone this repository locally to your machine
+
+Step 2: Make sure you have the correct dependencies installed by running the command ```npm install``` within the root folder of the repository
+
+Step 3: Run the development server using the command ```npm run dev```
+
+Step 4: Navigate to ```http://localhost:3000``` within your browser to view the webpage
