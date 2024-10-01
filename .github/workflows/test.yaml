@@ -5,12 +5,10 @@ name: Test
 on:
   push:
     branches:
-      - main
-      - Setup
+      - '*'
   pull_request:
     branches:
-      - main
-      - Setup
+      - '*'
 
 jobs:
   test:
