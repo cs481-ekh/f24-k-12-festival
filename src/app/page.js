@@ -10,11 +10,6 @@ export default function Home() {
               Click here to go to the schedule page.
           </Link>
           <div> {/* New line for this link */}
-              <Link href="/main">
-                  Click here to go to the main page.
-              </Link>
-          </div>
-          <div> {/* New line for this link */}
               <Link href="/map">
                   Click here to go to the map page.
               </Link>
