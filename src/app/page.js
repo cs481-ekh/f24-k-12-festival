@@ -10,8 +10,8 @@ export default function Home() {
               Click here to go to the schedule page.
           </Link>
           <div> {/* New line for this link */}
-              <Link href="/main">
-                  Click here to go to the main page.
+              <Link href="/about">
+                  Click here to go to the about page.
               </Link>
           </div>
           <div> {/* New line for this link */}

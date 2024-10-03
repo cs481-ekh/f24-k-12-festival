@@ -1,11 +1,25 @@
-/* about.module.css */
+/* about.css */
 
+/* Add padding to the entire page */
+.aboutContainer {
+    padding: 40px; /* Add padding to the container */
+    max-width: 900px; /* Optional: adjust the maximum width */
+    margin: 0 auto; /* Center the content */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9; /* Light gray background for the page */
+    border-radius: 10px; /* Optional: rounded corners for the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a slight shadow */
+}
+
+/* Adjusting the Back to Home button container */
 .backButtonContainer {
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: left; /* Align the button to the left */
 }
 
+/* Styling for the Back to Home button */
 .backButton {
     background-color: #0033A0; /* Boise State Blue */
     color: white;
@@ -20,58 +34,63 @@
     background-color: #002280; /* Darker blue on hover */
 }
 
-.aboutContainer {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-
+/* Header section styling */
 .header {
     font-size: 2.5rem;
-    color: #e65c2a;
+    color: #e65c2a; /* Boise State's official orange */
     margin-bottom: 20px;
     text-align: center;
 }
 
+/* Padding and color for sections */
 .section {
     margin-bottom: 30px;
+    padding: 20px; /* Add padding inside each section */
+    background-color: #fff; /* White background for each section */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: slight shadow */
 }
 
+/* Subheader styles */
 .subHeader {
     font-size: 1.8rem;
-    color: #1659d6;
+    color: #1659d6; /* Another Boise State color */
     margin-bottom: 10px;
 }
 
+/* General text styling */
 .text {
     font-size: 1.2rem;
-    color: #666;
+    color: #666; /* Gray color */
 }
 
+/* Unordered list styles */
 .list {
     padding-left: 20px;
     font-size: 1.1rem;
 }
 
+/* Flexbox layout for the team section */
 .team {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    justify-content: space-around; /* Space out team members evenly */
+    flex-wrap: wrap; /* Allow team members to wrap if needed */
 }
 
+/* Individual team member styles */
 .teamMember {
     width: 200px;
     text-align: center;
 }
 
+/* Team member name styling */
 .teamMember h3 {
     font-size: 1.3rem;
-    color: #333;
+    color: #333; /* Darker text */
 }
 
+/* Team member role styling */
 .teamMember p {
     font-size: 1rem;
-    color: #777;
+    color: #777; /* Slightly lighter text */
 }
