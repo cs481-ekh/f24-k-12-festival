@@ -14,7 +14,7 @@ export default function Home() {
                   Click here to go to the about page.
               </Link>
           </div>
-          <div> {/* New line for this link */}
+          <div> {/* New line for this link */
               <Link href="/map">
                   Click here to go to the map page.
               </Link>
