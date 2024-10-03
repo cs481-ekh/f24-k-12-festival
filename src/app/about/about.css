@@ -1,0 +1,77 @@
+/* about.module.css */
+
+.backButtonContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left; /* Align the button to the left */
+}
+
+.backButton {
+    background-color: #0033A0; /* Boise State Blue */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+    background-color: #002280; /* Darker blue on hover */
+}
+
+.aboutContainer {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.header {
+    font-size: 2.5rem;
+    color: #e65c2a;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.subHeader {
+    font-size: 1.8rem;
+    color: #1659d6;
+    margin-bottom: 10px;
+}
+
+.text {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.list {
+    padding-left: 20px;
+    font-size: 1.1rem;
+}
+
+.team {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.teamMember {
+    width: 200px;
+    text-align: center;
+}
+
+.teamMember h3 {
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.teamMember p {
+    font-size: 1rem;
+    color: #777;
+}
