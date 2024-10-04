@@ -1,6 +1,6 @@
 # .github/workflows/build.yml
 
-name: Build
+name: Lint
 
 on:
   push:
