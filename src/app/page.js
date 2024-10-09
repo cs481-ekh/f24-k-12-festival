@@ -36,6 +36,23 @@ export default function Home() {
           </Link>
         </nav>
       </header>
+      <h1 className="text-3xl text-center">This is the home page.</h1>
+
+      <Link href="/schedule">
+        Click here to go to the schedule page.
+      </Link>
+
+      <div> {/* New line for this link */}
+        <Link href="/map">
+          Click here to go to the map page.
+        </Link>
+      </div>
+
+      <div> {/* New line for this link */}
+        <Link href="/vendors">
+          Click here to go to the vendors page.
+        </Link>
+      </div>
 
       {/* Main Content */}
       <main>
