@@ -13,8 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
       - name: Checkout code
@@ -29,5 +27,6 @@ jobs:
         run: npm install
 
       - name: Build the project
-      
-        run: DATABASE_URL=${{ secrets.DATABASE_URL }} sh ./build.sh
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: sh ./build.sh
