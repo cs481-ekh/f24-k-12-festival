@@ -1,13 +1,16 @@
-import localFont from "next/font/local";
-import "./globals.css";
+import '../styles/globals.css';
+import Header from '../app/components/Header'
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <title>BSU STEM Festival</title>
+        <title>STEM Festival</title>
       </head>
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
