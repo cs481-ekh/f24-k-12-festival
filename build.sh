@@ -8,7 +8,7 @@ fi
 
 # Step 2: Build the Docker container
 echo "Building the Docker container..."
-docker build -t nextjs_project_container .
+docker build --build-arg DATABASE_URL=${DATABASE_URL} -t nextjs_project_container .
 
 if [ $? -ne 0 ]; then
   echo "Docker build failed."
@@ -17,7 +17,7 @@ fi
 
 # Step 3: Run build commands inside the container
 echo "Running build process inside the container..."
-docker run --rm nextjs_project_container /bin/bash -c "
+docker run --rm -e DATABASE_URL=${DATABASE_URL} nextjs_project_container /bin/bash -c "
     echo 'Installing dependencies...'
     npm install
 

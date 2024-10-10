@@ -16,6 +16,12 @@ RUN npm install
 # Copy the entire project to the working directory
 COPY . .
 
+# Define DATABASE_URL as a build argument
+ARG DATABASE_URL
+
+# Set DATABASE_URL as an environment variable
+ENV DATABASE_URL=${DATABASE_URL}
+
 # Build the Next.js app
 RUN npm run build
 
