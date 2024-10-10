@@ -30,4 +30,4 @@ jobs:
 
       - name: Build the project
       
-        run: sh ./build.sh
+        run: DATABASE_URL=${{ secrets.DATABASE_URL }} sh ./build.sh
