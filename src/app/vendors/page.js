@@ -9,20 +9,6 @@ async function fetchVendors() {
   return response;
 }
 
-function parseRange(range) {
-  if (range.includes('+')) {
-    const min = parseInt(range, 10);
-    return { min, max: Infinity };
-  } else {
-    const [min, max] = range.split('-').map(Number);
-    return { min, max };
-  }
-}
-
-function rangesOverlap(range1, range2) {
-  return range1.min <= range2.max && range1.max >= range2.min;
-}
-
 export default function Vendors() {
   const [data, setData] = useState([]);
   const [ageFilter, setAgeFilter] = useState('');
@@ -33,14 +19,12 @@ export default function Vendors() {
       setData(fetchedData);
     }
     getData();
-  }, []);
+  });
 
   const filteredData = ageFilter
     ? data.filter((vendor) => {
-        const vendorRange = parseRange(vendor.age_range);
-        const filterRange = parseRange(ageFilter);
-        return rangesOverlap(vendorRange, filterRange);
-      })
+      return vendor.age_range == ageFilter;
+    })
     : data;
 
   return (
@@ -54,9 +38,9 @@ export default function Vendors() {
           className="border p-2 rounded"
         >
           <option value="">All Ages</option>
-          <option value="5-10">5-10</option>
-          <option value="11-15">11-15</option>
-          <option value="16-20">16-20</option>
+          <option value="Ages 5+">Ages 5+</option>
+          <option value="Ages 5-18">Ages 5-18</option>
+          <option value="Ages 6+">Ages 6+</option>
         </select>
       </div>
 
@@ -68,7 +52,7 @@ export default function Vendors() {
             <th className="px-6 py-3 border">Vendor Name</th>
             <th className="px-6 py-3 border">Vendor Description</th>
             <th className="px-6 py-3 border">Age Range</th>
-            <th className="px-6 py-3 border">Starting Time</th>
+            <th className="px-6 py-3 border">Time Frame</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +63,7 @@ export default function Vendors() {
               <td className="px-6 py-3 border-b">{row.vendor_name}</td>
               <td className="px-6 py-3 border-b">{row.vendor_description}</td>
               <td className="px-6 py-3 border-b">{row.age_range}</td>
-              <td className="px-6 py-3 border-b">{row.starting_time}</td>
+              <td className="px-6 py-3 border-b">{row.time_frame}</td>
             </tr>
           ))}
         </tbody>
