@@ -36,16 +36,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-
       </div>
-
-      {/* Footer */}
-      <footer className="bg-blue-500 text-white text-center py-8">
-        <p>&copy; 2025 Boise State University. All rights reserved.</p>
-        <div className="mt-4">
-            <a className="text-white hover:underline">Contact Us</a>
-        </div>
-      </footer>
     </div>
   );
 }
