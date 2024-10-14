@@ -10,7 +10,7 @@ async function fetchVendors() {
 }
 
 export default function Vendors() {
-  // State for fetched data and filters
+  // State for fetched data, filters, and search term
   const [data, setData] = useState([]);
   const [ageFilter, setAgeFilter] = useState('');
   const [buildingFilter, setBuildingFilter] = useState('');
@@ -27,23 +27,24 @@ export default function Vendors() {
     getData();
   }, []); // Empty dependency array to fetch once on mount
 
-  // Filter the data based on the selected filters
+  // Filter the data based on the selected filters and search term
   const filteredData = data.filter((vendor) => {
-
     const searchTextMatch =
-    vendor.vendor_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    vendor.building.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    vendor.room?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    vendor.vendor_description.toLowerCase().includes(searchTerm.toLowerCase());
+      vendor.vendor_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.building.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.room?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.vendor_description.toLowerCase().includes(searchTerm.toLowerCase());
 
     return (
       (!ageFilter || vendor.age_range === ageFilter) &&
       (!buildingFilter || vendor.building === buildingFilter) &&
       (!roomFilter || vendor.room === roomFilter) &&
-      (!vendorNameFilter || vendor.vendor_name === vendorNameFilter)
+      (!vendorNameFilter || vendor.vendor_name === vendorNameFilter) &&
+      searchTextMatch
     );
   });
 
+  // Handle search input and search button click
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchTerm(searchTerm); // Trigger a filter based on the search term
@@ -51,7 +52,7 @@ export default function Vendors() {
 
   return (
     <div className="min-w-full overflow-hidden overflow-x-auto p-5">
-
+      {/* Search Form */}
       <div className="mb-4">
         <label htmlFor="searchInput" className="mr-2 text-gray-700">Search:</label>
         <input
