@@ -4,11 +4,39 @@ import '../styles/globals.css';
 
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
+      {/* Hero Section */}
+      <div className="bg-blue-500 text-white text-center py-16">
+        <h1 className="text-4xl font-bold">18th Annual Engineering and Science Festival</h1>
+        <p className="mt-4 text-lg">
+          Join us on Saturday, February 22, 2025, at Boise State for a day of exploration in STEM. Free event for K-12 students and families!
+        </p>
+      </div>
+
       {/* Main Content */}
-        <h1 className="text-center border-solid border-2">Header Content</h1>
-        <div className="text-center border-solid border-2">Main Body Content</div>
-        <footer className="text-center border-solid border-2">Footer Content</footer>
+      <div className="flex-1 bg-gray-100 text-center py-10 px-4">
+        <h2 className="text-2xl font-semibold mb-6">Event Highlights</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white shadow-lg p-6 rounded">
+            <h3 className="font-bold text-xl">Interactive Exhibits</h3>
+            <p className="mt-2">
+              Explore hands-on demonstrations from leading STEM fields, including robotics, space science, and more!
+            </p>
+          </div>
+          <div className="bg-white shadow-lg p-6 rounded">
+            <h3 className="font-bold text-xl">Workshops & Activities</h3>
+            <p className="mt-2">
+              Engage in workshops tailored for different age groups and interests, from coding basics to advanced engineering.
+            </p>
+          </div>
+          <div className="bg-white shadow-lg p-6 rounded">
+            <h3 className="font-bold text-xl">Campus Tours</h3>
+            <p className="mt-2">
+              Take a guided tour of the Boise State campus and explore the engineering labs, research centers, and more.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
