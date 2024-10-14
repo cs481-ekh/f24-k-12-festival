@@ -5,33 +5,39 @@ import styles from '../../styles/page.module.css';
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.footerContainer}>
-        {/* Logo Section */}
-        <div className={styles.logoContainer}>
-          <Image
-            src={SDPLogo}  
-            alt="SDP Logo"
-            width={150}
-            height={45}
-          />
-        </div>
-
-        {/* Contact Information */}
-        <div className={styles.footerInfo}>
-          <p className="font-bold">Mailing Address</p>
+    <footer className="bg-blue-500 text-white py-8">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        
+        {/* Mailing Address Section */}
+        <div className="w-1/3 text-center">
+          <p className="font-bold mb-2">Mailing Address</p>
           <p>Boise State University</p>
           <p>1910 University Dr.</p>
           <p>Boise, ID 83725</p>
+        </div>
 
-          <p className="mt-4 font-bold">Phone</p>
+        {/* Logo in the Center */}
+        <div className="flex-grow text-right">
+            <Image
+             src={SDPLogo}  
+             alt="SDP Logo"
+             width={150}
+             height={45}
+             className="mx-auto"
+            />
+        </div>
+
+        {/* Phone Number Section */}
+        <div className="w-1/3 text-center">
+          <p className="font-bold mb-2">Phone</p>
           <p>+1 (208) 426-1000</p>
         </div>
 
-        {/* Copyright Section */}
-        <div className={styles.copyright}>
-          <p>&copy; 2025 Boise State University. All rights reserved.</p>
-        </div>
+      </div>
+
+      {/* Copyright Section */}
+      <div className="bg-blue-600 text-center py-4 mt-6">
+        <p>&copy; 2025 Boise State University. All rights reserved.</p>
       </div>
     </footer>
   );
