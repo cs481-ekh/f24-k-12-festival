@@ -87,7 +87,7 @@ export default function About() {
             <section className={styles.section}>
                 <h2 className={styles.subHeader}>Contact Us</h2>
                 <p className={styles.text}>
-                    For more information, please contact us at <a href="mailto:adrianafacundo@boisestate.edu">adrianafacundo@boisestate.edu</a>.
+                    For more information, please contact us at <a href="mailto:adrianafacundo@boisestate.edu" className="text-blue-500">adrianafacundo@boisestate.edu</a>.
                 </p>
             </section>
         </div>

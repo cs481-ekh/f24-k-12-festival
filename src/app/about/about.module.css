@@ -8,6 +8,7 @@
     background-color: #f9f9f9; /* Light gray background for the page */
     border-radius: 10px; /* Optional: rounded corners for the container */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a slight shadow */
+    margin-top: 10px;
 }
 
 /* Adjusting the Back to Home button container */
