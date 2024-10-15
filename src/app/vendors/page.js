@@ -161,6 +161,7 @@ export default function Vendors() {
             <option value="Boise State University CAST">Boise State University CAST</option>
             <option value="Girl Scouts of Silver Sage">Girl Scouts of Silver Sage</option>
             <option value="Department of Computer Science">Department of Computer Science</option>
+            <option value="Childrens Museum of Idaho">Childrens Museum of Idaho</option>
             <option value="NASA Challenge Teams at Boise State University">NASA Challenge Teams at Boise State University</option>
             <option value="Dean JoAnn Lighty">Dean JoAnn Lighty</option>
             <option value="Boise State Chemistry Department">Boise State Chemistry Department</option>
