@@ -82,7 +82,12 @@ export default function Vendors() {
             <option value="">All Ages</option>
             <option value="Ages 5+">Ages 5+</option>
             <option value="Ages 5-18">Ages 5-18</option>
+            <option value="Ages 7-17">Ages 7-17</option>
+            <option value="Ages 7-12">Ages 7-12</option>
             <option value="Ages 6+">Ages 6+</option>
+            <option value="Ages 8+">Ages 8+</option>
+            <option value="Ages 13+">Ages 13+</option>
+            <option value="Ages 9th-12th grade">Ages 9th-12th grade</option>
           </select>
         </div>
 
