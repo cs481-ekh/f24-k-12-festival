@@ -74,8 +74,8 @@ function MyComponent() {
           <img
             src={buildingMaps[selectedBuilding]}
             alt={`Map of ${selectedBuilding}`}
-            width="500"
-            height="500"
+            width="1000"
+            height="1000"
           />
         </div>
       )}
