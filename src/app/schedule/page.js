@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { neon } from '@neondatabase/serverless';
 
-async function fetchData() {
-  const sql = neon(process.env.NEXT_PUBLIC_DATABASE_URL);
-  const response = await sql`SELECT * FROM vendors`;
-  return response;
+async function fetchVendors() {
+  const response = await fetch('/api/vendors');
+  const data = await response.json();
+  return data;
 }
 
 export default function Schedule() {
@@ -19,7 +18,7 @@ export default function Schedule() {
 
   useEffect(() => {
     async function getData() {
-      const vendorData = await fetchData();
+      const vendorData = await fetchVendors();
       setData(vendorData);
     }
     getData();
