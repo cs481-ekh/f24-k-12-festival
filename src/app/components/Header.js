@@ -1,13 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import boiseStateLogo from '../../public/images/Boise_State_University_logo.png';
-import '../../styles/globals.css';
-import styles from '../../styles/page.module.css';
 
-const Header = () => {
+export default function Header() {
   return (
-    <header className={styles.header}>
-      <div className={styles.logoContainer}>
+    <header className="flex items-center sticky top-0 p-2 bg-white pr-5">
+      <div>
         <Link href="/">
           <Image
             src={boiseStateLogo}
@@ -17,23 +15,21 @@ const Header = () => {
           />
         </Link>
       </div>
-      
-      <nav className={styles.navbar}>
+
+      <nav className="flex space-x-4 ml-auto">
         <Link href="/schedule">
-          <button className={styles.navButton}>Schedule</button>
+          <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">Schedule</button>
         </Link>
         <Link href="/map">
-          <button className={styles.navButton}>Map</button>
+          <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">Map</button>
         </Link>
         <Link href="/vendors">
-          <button className={styles.navButton}>Vendors</button>
+          <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">Vendors</button>
         </Link>
         <Link href="/about">
-          <button className={styles.navButton}>About</button>
+          <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">About</button>
         </Link>
       </nav>
     </header>
   );
 };
-
-export default Header;
