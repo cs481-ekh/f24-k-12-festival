@@ -29,7 +29,6 @@ function MyComponent() {
     "032-SUBSECOND": "/032-SUBSECOND.svg",
     "032-SUBTHIRD": "/032-SUBTHIRD.svg",
     "267-ERB-1": "/267-ERB-1.svg",
-    "267-ERB-2": "/267-ERB-2.svg",
     "349-CVA-FIRST": "/349-CVA-FIRST.svg"
   };
 
@@ -63,7 +62,6 @@ function MyComponent() {
         <option value="032-SUBSECOND">032-SUBSECOND</option>
         <option value="032-SUBTHIRD">032-SUBTHIRD</option>
         <option value="267-ERB-1">267-ERB-1</option>
-        <option value="267-ERB-2">267-ERB-2</option>
         <option value="349-CVA-FIRST">349-CVA-FIRST</option>
       </select>
 
