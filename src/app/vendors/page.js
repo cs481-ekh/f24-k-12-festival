@@ -74,7 +74,7 @@ export default function Vendors() {
         <div className="flex space-x-4">
           {/* Filter by Age Group */}
           <div className="mb-4">
-            <label htmlFor="ageGroup" className="mr-2 text-gray-700">Age Group:</label>
+            <label htmlFor="ageGroup" className="mr-2 text-gray-700 pl-5">Age Group:</label>
             <select
               id="ageGroup"
               value={ageFilter}
