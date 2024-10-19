@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-blue-500 text-white py-8">
       <div className="container mx-auto flex justify-between items-center px-4">
-        
+
         {/* Mailing Address Section */}
         <div className="w-1/3 text-center">
           <p className="font-bold mb-2">Mailing Address</p>
@@ -18,13 +18,13 @@ const Footer = () => {
 
         {/* Logo in the Center */}
         <div className="flex-grow text-right">
-            <Image
-             src={SDPLogo}  
-             alt="SDP Logo"
-             width={150}
-             height={45}
-             className="mx-auto"
-            />
+          <Image
+            src={SDPLogo}
+            alt="SDP Logo"
+            width={150}
+            height={45}
+            className="mx-auto"
+          />
         </div>
 
         {/* Phone Number Section */}
