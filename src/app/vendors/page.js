@@ -43,12 +43,6 @@ export default function Vendors() {
     );
   });
 
-  // Handle search input and search button click
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearchTerm(searchTerm); // Trigger a filter based on the search term
-  };
-
   return (
     <div className="min-w-full overflow-hidden overflow-x-auto p-5">
 
@@ -62,12 +56,9 @@ export default function Vendors() {
             id="searchInput"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border p-2 rounded mr-2"
+            className="border p-2 rounded mr-2 w-full"
             placeholder="Search vendors..."
           />
-          <button onClick={handleSearch} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-sky-800">
-            Search
-          </button>
         </div>
 
         {/* Filter Form */}
