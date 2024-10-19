@@ -6,39 +6,27 @@ if ! [ -x "$(command -v docker)" ]; then
   exit 1
 fi
 
-# Step 2: Build the Docker container
-echo "Building the Docker container..."
-docker build --build-arg DATABASE_URL=${DATABASE_URL} -t nextjs_project_container .
-
-if [ $? -ne 0 ]; then
-  echo "Docker build failed."
+# Step 2: Check if Docker Compose is installed
+if ! [ -x "$(command -v docker-compose)" ]; then
+  echo "Error: Docker Compose is not installed." >&2
   exit 1
 fi
 
-# Step 3: Run build commands inside the container
-echo "Running build process inside the container..."
-docker run --rm -e DATABASE_URL=${DATABASE_URL} nextjs_project_container /bin/bash -c "
-    echo 'Installing dependencies...'
-    npm install
-
-    if [ $? -ne 0 ]; then
-      echo 'npm install failed.'
-      exit 1
-    fi
-
-    echo 'Building the Next.js app...'
-    npm run build
-
-    if [ $? -ne 0 ]; then
-      echo 'Next.js build failed.'
-      exit 1
-    fi
-
-    echo 'Build completed successfully.'
-"
+# Step 3: Build the Docker container using Docker Compose
+echo "Building the Docker container with Docker Compose..."
+docker-compose build
 
 if [ $? -ne 0 ]; then
-  echo "Build process failed."
+  echo "Docker Compose build failed."
+  exit 1
+fi
+
+# Step 4: Start the application using Docker Compose
+echo "Starting the application"
+docker-compose up -d
+
+if [ $? -ne 0 ]; then
+  echo "Docker Compose failed to start the application."
   exit 1
 fi
 
