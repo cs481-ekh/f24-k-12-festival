@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 async function fetchVendors() {
-  const response = await fetch('/api/vendors');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`);
   const data = await response.json();
   return data;
 }
