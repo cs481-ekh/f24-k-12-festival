@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { neon } from '@neondatabase/serverless';
+import React, { useState, useEffect, useMemo } from 'react';
 
-async function fetchData() {
-  const sql = neon(process.env.NEXT_PUBLIC_DATABASE_URL);
-  const response = await sql`SELECT * FROM vendors`;
-  return response;
+async function fetchVendors() {
+  const response = await fetch('/api/vendors');
+  const data = await response.json();
+  return data;
 }
 
 export default function Schedule() {
@@ -19,19 +18,26 @@ export default function Schedule() {
 
   useEffect(() => {
     async function getData() {
-      const vendorData = await fetchData();
+      const vendorData = await fetchVendors();
       setData(vendorData);
     }
     getData();
   }, []);
 
-  const uniqueVendors = [...new Set(data.map(item => item.vendor_name))].sort();
-  const availableTimeSlots = selectedVendor 
-    ? [...new Set(data.filter(item => item.vendor_name === selectedVendor).map(item => item.time_frame))].sort()
-    : [];
-  const availableLocations = selectedVendor 
-    ? [...new Set(data.filter(item => item.vendor_name === selectedVendor).map(item => `${item.building} - ${item.room}`))].sort()
-    : [];
+  const uniqueVendors = useMemo(() =>
+    Array.from(new Set(data.map(item => item.vendor_name))).sort(),
+    [data]
+  );
+
+  const availableTimeSlots = useMemo(() => {
+    const filtered = data.filter(item => item.vendor_name === selectedVendor);
+    return Array.from(new Set(filtered.map(item => item.time_frame))).sort();
+  }, [data, selectedVendor]);
+
+  const availableLocations = useMemo(() => {
+    const filtered = data.filter(item => item.vendor_name === selectedVendor);
+    return Array.from(new Set(filtered.map(item => `${item.building} - ${item.room}`))).sort();
+  }, [data, selectedVendor]);
 
   useEffect(() => {
     if (availableTimeSlots.length === 1) {
