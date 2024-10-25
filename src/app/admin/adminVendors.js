@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 
-// Fetch vendors
+// Fetch vendors from the API
 async function fetchVendors() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`);
   const data = await response.json();
   return data;
 }
 
-// Update vendor API call
+// Function to update vendor details
 async function updateVendor(vendor) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
     method: 'PUT',
@@ -24,14 +24,15 @@ async function updateVendor(vendor) {
     throw new Error('Failed to update vendor');
   }
 
-  const text = await response.text();
-  return text ? JSON.parse(text) : {};
+  const data = await response.json();
+  return data;
 }
 
 export default function VendorsAdmin() {
   const [data, setData] = useState([]);
   const [editingVendor, setEditingVendor] = useState(null);
 
+  // Fetch vendor data on component mount
   useEffect(() => {
     async function getData() {
       const fetchedData = await fetchVendors();
@@ -40,18 +41,21 @@ export default function VendorsAdmin() {
     getData();
   }, []);
 
+  // Trigger editing mode for a selected vendor
   const handleEditClick = (vendor) => {
     setEditingVendor(vendor);
   };
 
+  // Handle changes in the edit form
   const handleEditChange = (e) => {
     setEditingVendor({ ...editingVendor, [e.target.name]: e.target.value });
   };
 
+  // Save the edited vendor information
   const handleSave = async () => {
     await updateVendor(editingVendor);
     setEditingVendor(null);
-    const updatedData = await fetchVendors();
+    const updatedData = await fetchVendors(); // Refresh data after update
     setData(updatedData);
   };
 
@@ -92,7 +96,7 @@ export default function VendorsAdmin() {
         </tbody>
       </table>
 
-      {/* Edit Form */}
+      {/* Edit Vendor Form */}
       {editingVendor && (
         <div className="bg-gray-100 p-4 rounded-lg shadow-lg">
           <h4 className="text-lg font-semibold mb-4">Edit Vendor</h4>
@@ -102,7 +106,7 @@ export default function VendorsAdmin() {
               <input
                 type="text"
                 name="vendor_name"
-                value={editingVendor.vendor_name}
+                value={editingVendor.vendor_name || ''}
                 onChange={handleEditChange}
                 className="w-full p-2 mb-2 border rounded"
               />
@@ -112,7 +116,7 @@ export default function VendorsAdmin() {
               <input
                 type="text"
                 name="vendor_description"
-                value={editingVendor.vendor_description}
+                value={editingVendor.vendor_description || ''}
                 onChange={handleEditChange}
                 className="w-full p-2 mb-2 border rounded"
               />
@@ -122,7 +126,7 @@ export default function VendorsAdmin() {
               <input
                 type="text"
                 name="building"
-                value={editingVendor.building}
+                value={editingVendor.building || ''}
                 onChange={handleEditChange}
                 className="w-full p-2 mb-2 border rounded"
               />
@@ -132,7 +136,7 @@ export default function VendorsAdmin() {
               <input
                 type="text"
                 name="room"
-                value={editingVendor.room}
+                value={editingVendor.room || ''}
                 onChange={handleEditChange}
                 className="w-full p-2 mb-2 border rounded"
               />
