@@ -6,7 +6,7 @@ services:
       context: .  # Use the current directory
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_BASE_PATH=$HOST_BASE_PATH
+        - NEXT_PUBLIC_BASE_PATH=${HOST_BASE_PATH:-""}
     ports:
       - "${HOST_PORT:-8081}:3000"  # External port maps to internal port 3000 (as exposed in Dockerfile)
     environment:
