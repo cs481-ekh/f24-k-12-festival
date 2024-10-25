@@ -60,7 +60,7 @@ export default function About() {
                 <div className={styles.team}>
                     <div className={styles.teamMember}>
                         <h3>Josh Martin</h3>
-                        <p>Backend Developer</p>
+                        <p>Lead Developer</p>
                     </div>
                     <div className={styles.teamMember}>
                         <h3>Rachel Lawrence</h3>
@@ -68,11 +68,11 @@ export default function About() {
                     </div>
                     <div className={styles.teamMember}>
                         <h3>Will England</h3>
-                        <p>UI/UX Specialist</p>
+                        <p>Lead Developer</p>
                     </div>
                     <div className={styles.teamMember}>
                         <h3>Anthony Malang</h3>
-                        <p>Project Manager</p>
+                        <p>Project Manager/Lead Developer</p>
                     </div>
                 </div>
             </section>

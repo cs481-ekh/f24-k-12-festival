@@ -29,6 +29,9 @@ export default function Header() {
         <Link href="/about">
           <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">About</button>
         </Link>
+        <Link href="/admin">
+          <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">Admin</button>
+        </Link>
       </nav>
     </header>
   );
