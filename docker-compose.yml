@@ -5,19 +5,14 @@ services:
     build:
       context: .  # Use the current directory
       dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_BASE_PATH=${HOST_BASE_PATH:-}
     ports:
       - "${HOST_PORT:-8081}:3000"  # External port maps to internal port 3000 (as exposed in Dockerfile)
     environment:
       - NODE_ENV=production  # Set the environment variable to production
     volumes:
       - sqlite_data:/app/data  # Mount the volume for your SQLite database
-    command: /bin/bash -c "
-      echo 'Installing dependencies...' && \
-      npm install && \
-      echo 'Building the Next.js app...' && \
-      npm run build && \
-      echo 'Build completed successfully.' && \
-      npm run start"  # Tailored build and run process based on your script
 
 volumes:
   sqlite_data:  # Define the volume for persistent SQLite storage

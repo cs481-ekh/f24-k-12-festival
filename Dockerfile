@@ -1,6 +1,9 @@
 # Use Node.js base image from the official Node repository
 FROM node:18-alpine
 
+ARG NEXT_PUBLIC_BASE_PATH=""
+ENV NEXT_PUBLIC_BASE_PATH $NEXT_PUBLIC_BASE_PATH
+
 # Install bash
 RUN apk add --no-cache bash
 
