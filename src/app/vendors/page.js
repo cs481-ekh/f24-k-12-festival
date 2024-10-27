@@ -15,25 +15,21 @@ async function fetchFilterOptions() {
 }
 
 export default function Vendors() {
-  // State for fetched data, filters, and search term
   const [data, setData] = useState([]);
   const [ageFilter, setAgeFilter] = useState('');
   const [buildingFilter, setBuildingFilter] = useState('');
   const [roomFilter, setRoomFilter] = useState('');
   const [vendorNameFilter, setVendorNameFilter] = useState('');
-  const [searchTerm, setSearchTerm] = useState(''); // Search term state
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // States for filter options
   const [ageOptions, setAgeOptions] = useState([]);
   const [buildingOptions, setBuildingOptions] = useState([]);
   const [roomOptions, setRoomOptions] = useState([]);
   const [vendorNameOptions, setVendorNameOptions] = useState([]);
 
-  // Fetch filter options
   useEffect(() => {
     async function getFilterOptions() {
       const fetchedFilterOptions = await fetchFilterOptions();
-      console.log(fetchFilterOptions);
       setAgeOptions(fetchedFilterOptions.ageOptions);
       setBuildingOptions(fetchedFilterOptions.buildingOptions);
       setRoomOptions(fetchedFilterOptions.roomOptions);
@@ -42,16 +38,14 @@ export default function Vendors() {
     getFilterOptions();
   }, []);
 
-  // Fetch data on component mount
   useEffect(() => {
     async function getData() {
       const fetchedData = await fetchVendors();
       setData(fetchedData);
     }
     getData();
-  }, []); // Empty dependency array to fetch once on mount
+  }, []);
 
-  // Filter the data based on the selected filters and search term
   const filteredData = data.filter((vendor) => {
     const searchTextMatch =
       vendor.vendor_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -64,43 +58,36 @@ export default function Vendors() {
     const roomMatch = roomFilter === "" || vendor.room === roomFilter;
     const vendorNameMatch = vendorNameFilter === "" || vendor.vendor_name === vendorNameFilter;
 
-    return (
-      ageMatch &&
-      buildingMatch &&
-      roomMatch &&
-      vendorNameMatch &&
-      searchTextMatch
-    );
+    return ageMatch && buildingMatch && roomMatch && vendorNameMatch && searchTextMatch;
   });
 
   return (
-    <div className="min-w-full overflow-hidden overflow-x-auto p-5">
-
-      {/*Search and Filters*/}
-      <div className="mb-4 flex items-center">
+    <div className="min-w-full overflow-hidden p-5">
+      {/* Search and Filters */}
+      <div className="mb-4 flex flex-wrap items-center gap-4">
         {/* Search Form */}
-        <div className="flex-1 mb-0 mr-4">
-          <label htmlFor="searchInput" className="mr-2 text-gray-700 pl-5"></label>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="searchInput" className="mr-2 text-gray-700"></label>
           <input
             type="text"
             id="searchInput"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border p-2 rounded mr-2 w-full"
+            className="border p-2 rounded w-full"
             placeholder="Search vendors..."
           />
         </div>
 
         {/* Filter Form */}
-        <fieldset className="flex space-x-4 mb-0">
+        <fieldset className="flex flex-wrap gap-4">
           {/* Filter by Age Group */}
-          <div>
-            <label htmlFor="ageGroup" className="mr-2 text-gray-700 pl-5">Age Group:</label>
+          <div className="min-w-[150px]">
+            <label htmlFor="ageGroup" className="text-gray-700 block">Age Group:</label>
             <select
               id="ageGroup"
               value={ageFilter}
               onChange={(e) => setAgeFilter(e.target.value)}
-              className="border p-2 rounded"
+              className="border p-2 rounded w-full"
             >
               <option value="">No Filter</option>
               {ageOptions.map((age) => (
@@ -112,13 +99,13 @@ export default function Vendors() {
           </div>
 
           {/* Filter by Building */}
-          <div>
-            <label htmlFor="buildingFilter" className="mr-2 text-gray-700 pl-5">Building:</label>
+          <div className="min-w-[150px]">
+            <label htmlFor="buildingFilter" className="text-gray-700 block">Building:</label>
             <select
               id="buildingFilter"
               value={buildingFilter}
               onChange={(e) => setBuildingFilter(e.target.value)}
-              className="border p-2 rounded"
+              className="border p-2 rounded w-full"
             >
               <option value="">All Buildings</option>
               {buildingOptions.map((building) => (
@@ -130,13 +117,13 @@ export default function Vendors() {
           </div>
 
           {/* Filter by Room */}
-          <div>
-            <label htmlFor="roomFilter" className="mr-2 text-gray-700 pl-5">Room:</label>
+          <div className="min-w-[150px]">
+            <label htmlFor="roomFilter" className="text-gray-700 block">Room:</label>
             <select
               id="roomFilter"
               value={roomFilter}
               onChange={(e) => setRoomFilter(e.target.value)}
-              className="border p-2 rounded"
+              className="border p-2 rounded w-full"
             >
               <option value="">All Rooms</option>
               {roomOptions.map((room) => (
@@ -148,13 +135,13 @@ export default function Vendors() {
           </div>
 
           {/* Filter by Vendor Name */}
-          <div>
-            <label htmlFor="vendorNameFilter" className="mr-2 text-gray-700 pl-5">Vendor Name:</label>
+          <div className="min-w-[150px]">
+            <label htmlFor="vendorNameFilter" className="text-gray-700 block">Vendor Name:</label>
             <select
               id="vendorNameFilter"
               value={vendorNameFilter}
               onChange={(e) => setVendorNameFilter(e.target.value)}
-              className="border p-2 rounded"
+              className="border p-2 rounded w-full"
             >
               <option value="">All Vendors</option>
               {vendorNameOptions.map((vendorName) => (
