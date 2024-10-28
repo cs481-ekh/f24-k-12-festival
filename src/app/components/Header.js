@@ -4,7 +4,7 @@ import boiseStateLogo from '../../public/images/Boise_State_University_logo.png'
 
 export default function Header() {
   return (
-    <header className="flex items-center sticky top-0 p-2 bg-white pr-5">
+    <header className="flex items-center sticky top-0 z-50 p-2 bg-white pr-5 shadow-md">
       <div>
         <Link href="/">
           <Image
@@ -35,4 +35,4 @@ export default function Header() {
       </nav>
     </header>
   );
-};
+}
