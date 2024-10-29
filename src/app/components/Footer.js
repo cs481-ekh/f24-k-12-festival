@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import '../../styles/globals.css';
 import SDPLogo from '../../public/images/SDP_logo.png';
-import styles from '../../styles/page.module.css';
 
 const Footer = () => {
   return (
