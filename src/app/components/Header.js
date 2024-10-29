@@ -4,9 +4,10 @@ import boiseStateLogo from '../../public/images/Boise_State_University_logo.png'
 
 export default function Header() {
   return (
-    <header className="flex items-center sticky top-0 p-2 bg-white pr-5">
-      <div>
-        <Link href="/">
+    <header className="flex justify-between items-center sticky top-0 p-4 bg-white">
+      <div className="flex-shrink-0">
+        <Link href="/about">
+          {/* Link the logo to the new combined About page */}
           <Image
             src={boiseStateLogo}
             alt="Boise State University Logo"
@@ -16,7 +17,10 @@ export default function Header() {
         </Link>
       </div>
 
-      <nav className="flex space-x-4 ml-auto">
+      <nav className="flex flex-grow justify-center space-x-4">
+        <Link href="/about">
+          <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">About</button>
+        </Link>
         <Link href="/schedule">
           <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">Schedule</button>
         </Link>
@@ -26,13 +30,12 @@ export default function Header() {
         <Link href="/vendors">
           <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">Vendors</button>
         </Link>
-        <Link href="/about">
-          <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">About</button>
-        </Link>
         <Link href="/admin">
           <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">Admin</button>
         </Link>
       </nav>
+
+      <div className="flex-shrink-0"></div> {/* Empty div to balance layout */}
     </header>
   );
-};
+}

@@ -159,19 +159,19 @@ export default function Schedule() {
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <button
               onClick={handleAddEvent}
-              className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-full shadow-lg transform transition hover:scale-105"
+              className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
             >
               Add Event
             </button>
             <button
               onClick={handleSubmit}
-              className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full shadow-lg transform transition hover:scale-105"
+              className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
             >
               Create Schedule
             </button>
             <button
               onClick={handleClearSchedule}
-              className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-3 rounded-full shadow-lg transform transition hover:scale-105"
+              className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
             >
               Clear Schedule
             </button>
@@ -201,7 +201,7 @@ export default function Schedule() {
                         <td className="px-6 py-4 border-b text-gray-700">
                           <button
                             onClick={() => handleRemoveEvent(index)}
-                            className="text-red-500 hover:underline"
+                            className="text-blue-500 hover:underline"
                           >
                             Remove
                           </button>
@@ -238,7 +238,7 @@ export default function Schedule() {
           <div className="flex justify-center mt-6">
             <button
               onClick={handleEdit}
-              className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-full shadow-lg transform transition hover:scale-105"
+              className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
             >
               Edit Schedule
             </button>
