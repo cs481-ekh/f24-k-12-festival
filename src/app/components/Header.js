@@ -8,6 +8,10 @@ export default function Header() {
       <div className="flex-shrink-0">
         <Link href="/about">
           {/* Link the logo to the new combined About page */}
+=======
+    <header className="flex items-center sticky top-0 z-50 p-2 bg-white pr-5 shadow-md">
+      <div>
+        <Link href="/">
           <Image
             src={boiseStateLogo}
             alt="Boise State University Logo"
