@@ -40,10 +40,13 @@ function MyComponent() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center text-center mt-5 text-lg">
       {/* Dropdown for selecting a building */}
       <label htmlFor="building-select">Choose a building:</label>
-      <select id="building-select" onChange={handleBuildingChange}>
+      <select id="building-select"
+       onChange={handleBuildingChange}
+       className='mt-4 p-2 border rounded'
+       >
         <option value="">Select a building</option>
         <option value="ENGR-First">Ruch Engineering Building First Floor</option>
         <option value="ENGR-Second">Ruch Engineering Building Second Floor</option>
