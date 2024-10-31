@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
@@ -6,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        lato: ['Lato', 'sans-serif'],
+        sans: ['var(--font-lato)', 'sans-serif'],
       },
     },
   },
