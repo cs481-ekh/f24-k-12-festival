@@ -1,6 +1,7 @@
 import '../styles/globals.css';
-import Header from '../app/components/Header';
-import Footer from '../app/components/Footer';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import AccessibilityWidget from './components/AccessibilityWidget';
 
 export default function RootLayout({ children }) {
   return (
@@ -16,8 +17,9 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Header />
-        <main>{children}</main>
+        <main id="mainContent">{children}</main>
         <Footer />
+        <AccessibilityWidget />
       </body>
     </html>
   );
