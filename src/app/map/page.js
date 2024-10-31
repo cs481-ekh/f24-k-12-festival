@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-function MyComponent() {
+export default function MyComponent() {
   const [selectedBuilding, setSelectedBuilding] = useState("");
   
   // Object mapping building names to their corresponding map images
@@ -84,5 +84,3 @@ function MyComponent() {
     </div>
   );
 }
-
-export default MyComponent;
