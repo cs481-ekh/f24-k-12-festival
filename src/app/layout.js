@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import Header from './components/Header';
+import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AccessibilityWidget from './components/AccessibilityWidget';
 import { Lato } from 'next/font/google';
@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH}/favicon.ico`} />
       </head>
       <body className="flex flex-col min-h-screen">
-        <Header />
+        <Navbar />
         <main id="mainContent" className="flex-grow">{children}</main>
         <Footer />
         <AccessibilityWidget />
