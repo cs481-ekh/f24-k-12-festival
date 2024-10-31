@@ -4,7 +4,7 @@ import SDPLogo from '../../public/images/SDP_logo.png';
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-500 text-white">
+    <footer className="bg-blue-600 text-white">
       <div className="container mx-auto flex justify-between items-center px-4 py-5">
         <div className="w-1/3 text-center">
           <p className="font-bold mb-2">Mailing Address</p>
@@ -29,7 +29,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="bg-blue-600 text-center">
+      <div className="bg-blue-700 text-center">
         <p>&copy; 2025 Boise State University. All rights reserved.</p>
       </div>
     </footer>
