@@ -1,6 +1,7 @@
 "use client"; // Make this a client component in Next.js
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 function MyComponent() {
   const [selectedBuilding, setSelectedBuilding] = useState("");
@@ -69,7 +70,7 @@ function MyComponent() {
       {selectedBuilding && (
         <div>
           <h3>Selected Building: {selectedBuilding}</h3>
-          <img
+          <Image
             src={buildingMaps[selectedBuilding]}
             alt={`Map of ${selectedBuilding}`}
             width="1000"
