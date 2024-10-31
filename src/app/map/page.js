@@ -72,7 +72,7 @@ function MyComponent() {
       {/* Conditionally render the selected map */}
       {selectedBuilding && (
         <div>
-          <h3>Selected Building: {selectedBuilding}</h3>
+          <h3 className="mt-5">Selected Building: {selectedBuilding}</h3>
           <Image
             src={buildingMaps[selectedBuilding]}
             alt={`Map of ${selectedBuilding}`}
