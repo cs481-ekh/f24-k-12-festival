@@ -4,11 +4,6 @@ import boiseStateLogo from '../../public/images/Boise_State_University_logo.png'
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center sticky top-0 p-4 bg-white">
-      <div className="flex-shrink-0">
-        <Link href="/about">
-          {/* Link the logo to the new combined About page */}
-=======
     <header className="flex items-center sticky top-0 z-50 p-2 bg-white pr-5 shadow-md">
       <div>
         <Link href="/">
