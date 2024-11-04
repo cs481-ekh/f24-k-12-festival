@@ -33,8 +33,6 @@ export default function Header() {
           <button className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-sky-800">Admin</button>
         </Link>
       </nav>
-
-      <div className="flex-shrink-0"></div> {/* Empty div to balance layout */}
     </header>
   );
 }

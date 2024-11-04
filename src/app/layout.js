@@ -2,20 +2,21 @@ import '../styles/globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AccessibilityWidget from './components/AccessibilityWidget';
+import { Lato } from 'next/font/google';
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-lato'
+})
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
+      <head className={`${lato.variable} font-sans`}>
         <title>STEM Festival</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
       </head>
-      <body>
+      <body className={`${lato.variable} font-sans`}>
         <Header />
         <main id="mainContent">{children}</main>
         <Footer />
