@@ -1,6 +1,7 @@
 "use client"; // Make this a client component in Next.js
 
 import React, { useState, useEffect, useMemo } from 'react';
+import Cookies from 'js-cookie'; // Import js-cookie
 
 async function fetchVendors() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`);
@@ -15,6 +16,19 @@ export default function Schedule() {
   const [selectedLocation, setSelectedLocation] = useState('');
   const [customSchedule, setCustomSchedule] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+
+  // Load schedule from cookies on component mount
+  useEffect(() => {
+    const savedSchedule = Cookies.get('customSchedule');
+    if (savedSchedule) {
+      try {
+        setCustomSchedule(JSON.parse(savedSchedule));
+        setSubmitted(true); // Automatically set to submitted if schedule is restored
+      } catch (error) {
+        console.error("Failed to parse saved schedule from cookies", error);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     async function getData() {
@@ -79,10 +93,13 @@ export default function Schedule() {
 
   const handleClearSchedule = () => {
     setCustomSchedule([]);
+    Cookies.remove('customSchedule'); // Clear the schedule from cookies
   };
 
   const handleSubmit = () => {
     setSubmitted(true);
+    Cookies.set('customSchedule', JSON.stringify(customSchedule), { expires: 7 }); // Store in cookies for 1 day
+    console.log('Schedule saved to cookies:', customSchedule);
   };
 
   const handleEdit = () => {
