@@ -160,19 +160,19 @@ export default function Schedule() {
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button
             onClick={handleAddEvent}
-            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
           >
             Add Event
           </button>
           <button
             onClick={handleSubmit}
-            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
           >
             Create Schedule
           </button>
           <button
             onClick={handleClearSchedule}
-            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
           >
             Clear Schedule
           </button>
@@ -240,7 +240,7 @@ export default function Schedule() {
           <div className="flex justify-center mt-6">
             <button
               onClick={handleEdit}
-              className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+              className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
             >
               Edit Schedule
             </button>

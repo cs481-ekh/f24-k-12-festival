@@ -9,6 +9,9 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-lato)', 'sans-serif'],
       },
+      colors: {
+        'bsu-blue': '#0033a0',
+      },
     },
   },
   plugins: [],

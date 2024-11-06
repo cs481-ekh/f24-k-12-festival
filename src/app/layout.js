@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <meta name="description" content="Join us for the STEM Festival" />
         <link rel="icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH}/favicon.ico`} />
       </head>
-      <body className="flex flex-col min-h-screen">
+      <body className={`${lato.variable} flex flex-col min-h-screen`}>
         <Navbar />
         <main id="mainContent" className="flex-grow">{children}</main>
         <Footer />

@@ -17,6 +17,20 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
+  let menuIcon;
+  if (isMenuOpen) {
+    menuIcon = <XMarkIcon className="h-8 w-8 text-black" />;
+  } else {
+    menuIcon = <Bars3Icon className="h-8 w-8 text-black" />;
+  }
+
+  let menuClass;
+  if (isMenuOpen) {
+    menuClass = 'flex';
+  } else {
+    menuClass = 'hidden';
+  }
+
   return (
     <header className="flex items-center justify-between sticky top-0 z-50 p-4 bg-white shadow-md border-b border-gray-300">
       <div>
@@ -34,19 +48,13 @@ export default function Header() {
       {/* Mobile menu toggle button */}
       <div className="lg:hidden flex items-center">
         <button onClick={toggleMenu} aria-label="Toggle Menu">
-          {isMenuOpen ? (
-            <XMarkIcon className="h-8 w-8 text-black" />
-          ) : (
-            <Bars3Icon className="h-8 w-8 text-black" />
-          )}
+          {menuIcon}
         </button>
       </div>
 
       {/* Navigation links */}
       <nav
-        className={`${
-          isMenuOpen ? 'flex' : 'hidden'
-        } flex-col lg:flex-row lg:flex space-y-4 lg:space-y-0 lg:space-x-6 ml-auto absolute lg:static top-16 right-4 lg:top-auto
+        className={`${menuClass} flex-col lg:flex-row lg:flex space-y-4 lg:space-y-0 lg:space-x-6 ml-auto absolute lg:static top-16 right-4 lg:top-auto
          bg-white lg:bg-transparent p-4 lg:p-0 shadow-md lg:shadow-none rounded-lg lg:rounded-none`}
       >
         <Link href="/" onClick={handleLinkClick}>
@@ -62,10 +70,10 @@ export default function Header() {
           <Link href="/map" onClick={handleLinkClick}>
             <button className="bg-transparent text-black text-lg font-bold hover:text-orange-500 hover:scale-110 duration-300 px-4 py-2">Maps</button>
           </Link>
-          <span className="hidden lg:block border-r-2 border-black h-3/4 mx-2"></span>
+          <span className="hidden lg:block border-r-2 border-gray h-3/4 mx-2"></span>
         </div>
         <Link href="/admin" onClick={handleLinkClick}>
-          <button className="bg-black text-white text-lg font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2">Admin Login</button>
+          <button className="bg-bsu-blue text-white text-lg font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2">Admin Login</button>
         </Link>
       </nav>
     </header>
