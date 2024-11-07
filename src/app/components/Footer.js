@@ -22,6 +22,9 @@ export default function Footer() {
       <div className="pl-2 font-bold">
         <p>&copy; {new Date().getFullYear()} Boise State University. All rights reserved.</p>
       </div>
+      <div className="flex p-2 font-bold">
+          <p>V1.2</p>
+        </div>
     </footer>
   );
 }
