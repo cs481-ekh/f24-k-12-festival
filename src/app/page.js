@@ -35,7 +35,7 @@ export default function Home() {
             Previous Festival Fun!
           </h2>
           <p className="text-lg md:text-xl text-gray-600 mb-6">
-            Take a look at some photos from last year's festival below and get ready for another exciting year of fun and learning!
+            Take a look at some photos from last year&apos;s festival below and get ready for another exciting year of fun and learning!
           </p>
 
           <Carousel
