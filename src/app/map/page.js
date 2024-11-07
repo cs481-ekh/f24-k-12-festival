@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-function MyComponent() {
+export default function MyComponent() {
   const [selectedBuilding, setSelectedBuilding] = useState("");
   
   // Object mapping building names to their corresponding map images
@@ -40,10 +40,13 @@ function MyComponent() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center text-center mt-5 text-lg">
       {/* Dropdown for selecting a building */}
       <label htmlFor="building-select">Choose a building:</label>
-      <select id="building-select" onChange={handleBuildingChange}>
+      <select id="building-select"
+       onChange={handleBuildingChange}
+       className='mt-4 p-2 border rounded'
+       >
         <option value="">Select a building</option>
         <option value="ENGR-First">Ruch Engineering Building First Floor</option>
         <option value="ENGR-Second">Ruch Engineering Building Second Floor</option>
@@ -69,7 +72,7 @@ function MyComponent() {
       {/* Conditionally render the selected map */}
       {selectedBuilding && (
         <div>
-          <h3>Selected Building: {selectedBuilding}</h3>
+          <h3 className="mt-5">Selected Building: {selectedBuilding}</h3>
           <Image
             src={buildingMaps[selectedBuilding]}
             alt={`Map of ${selectedBuilding}`}
@@ -81,5 +84,3 @@ function MyComponent() {
     </div>
   );
 }
-
-export default MyComponent;

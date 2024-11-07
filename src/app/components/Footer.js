@@ -1,39 +1,27 @@
-import Image from 'next/image';
-import '../../styles/globals.css';
-import SDPLogo from '../../public/images/SDP_logo.png';
+import React from 'react';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-blue-500 text-white py-8">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <div className="w-1/3 text-center">
-          <p className="font-bold mb-2">Mailing Address</p>
-          <p>Boise State University</p>
-          <p>1910 University Dr.</p>
-          <p>Boise, ID 83725</p>
+    <footer className="bg-bsu-blue text-white w-full px-5 py-5 sticky">
+      <section className="flex items-center justify-start">
+
+        <div className="flex p-2 font-bold">
+          <h2>Boise State University</h2>
+          <span className="border-r-2 border-white pl-4 h-100"></span>
         </div>
 
-        <div className="flex-grow text-right">
-          <Image
-            src={SDPLogo}
-            alt="SDP Logo"
-            width={150}
-            height={45}
-            className="mx-auto"
-          />
+        <div className="flex p-2 font-bold">
+          <a href="tel: (208) 426-1000">(208) 426-1000</a>
+          <span className="border-r-2 border-white pl-4 h-100"></span>
         </div>
 
-        <div className="w-1/3 text-center">
-          <p className="font-bold mb-2">Phone</p>
-          <p>+1 (208) 426-1000</p>
+        <div className="p-2">
+          <address>1910 University Drive, Boise, Idaho 83725</address>
         </div>
-      </div>
-
-      <div className="bg-blue-600 text-center py-4 mt-6">
-        <p>&copy; 2025 Boise State University. All rights reserved.</p>
+      </section>
+      <div className="pl-2 font-bold">
+        <p>&copy; {new Date().getFullYear()} Boise State University. All rights reserved.</p>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

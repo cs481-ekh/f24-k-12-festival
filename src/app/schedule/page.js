@@ -92,14 +92,14 @@ export default function Schedule() {
   return (
     <div className="p-8 max-w-5xl mx-auto bg-gray-50 min-h-screen flex flex-col justify-between">
       <header>
-        <h1 className="text-4xl font-bold mb-8 text-center text-gray-700">Schedule Builder</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center text-black">Schedule Builder</h1>
       </header>
 
       <div className="flex-grow mb-8">
         <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3">
             <div>
-              <label htmlFor="vendor-select" className="block text-lg font-medium text-gray-600 mb-2">Select Vendor</label>
+              <label htmlFor="vendor-select" className="block text-lg font-medium text-black mb-2">Select Vendor</label>
               <select
                 id="vendor-select"
                 value={selectedVendor}
@@ -120,7 +120,7 @@ export default function Schedule() {
             </div>
 
             <div>
-              <label htmlFor="time-select" className="block text-lg font-medium text-gray-600 mb-2">Select Time Slot</label>
+              <label htmlFor="time-select" className="block text-lg font-medium text-black mb-2">Select Time Slot</label>
               <select
                 id="time-select"
                 value={selectedTime}
@@ -138,7 +138,7 @@ export default function Schedule() {
             </div>
 
             <div>
-              <label htmlFor="location-select" className="block text-lg font-medium text-gray-600 mb-2">Select Location</label>
+              <label htmlFor="location-select" className="block text-lg font-medium text-black mb-2">Select Location</label>
               <select
                 id="location-select"
                 value={selectedLocation}
@@ -160,28 +160,28 @@ export default function Schedule() {
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button
             onClick={handleAddEvent}
-            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
           >
             Add Event
           </button>
           <button
             onClick={handleSubmit}
-            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
           >
             Create Schedule
           </button>
           <button
             onClick={handleClearSchedule}
-            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
           >
             Clear Schedule
           </button>
         </div>
 
         <div className="mt-6">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-700 text-center">Your Custom Schedule</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-black text-center">Your Custom Schedule</h2>
           {customSchedule.length === 0 ? (
-            <p className="text-gray-500 text-center">No events added yet.</p>
+            <p className="text-black text-center">No events added yet.</p>
           ) : (
             <div className="overflow-hidden rounded-lg shadow-lg bg-white">
               <table className="w-full border-collapse">
@@ -240,7 +240,7 @@ export default function Schedule() {
           <div className="flex justify-center mt-6">
             <button
               onClick={handleEdit}
-              className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+              className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
             >
               Edit Schedule
             </button>

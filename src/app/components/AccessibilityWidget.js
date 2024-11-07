@@ -205,7 +205,7 @@ export default function AccessibilityWidget() {
     <div>
       <button
         onClick={toggleWidget}
-        className="fixed right-6 w-16 h-16 bg-black text-white rounded-full shadow-lg flex items-center justify-center"
+        className="fixed right-6 w-10 h-10 bg-black text-white rounded-full shadow-lg flex items-center justify-center"
         style={{ zIndex: 1000, bottom: '20px' }}
         aria-label={t.accessibilityOptions}
       >
