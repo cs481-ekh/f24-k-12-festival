@@ -1,11 +1,13 @@
 # Use Node.js base image from the official Node repository
 FROM node:18-alpine
 
-ARG NEXT_PUBLIC_BASE_PATH=""
-ENV NEXT_PUBLIC_BASE_PATH $NEXT_PUBLIC_BASE_PATH
+# Install bash, git, and Git LFS
+RUN apk add --no-cache bash git curl && \
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
+    apk add git-lfs
 
-# Install bash
-RUN apk add --no-cache bash
+# Initialize Git LFS
+RUN git lfs install
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -15,6 +17,9 @@ COPY package*.json ./
 
 # Install the project dependencies
 RUN npm install
+
+# Clone the repository and pull LFS files (for public repositories)
+RUN git clone https://github.com/cs481-ekh/f24-k-12-festival.git . && git lfs pull
 
 # Copy the entire project to the working directory
 COPY . .
