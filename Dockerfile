@@ -4,9 +4,8 @@ FROM node:18-alpine
 ARG NEXT_PUBLIC_BASE_PATH=""
 ENV NEXT_PUBLIC_BASE_PATH $NEXT_PUBLIC_BASE_PATH
 
-# Install bash and git-lfs
-RUN apk add --no-cache bash git git-lfs \
-    && git lfs install
+# Install bash
+RUN apk add --no-cache bash
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -19,9 +18,6 @@ RUN npm install
 
 # Copy the entire project to the working directory
 COPY . .
-
-# Pull any Git LFS files
-RUN git lfs pull
 
 # Copy database file
 COPY /vendors.db ./data/
