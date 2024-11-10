@@ -1,14 +1,18 @@
 # Use Node.js base image from the official Node repository
 FROM node:18-alpine
 
-# Install bash, git, curl, and Git LFS
-RUN apk add --no-cache bash git curl git-lfs
+ARG NEXT_PUBLIC_BASE_PATH=""
+ENV NEXT_PUBLIC_BASE_PATH $NEXT_PUBLIC_BASE_PATH
 
-# Initialize Git LFS
-RUN git lfs install
+# Install bash and git-lfs
+RUN apk add --no-cache bash git git-lfs \
+    && git lfs install
 
 # Set the working directory inside the container
 WORKDIR /app
+
+# Copy the package.json and package-lock.json to the working directory
+COPY package*.json ./
 
 # Install the project dependencies
 RUN npm install
@@ -16,11 +20,11 @@ RUN npm install
 # Copy the entire project to the working directory
 COPY . .
 
-# Run git lfs pull to fetch LFS-managed files if needed
+# Pull any Git LFS files
 RUN git lfs pull
 
-# Copy database file if needed
-COPY vendors.db ./data/
+# Copy database file
+COPY /vendors.db ./data/
 
 # Build the Next.js app
 RUN npm run build
