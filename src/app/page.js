@@ -12,7 +12,7 @@ import Autoplay from "embla-carousel-autoplay";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4 overflow-x-hidden">
       <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
         Welcome to the Engineering and Science Festival!
       </h1>
