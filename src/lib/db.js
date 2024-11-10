@@ -3,18 +3,18 @@ import { open } from 'sqlite'
 
 // Use this for production
 
-// export async function openDB() {
-//     return open({
-//         filename: '/app/data/vendors.db',
-//         driver: sqlite3.Database,
-//     });
-// }
-
-// Use this for local development
-
 export async function openDB() {
     return open({
-        filename: './vendors.db',
+        filename: '/app/data/vendors.db',
         driver: sqlite3.Database,
     });
 }
+
+// Use this for local development
+
+// export async function openDB() {
+//     return open({
+//         filename: './vendors.db',
+//         driver: sqlite3.Database,
+//     });
+// }
