@@ -117,12 +117,12 @@ export default function VendorsAdmin() {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-4 sm:p-6 lg:p-8">
       <h3 className="text-2xl mb-4">Manage Vendors</h3>
       {/* Add New Vendor Form */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
         <h4 className="text-lg font-semibold mb-4">Add New Vendor</h4>
-        <form className="space-y-4">
+        <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <input
             type="text"
             name="building"
@@ -174,12 +174,14 @@ export default function VendorsAdmin() {
           <button
             type="button"
             onClick={handleAdd}
-            className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
           >
             Add Vendor
           </button>
         </form>
       </div>
+      {/* Vendors Table */}
+      <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200 mb-6">
         <thead>
           <tr>
@@ -219,12 +221,13 @@ export default function VendorsAdmin() {
           ))}
         </tbody>
       </table>
+      </div>
 
       {/* Edit Vendor Form */}
       {editingVendor && (
-        <div className="bg-gray-100 p-4 rounded-lg shadow-lg">
+        <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
           <h4 className="text-lg font-semibold mb-4">Edit Vendor</h4>
-          <form>
+          <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <label>
               Vendor Name
               <input
@@ -232,7 +235,7 @@ export default function VendorsAdmin() {
                 name="vendor_name"
                 value={editingVendor.vendor_name || ''}
                 onChange={handleEditChange}
-                className="w-full p-2 mb-2 border rounded"
+                className="w-full p-2 border rounded"
               />
             </label>
             <label>
@@ -242,7 +245,7 @@ export default function VendorsAdmin() {
                 name="vendor_description"
                 value={editingVendor.vendor_description || ''}
                 onChange={handleEditChange}
-                className="w-full p-2 mb-2 border rounded"
+                className="w-full p-2 border rounded"
               />
             </label>
             <label>
@@ -252,7 +255,7 @@ export default function VendorsAdmin() {
                 name="building"
                 value={editingVendor.building || ''}
                 onChange={handleEditChange}
-                className="w-full p-2 mb-2 border rounded"
+                className="w-full p-2 border rounded"
               />
             </label>
             <label>
@@ -262,13 +265,13 @@ export default function VendorsAdmin() {
                 name="room"
                 value={editingVendor.room || ''}
                 onChange={handleEditChange}
-                className="w-full p-2 mb-2 border rounded"
+                className="w-full p-2 border rounded"
               />
             </label>
             <button
               type="button"
               onClick={handleSave}
-              className="mt-4 px-4 py-2 bg-green-500 text-white rounded"
+              className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
             >
               Save Changes
             </button>

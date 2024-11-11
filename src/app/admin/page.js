@@ -60,12 +60,14 @@ export default function Admin() {
               />
             </div>
             {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+            <div className="flex justify-center">
             <button
               type="submit"
-              className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200"
+              className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
             >
               Log In
             </button>
+            </div>
           </form>
         </div>
       ) : (
@@ -74,7 +76,7 @@ export default function Admin() {
             <h2 className="text-2xl font-semibold text-gray-800">Welcome, Admin!</h2>
             <button
               onClick={handleLogout}
-              className="py-2 px-4 bg-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-400 transition duration-200"
+              className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
             >
               Log Out
             </button>
