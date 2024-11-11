@@ -123,7 +123,7 @@ export default function VendorsAdmin() {
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
         <h4 className="text-lg font-semibold mb-4">Add New Vendor</h4>
         <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <input
+          <input
             type="text"
             name="building"
             placeholder="Building"
@@ -180,104 +180,136 @@ export default function VendorsAdmin() {
           </button>
         </form>
       </div>
-      {/* Vendors Table */}
-      <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200 mb-6">
-        <thead>
-          <tr>
-            <th>Building</th>
-            <th>Room</th>
-            <th>Vendor Name</th>
-            <th>Vendor Description</th>
-            <th>Age Range</th>
-            <th>Time Frame</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((vendor) => (
-            <tr key={vendor.id}>
-              <td>{vendor.building}</td>
-              <td>{vendor.room}</td>
-              <td>{vendor.vendor_name}</td>
-              <td>{vendor.vendor_description}</td>
-              <td>{vendor.age_range}</td>
-              <td>{vendor.time_frame}</td>
-              <td>
-                <button
-                  onClick={() => handleEditClick(vendor)}
-                  className="text-blue-500 hover:underline"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(vendor.id)}
-                  className="text-red-600 hover:underline"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>
-
-      {/* Edit Vendor Form */}
-      {editingVendor && (
-        <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
-          <h4 className="text-lg font-semibold mb-4">Edit Vendor</h4>
-          <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <label>
-              Vendor Name
-              <input
-                type="text"
-                name="vendor_name"
-                value={editingVendor.vendor_name || ''}
-                onChange={handleEditChange}
-                className="w-full p-2 border rounded"
-              />
-            </label>
-            <label>
-              Description
-              <input
-                type="text"
-                name="vendor_description"
-                value={editingVendor.vendor_description || ''}
-                onChange={handleEditChange}
-                className="w-full p-2 border rounded"
-              />
-            </label>
-            <label>
-              Building
-              <input
-                type="text"
-                name="building"
-                value={editingVendor.building || ''}
-                onChange={handleEditChange}
-                className="w-full p-2 border rounded"
-              />
-            </label>
-            <label>
-              Room
-              <input
-                type="text"
-                name="room"
-                value={editingVendor.room || ''}
-                onChange={handleEditChange}
-                className="w-full p-2 border rounded"
-              />
-            </label>
-            <button
-              type="button"
-              onClick={handleSave}
-              className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
-            >
-              Save Changes
-            </button>
-          </form>
+      {/* Table layout on large screens, Card layout on small screens */}
+      <div>
+        {/* Table layout */}
+        <div className="hidden lg:block">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="text-sm text-gray-700 bg-gray-50 border">
+              <tr>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Building</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Host Name</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Activity Description</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Age Range</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Time Frame</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((vendor) => (
+                <tr key={vendor.id} className="border-l border-r text-center">
+                  <td className="px-6 py-3 border">{vendor.building}</td>
+                  <td className="px-6 py-3 border">{vendor.room}</td>
+                  <td className="px-6 py-3 border">{vendor.vendor_name}</td>
+                  <td className="px-6 py-3 border">{vendor.vendor_description}</td>
+                  <td className="px-6 py-3 border">{vendor.age_range}</td>
+                  <td className="px-6 py-3 border">{vendor.time_frame}</td>
+                  <td className="px-6 py-3 border">
+                    <button
+                      onClick={() => handleEditClick(vendor)}
+                      className="text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(vendor.id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      )}
-    </div>
-  );
+
+        {/* Card layout */}
+        <div className="lg:hidden grid gap-4 grid-cols-1 sm:grid-cols-2">
+        {data.map((vendor) => (
+          <div key={vendor.id} className="p-4 bg-white shadow-lg rounded-lg">
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">{vendor.vendor_name}</h3>
+            <p className="text-gray-600"><strong>Building:</strong> {vendor.building}</p>
+            <p className="text-gray-600"><strong>Room:</strong> {vendor.room}</p>
+            <p className="text-gray-600"><strong>Age Range:</strong> {vendor.age_range}</p>
+            <p className="text-gray-600"><strong>Time Frame:</strong> {vendor.time_frame}</p>
+            <p className="text-gray-600"><strong>Description:</strong> {vendor.vendor_description}</p>
+            <div className="flex mt-3 space-x-2">
+              <button
+                onClick={() => handleEditClick(vendor)}
+                className="text-blue-500 underline"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(vendor.id)}
+                className="text-red-600 underline"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+        </div>
+        </div>
+      
+
+        {/* Edit Vendor Form */}
+        {editingVendor && (
+          <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
+            <h4 className="text-lg font-semibold mb-4">Edit Vendor</h4>
+            <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <label>
+                Vendor Name
+                <input
+                  type="text"
+                  name="vendor_name"
+                  value={editingVendor.vendor_name || ''}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                />
+              </label>
+              <label>
+                Description
+                <input
+                  type="text"
+                  name="vendor_description"
+                  value={editingVendor.vendor_description || ''}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                />
+              </label>
+              <label>
+                Building
+                <input
+                  type="text"
+                  name="building"
+                  value={editingVendor.building || ''}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                />
+              </label>
+              <label>
+                Room
+                <input
+                  type="text"
+                  name="room"
+                  value={editingVendor.room || ''}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                />
+              </label>
+              <button
+                type="button"
+                onClick={handleSave}
+                className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
+              >
+                Save Changes
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+      );
 }
