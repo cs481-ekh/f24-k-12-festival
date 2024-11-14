@@ -12,7 +12,4 @@ services:
     environment:
       - NODE_ENV=production  # Set the environment variable to production
     volumes:
-      - sqlite_data:/app/data  # Mount the volume for your SQLite database
-
-volumes:
-  sqlite_data:  # Define the volume for persistent SQLite storage
+      - ./data:/app/data  # Mount the volume for your SQLite database
