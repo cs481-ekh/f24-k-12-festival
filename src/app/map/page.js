@@ -1,6 +1,6 @@
 "use client"; // Make this a client component in Next.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 export default function MyComponent() {
@@ -37,11 +37,17 @@ export default function MyComponent() {
       <iframe
         src="https://maps.boisestate.edu/?id=715#!s/?mc/43.604355,-116.202606?z/16?lvl/0"
         width="100%"
-        height="500px"
+        height="400px"
         title="Boise State University Campus Map"
         scrolling="no"
         allow="geolocation"
-        style={{ border: '0px solid #fff', margin: 0, padding: 0 }}
+        style={{
+          border: '0px solid #fff',
+          margin: 0,
+          padding: 0,
+          maxWidth: '100%',
+          width: '100%',
+        }}
       ></iframe>
 
       {/* Dropdown for selecting a building */}
@@ -66,20 +72,21 @@ export default function MyComponent() {
         <option value="ALBR-Second">Albertson Library Second</option>
         <option value="Sub-First-Floor">Student Union Building First Floor</option>
         <option value="Sub-Second-Floor">Student Union Building Second Floor</option>
-        <option value="Sub-Third-Floor">Student Union Building-Third-Floor</option>
+        <option value="Sub-Third-Floor">Student Union Building Third Floor</option>
         <option value="ERB">Environmental Research Building First & Second</option>
         <option value="CVA">Center for the Visual Arts</option>
       </select>
 
       {/* Conditionally render the selected map */}
       {selectedBuilding && (
-        <div>
-          <h3 className="mt-5">Selected Building: {selectedBuilding}</h3>
+        <div className="mt-5 w-full max-w-[90vw] md:max-w-[600px] lg:max-w-[800px]">
+          <h3>Selected Building: {selectedBuilding}</h3>
           <Image
             src={buildingMaps[selectedBuilding]}
             alt={`Map of ${selectedBuilding}`}
-            width="1000"
-            height="1000"
+            layout="responsive"
+            width={1000}
+            height={1000}
           />
         </div>
       )}
