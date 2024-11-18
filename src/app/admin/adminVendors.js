@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // Fetch vendors from the API
 async function fetchVendors() {
@@ -53,6 +53,7 @@ async function deleteVendor(id) {
 export default function VendorsAdmin() {
   const [data, setData] = useState([]);
   const [editingVendor, setEditingVendor] = useState(null);
+  const editFormRef = useRef(null);
   const [newVendor, setNewVendor] = useState({
     vendor_name: '',
     vendor_description: '',
@@ -101,6 +102,10 @@ export default function VendorsAdmin() {
   // Trigger editing mode for a selected vendor
   const handleEditClick = (vendor) => {
     setEditingVendor(vendor);
+    // Scroll to the edit form
+    setTimeout(() => {
+      editFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   // Handle changes in the edit form
@@ -257,7 +262,7 @@ export default function VendorsAdmin() {
 
         {/* Edit Vendor Form */}
         {editingVendor && (
-          <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
+          <div ref={editFormRef} className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
             <h4 className="text-lg font-semibold mb-4">Edit Vendor</h4>
             <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <label>
