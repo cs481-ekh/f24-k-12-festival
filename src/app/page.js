@@ -10,6 +10,17 @@ import {
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 
+const previousFestivalImages = [
+  { src: `${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival1.jpg`, alt: "Previous Festival Image 1" },
+  { src: `${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival2.jpg`, alt: "Previous Festival Image 2" },
+  { src: `${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival3.jpg`, alt: "Previous Festival Image 3" },
+  { src: `${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival4.jpg`, alt: "Previous Festival Image 4" },
+  { src: `${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival5.jpg`, alt: "Previous Festival Image 5" },
+  { src: `${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival6.jpg`, alt: "Previous Festival Image 6" },
+  { src: `${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival7.jpg`, alt: "Previous Festival Image 7" },
+  { src: `${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival8.jpg`, alt: "Previous Festival Image 8" },
+];
+
 export default function Home() {
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4 overflow-x-hidden">
@@ -54,89 +65,21 @@ export default function Home() {
             ]}
           >
             <CarouselContent className="flex gap-4">
-              <CarouselItem className="relative flex-shrink-0 w-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival1.jpg`}
-                  alt="Previous Festival Image 1"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="w-full h-auto object-cover rounded-lg shadow-lg"
-                />
-              </CarouselItem>
-              <CarouselItem className="relative flex-shrink-0 w-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival2.jpg`}
-                  alt="Previous Festival Image 2"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="w-full h-auto object-cover rounded-lg shadow-lg"
-                />
-              </CarouselItem>
-              <CarouselItem className="relative flex-shrink-0 w-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival3.jpg`}
-                  alt="Previous Festival Image 3"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="w-full h-auto object-cover rounded-lg shadow-lg"
-                />
-              </CarouselItem>
-              <CarouselItem className="relative flex-shrink-0 w-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival4.jpg`}
-                  alt="Previous Festival Image 4"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="w-full h-auto object-cover rounded-lg shadow-lg"
-                />
-              </CarouselItem>
-              <CarouselItem className="relative flex-shrink-0 w-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival5.jpg`}
-                  alt="Previous Festival Image 5"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="w-full h-auto object-cover rounded-lg shadow-lg"
-                />
-              </CarouselItem>
-              <CarouselItem className="relative flex-shrink-0 w-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival6.jpg`}
-                  alt="Previous Festival Image 6"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="w-full h-auto object-cover rounded-lg shadow-lg"
-                />
-              </CarouselItem>
-              <CarouselItem className="relative flex-shrink-0 w-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival7.jpg`}
-                  alt="Previous Festival Image 7"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="w-full h-auto object-cover rounded-lg shadow-lg"
-                />
-              </CarouselItem>
-              <CarouselItem className="relative flex-shrink-0 w-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH}/PreviousFestival8.jpg`}
-                  alt="Previous Festival Image 8"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="w-full h-auto object-cover rounded-lg shadow-lg"
-                />
-              </CarouselItem>
+              {previousFestivalImages.map((image, index) => (
+                <CarouselItem key={index} className="relative flex-shrink-0 w-full">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={1280}
+                    height={720}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="w-full h-auto object-cover rounded-lg shadow-lg"
+                  />
+                </CarouselItem>
+              ))}
             </CarouselContent>
-            <CarouselPrevious/>
-            <CarouselNext/>
+            <CarouselPrevious />
+            <CarouselNext />
           </Carousel>
         </div>
       </section>
