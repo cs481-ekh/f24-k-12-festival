@@ -18,6 +18,7 @@ export default function Vendors() {
   const [data, setData] = useState([]);
   const [ageFilter, setAgeFilter] = useState('');
   const [buildingFilter, setBuildingFilter] = useState('');
+  const [floorFilter, setFloorFilter] = useState('');
   const [roomFilter, setRoomFilter] = useState('');
   const [vendorNameFilter, setVendorNameFilter] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,6 +26,7 @@ export default function Vendors() {
 
   const [ageOptions, setAgeOptions] = useState([]);
   const [buildingOptions, setBuildingOptions] = useState([]);
+  const [floorOptions, setFloorOptions] = useState([]);
   const [roomOptions, setRoomOptions] = useState([]);
   const [vendorNameOptions, setVendorNameOptions] = useState([]);
 
@@ -33,6 +35,7 @@ export default function Vendors() {
       const fetchedFilterOptions = await fetchFilterOptions();
       setAgeOptions(fetchedFilterOptions.ageOptions);
       setBuildingOptions(fetchedFilterOptions.buildingOptions);
+      setFloorOptions(fetchedFilterOptions.floorOptions);
       setRoomOptions(fetchedFilterOptions.roomOptions);
       setVendorNameOptions(fetchedFilterOptions.vendorNameOptions);
     }
@@ -51,15 +54,17 @@ export default function Vendors() {
     const searchTextMatch =
       vendor.vendor_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.building.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.floor.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.room.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.vendor_description.toLowerCase().includes(searchTerm.toLowerCase());
 
     const ageMatch = ageFilter === "" || vendor.age_range === ageFilter;
     const buildingMatch = buildingFilter === "" || vendor.building === buildingFilter;
+    const floorMatch = floorFilter === "" || vendor.floor === floorFilter;
     const roomMatch = roomFilter === "" || vendor.room === roomFilter;
     const vendorNameMatch = vendorNameFilter === "" || vendor.vendor_name === vendorNameFilter;
 
-    return ageMatch && buildingMatch && roomMatch && vendorNameMatch && searchTextMatch;
+    return ageMatch && buildingMatch && floorMatch && roomMatch && vendorNameMatch && searchTextMatch;
   });
 
   return (
@@ -150,6 +155,23 @@ export default function Vendors() {
                 </select>
               </div>
 
+              <div className="w-full md:w-1/2 lg:w-1/4">
+                <label htmlFor="floorFilter" className="text-white block mb-1">Floor:</label>
+                <select
+                  id="floorFilter"
+                  value={floorFilter}
+                  onChange={(e) => setFloorFilter(e.target.value)}
+                  className="border p-2 rounded w-full bg-white"
+                >
+                  <option value="">All Floors</option>
+                  {floorOptions.map((floor) => (
+                    <option key={floor.floor} value={floor.floor}>
+                      {floor.floor}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               {/* Filter by Room */}
               <div className="w-full md:w-1/2 lg:w-1/4">
                 <label htmlFor="roomFilter" className="text-white block mb-1">Room:</label>
@@ -180,6 +202,7 @@ export default function Vendors() {
             <thead className="text-sm text-gray-700 bg-gray-50 border">
               <tr>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Building</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Host Name</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Activity Description</th>
@@ -192,6 +215,7 @@ export default function Vendors() {
                 filteredData.map((row) => (
                   <tr key={row.id} className="border-l border-r text-center">
                     <td className="px-6 py-3 border">{row.building}</td>
+                    <td className="px-6 py-3 border">{row.floor}</td>
                     <td className="px-6 py-3 border">{row.room}</td>
                     <td className="px-6 py-3 border">{row.vendor_name}</td>
                     <td className="px-6 py-3 border">{row.vendor_description}</td>
@@ -215,6 +239,7 @@ export default function Vendors() {
               <div key={vendor.id} className="p-4 bg-white shadow-lg rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">{vendor.vendor_name}</h3>
                 <p className="text-gray-600"><strong>Building:</strong> {vendor.building}</p>
+                <p className="text-gray-600"><strong>Floor:</strong> {vendor.floor}</p>
                 <p className="text-gray-600"><strong>Room:</strong> {vendor.room}</p>
                 <p className="text-gray-600"><strong>Age Range:</strong> {vendor.age_range}</p>
                 <p className="text-gray-600"><strong>Time Frame:</strong> {vendor.time_frame}</p>
