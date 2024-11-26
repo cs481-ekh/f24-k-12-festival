@@ -37,7 +37,7 @@ export default function MyComponent() {
       <iframe
         src="https://maps.boisestate.edu/?id=715#!s/?mc/43.604355,-116.202606?z/16?lvl/0"
         width="100%"
-        height="400px"
+        height="600px"
         title="Boise State University Campus Map"
         scrolling="no"
         allow="geolocation"
