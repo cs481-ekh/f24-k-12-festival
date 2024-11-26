@@ -15,6 +15,7 @@ export default function Schedule() {
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [customSchedule, setCustomSchedule] = useState([]);
+  const [isEditing, setIsEditing] = useState(false); // Flag to toggle between edit and view mode
   const [submitted, setSubmitted] = useState(false);
 
   // Load schedule from cookies on component mount
@@ -99,11 +100,37 @@ export default function Schedule() {
   const handleSubmit = () => {
     setSubmitted(true);
     Cookies.set('customSchedule', JSON.stringify(customSchedule), { expires: 7 }); // Store in cookies for 1 day
-    console.log('Schedule saved to cookies:', customSchedule);
   };
 
   const handleEdit = () => {
-    setSubmitted(false);
+    setSubmitted(false); // Only reset the submitted state, keep the schedule intact
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false); // Exit editing mode without saving
+  };
+
+  // Share schedule via email
+  const handleShareSchedule = () => {
+    const scheduleText = customSchedule
+      .map((event) => `${event.vendor} - ${event.time} at ${event.location}`)
+      .join('\n');
+    
+    const emailSubject = "My Official STEM Festival Schedule";
+    const emailBody = encodeURIComponent(`Here is my official STEM Festival schedule:\n\n${scheduleText}`);
+    const emailLink = `mailto:?subject=${emailSubject}&body=${emailBody}`;
+
+    window.location.href = emailLink; // Opens the email client
+  };
+
+  // Share schedule via text (sms:)
+  const handleShareScheduleText = () => {
+    const scheduleText = customSchedule
+      .map((event) => `${event.vendor} - ${event.time} at ${event.location}`)
+      .join('\n');
+
+    const smsLink = `sms:?body=My%20STEM%20Festival%20Schedule:%0A%0A${encodeURIComponent(scheduleText)}`;
+    window.location.href = smsLink; // Opens the SMS client on mobile or desktop
   };
 
   return (
@@ -125,7 +152,7 @@ export default function Schedule() {
                   setSelectedTime('');
                   setSelectedLocation('');
                 }}
-                className="border border-gray-300 rounded-lg p-3 w-full"
+                className="border border-gray-300 p-3 w-full"
               >
                 <option value="">Choose a vendor</option>
                 {uniqueVendors.map((vendor, index) => (
@@ -142,7 +169,7 @@ export default function Schedule() {
                 id="time-select"
                 value={selectedTime}
                 onChange={(e) => setSelectedTime(e.target.value)}
-                className="border border-gray-300 rounded-lg p-3 w-full"
+                className="border border-gray-300 p-3 w-full"
                 disabled={!selectedVendor || availableTimeSlots.length === 1}
               >
                 <option value="">Choose a time slot</option>
@@ -160,7 +187,7 @@ export default function Schedule() {
                 id="location-select"
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="border border-gray-300 rounded-lg p-3 w-full"
+                className="border border-gray-300 p-3 w-full"
                 disabled={!selectedVendor || availableLocations.length === 1}
               >
                 <option value="">Choose a location</option>
@@ -177,21 +204,33 @@ export default function Schedule() {
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button
             onClick={handleAddEvent}
-            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-orange-600 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
           >
             Add Event
           </button>
           <button
             onClick={handleSubmit}
-            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-orange-600 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
           >
             Create Schedule
           </button>
           <button
             onClick={handleClearSchedule}
-            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+            className="bg-orange-600 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
           >
             Clear Schedule
+          </button>
+          <button
+            onClick={handleShareSchedule}
+            className="bg-orange-600 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
+          >
+            Share via Email
+          </button>
+          <button
+            onClick={handleShareScheduleText}
+            className="bg-orange-600 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
+          >
+            Share via Text
           </button>
         </div>
 
@@ -257,7 +296,7 @@ export default function Schedule() {
           <div className="flex justify-center mt-6">
             <button
               onClick={handleEdit}
-              className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+              className="bg-orange-600 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
             >
               Edit Schedule
             </button>
