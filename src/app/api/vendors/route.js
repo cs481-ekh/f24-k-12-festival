@@ -19,7 +19,7 @@ export async function POST(req) {
       await Promise.all(
         body.vendors.map((vendor) =>
           db.run(
-            `INSERT INTO vendors (vendor_name, vendor_description, building, room, age_range, time_frame)
+            `INSERT INTO vendors (vendor_name, vendor_description, building, floor, room, age_range, time_frame)
              VALUES (?, ?, ?, ?, ?, ?)`,
             [
               vendor.vendor_name,
@@ -39,18 +39,17 @@ export async function POST(req) {
     }
   } else {
     // Single vendor addition
-    const { vendor_name, vendor_description, building, room, age_range, time_frame } = body;
+    const { vendor_name, vendor_description, building, floor, room, age_range, time_frame } = body;
 
     try {
       await db.run(
-        `INSERT INTO vendors (vendor_name, vendor_description, building, room, age_range, time_frame)
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [vendor_name, vendor_description, building, room, age_range, time_frame]
+        'INSERT INTO vendors (vendor_name, vendor_description, building, floor, room, age_range, time_frame) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [vendor_name, vendor_description, building, floor, room, age_range, time_frame]
       );
-      return NextResponse.json({ message: "Vendor added successfully" }, { status: 200 });
+      return NextResponse.json({ message: 'Vendor added successfully' });
     } catch (error) {
-      console.error("Error adding vendor:", error);
-      return NextResponse.json({ error: "Failed to add vendor" }, { status: 500 });
+      console.error('Error adding vendor:', error);
+      return NextResponse.json({ message: 'Failed to add vendor' }, { status: 500 });
     }
   }
 }
@@ -74,7 +73,7 @@ export async function DELETE(req) {
 
 export async function PUT(req) {
   const db = await openDB();
-  const { id, vendor_name = '', vendor_description = '', building = '', room = '' } = await req.json();
+  const { id, vendor_name = '', vendor_description = '', building = '', floor = '', room = '' } = await req.json();
 
   if (!id) {
     return NextResponse.json({ message: 'Vendor ID is required' }, { status: 400 });
@@ -83,8 +82,8 @@ export async function PUT(req) {
   try {
     // Update the vendor in the database, allowing empty fields
     await db.run(
-      'UPDATE vendors SET vendor_name = ?, vendor_description = ?, building = ?, room = ? WHERE id = ?',
-      [vendor_name, vendor_description, building, room, id]
+      'UPDATE vendors SET vendor_name = ?, vendor_description = ?, building = ?, floor = ?, room = ? WHERE id = ?',
+      [vendor_name, vendor_description, building, floor, room, id]
     );
 
     return NextResponse.json({ message: 'Vendor updated successfully' });
@@ -93,4 +92,3 @@ export async function PUT(req) {
     return NextResponse.json({ message: 'Failed to update vendor' }, { status: 500 });
   }
 }
-

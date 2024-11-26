@@ -14,7 +14,7 @@ export async function openDB() {
 
 // export async function openDB() {
 //     return open({
-//         filename: './vendors.db',
+//         filename: './data/vendors.db',
 //         driver: sqlite3.Database,
 //     });
 // }
