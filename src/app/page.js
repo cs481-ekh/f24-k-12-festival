@@ -110,7 +110,7 @@ export default function Home() {
           <p className="text-lg md:text-xl text-gray-600 mb-6">
             Sign up to participate in this year&apos;s Engineering and Science Festival. Fill out the form below to get started!
           </p>
-          <div className="w-full h-[220vh] sm:w-3/4 lg:max-w-1/2 mx-auto">
+          <div className="w-full h-[100vh] sm:w-3/4 lg:max-w-1/2 mx-auto">
             <iframe
               src="https://app.smartsheet.com/b/form/b46202be87ce478ab9ff37ad1fb9c1a1"
               className="w-full h-full rounded-lg shadow-lg border-2 border-gray-300"
