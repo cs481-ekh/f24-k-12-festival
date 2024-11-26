@@ -68,9 +68,9 @@ export default function Vendors() {
   });
 
   return (
-    <div className="min-w-full p-5 bg-white">
+    <div className="min-w-full p-5 bg-gray-50">
       <div className="text-center">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-4">
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">
           Activities
         </h1>
         <p className="text-lg text-gray-600">
@@ -119,24 +119,6 @@ export default function Vendors() {
                 </select>
               </div>
 
-              {/* Filter by Age Group */}
-              <div className="w-full md:w-1/2 lg:w-1/4">
-                <label htmlFor="ageGroup" className="text-white block mb-1">Age Group:</label>
-                <select
-                  id="ageGroup"
-                  value={ageFilter}
-                  onChange={(e) => setAgeFilter(e.target.value)}
-                  className="border p-2 rounded w-full bg-white"
-                >
-                  <option value="">No Filter</option>
-                  {ageOptions.map((age) => (
-                    <option key={age.age_range} value={age.age_range}>
-                      {age.age_range}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               {/* Filter by Building */}
               <div className="w-full md:w-1/2 lg:w-1/4">
                 <label htmlFor="buildingFilter" className="text-white block mb-1">Building:</label>
@@ -155,6 +137,7 @@ export default function Vendors() {
                 </select>
               </div>
 
+              {/* Filter by Floor */}
               <div className="w-full md:w-1/2 lg:w-1/4">
                 <label htmlFor="floorFilter" className="text-white block mb-1">Floor:</label>
                 <select
@@ -189,6 +172,24 @@ export default function Vendors() {
                   ))}
                 </select>
               </div>
+
+              {/* Filter by Age Group */}
+              <div className="w-full md:w-1/2 lg:w-1/4">
+                <label htmlFor="ageGroup" className="text-white block mb-1">Age Group:</label>
+                <select
+                  id="ageGroup"
+                  value={ageFilter}
+                  onChange={(e) => setAgeFilter(e.target.value)}
+                  className="border p-2 rounded w-full bg-white"
+                >
+                  <option value="">No Filter</option>
+                  {ageOptions.map((age) => (
+                    <option key={age.age_range} value={age.age_range}>
+                      {age.age_range}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         )}
@@ -199,7 +200,7 @@ export default function Vendors() {
         {/* Table layout */}
         <div className="hidden lg:block">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="text-sm text-gray-700 bg-gray-50 border">
+            <thead className="text-sm text-gray-700 border">
               <tr>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Building</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
@@ -213,7 +214,7 @@ export default function Vendors() {
             <tbody>
               {filteredData.length > 0 ? (
                 filteredData.map((row) => (
-                  <tr key={row.id} className="border-l border-r text-center">
+                  <tr key={row.id} className="border-l border-r text-center bg-white">
                     <td className="px-6 py-3 border">{row.building}</td>
                     <td className="px-6 py-3 border">{row.floor}</td>
                     <td className="px-6 py-3 border">{row.room}</td>
