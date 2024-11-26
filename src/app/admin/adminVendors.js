@@ -71,6 +71,7 @@ export default function VendorsAdmin() {
     vendor_name: '',
     vendor_description: '',
     building: '',
+    floor: '',
     room: '',
     age_range: '',
     time_frame: '',
@@ -147,6 +148,7 @@ export default function VendorsAdmin() {
       vendor_name: '',
       vendor_description: '',
       building: '',
+      floor: '',
       room: '',
       age_range: '',
       time_frame: '',
@@ -218,6 +220,14 @@ export default function VendorsAdmin() {
           />
           <input
             type="text"
+            name="floor"
+            placeholder="Floor"
+            value={newVendor.floor}
+            onChange={handleAddChange}
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="text"
             name="room"
             placeholder="Room"
             value={newVendor.room}
@@ -273,6 +283,7 @@ export default function VendorsAdmin() {
             <thead className="text-sm text-gray-700 bg-gray-50 border">
               <tr>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Building</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Host Name</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Activity Description</th>
@@ -285,6 +296,7 @@ export default function VendorsAdmin() {
               {data.map((vendor) => (
                 <tr key={vendor.id} className="border-l border-r text-center">
                   <td className="px-6 py-3 border">{vendor.building}</td>
+                  <td className="px-6 py-3 border">{vendor.floor}</td>
                   <td className="px-6 py-3 border">{vendor.room}</td>
                   <td className="px-6 py-3 border">{vendor.vendor_name}</td>
                   <td className="px-6 py-3 border">{vendor.vendor_description}</td>
@@ -316,6 +328,7 @@ export default function VendorsAdmin() {
             <div key={vendor.id} className="p-4 bg-white shadow-lg rounded-lg">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">{vendor.vendor_name}</h3>
               <p className="text-gray-600"><strong>Building:</strong> {vendor.building}</p>
+              <p className="text-gray-600"><strong>Floor:</strong> {vendor.floor}</p>
               <p className="text-gray-600"><strong>Room:</strong> {vendor.room}</p>
               <p className="text-gray-600"><strong>Age Range:</strong> {vendor.age_range}</p>
               <p className="text-gray-600"><strong>Time Frame:</strong> {vendor.time_frame}</p>
@@ -371,6 +384,16 @@ export default function VendorsAdmin() {
                 type="text"
                 name="building"
                 value={editingVendor.building || ''}
+                onChange={handleEditChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Floor
+              <input
+                type="text"
+                name="floor"
+                value={editingVendor.floor || ''}
                 onChange={handleEditChange}
                 className="w-full p-2 border rounded"
               />

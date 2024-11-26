@@ -20,11 +20,12 @@ export async function POST(req) {
         body.vendors.map((vendor) =>
           db.run(
             `INSERT INTO vendors (vendor_name, vendor_description, building, floor, room, age_range, time_frame)
-             VALUES (?, ?, ?, ?, ?, ?)`,
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [
               vendor.vendor_name,
               vendor.vendor_description,
               vendor.building,
+              vendor.floor,
               vendor.room,
               vendor.age_range,
               vendor.time_frame,
