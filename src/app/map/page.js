@@ -31,8 +31,8 @@ export default function MyComponent() {
   };
 
   return (
-    <div className="flex flex-col items-center text-center mt-5 p-4">
-      <h1 className="text-4xl font-bold mb-5">Interactive Boise State University Campus Map</h1>
+    <div className="flex flex-col items-center text-center p-4 bg-gray-50">
+      <h1 className="text-4xl font-bold mb-8">Boise State University Campus Map</h1>
 
       <iframe
         src="https://maps.boisestate.edu/?id=715#!s/?mc/43.604355,-116.202606?z/16?lvl/0"

@@ -95,32 +95,32 @@ export default function VendorsAdmin() {
       alert("Please select a CSV file to upload.");
       return;
     }
-  
+
     Papa.parse(csvFile, {
       header: true,
       skipEmptyLines: true,
       complete: async (results) => {
         console.log("Parsed CSV Data:", results.data); // Log parsed data for debugging
-  
+
         try {
           const vendors = results.data;
-  
+
           // Check if parsed data is an array and not empty
           if (!Array.isArray(vendors) || vendors.length === 0) {
             throw new Error("No valid data found in the CSV file.");
           }
-  
+
           // Send data to the backend
           const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ vendors }),
           });
-  
+
           if (!response.ok) {
             throw new Error("Failed to upload vendors.");
           }
-  
+
           const updatedData = await fetchVendors(); // Refresh the table
           setData(updatedData);
           alert("Vendors uploaded successfully!");
@@ -135,7 +135,7 @@ export default function VendorsAdmin() {
       },
     });
   };
-  
+
   // Handle input change for the add vendor form
   const handleAddChange = (e) => {
     setNewVendor({ ...newVendor, [e.target.name]: e.target.value });
@@ -187,7 +187,7 @@ export default function VendorsAdmin() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
+    <div className="min-w-full">
       <h3 className="text-2xl mb-4">Manage Vendors</h3>
       {/* CSV Upload Section */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
@@ -196,7 +196,7 @@ export default function VendorsAdmin() {
           type="file"
           accept=".csv"
           onChange={handleFileChange}
-          className="mb-4 block"
+          className="block w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-600 bg-white cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-bsu-blue focus:border-bsu-blue mb-4"
         />
         <button
           type="button"
@@ -210,66 +210,80 @@ export default function VendorsAdmin() {
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
         <h4 className="text-lg font-semibold mb-4">Add New Vendor</h4>
         <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <input
-            type="text"
-            name="building"
-            placeholder="Building"
-            value={newVendor.building}
-            onChange={handleAddChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="floor"
-            placeholder="Floor"
-            value={newVendor.floor}
-            onChange={handleAddChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="room"
-            placeholder="Room"
-            value={newVendor.room}
-            onChange={handleAddChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="vendor_name"
-            placeholder="Vendor Name"
-            value={newVendor.vendor_name}
-            onChange={handleAddChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="vendor_description"
-            placeholder="Vendor Description"
-            value={newVendor.vendor_description}
-            onChange={handleAddChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="age_range"
-            placeholder="Age Range"
-            value={newVendor.age_range}
-            onChange={handleAddChange}
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="text"
-            name="time_frame"
-            placeholder="Time Frame"
-            value={newVendor.time_frame}
-            onChange={handleAddChange}
-            className="w-full p-2 border rounded"
-          />
+          <label>
+            Vendor Name
+            <input
+              type="text"
+              name="vendor_name"
+              value={newVendor.vendor_name}
+              onChange={handleAddChange}
+              className="w-full p-2 border rounded"
+            />
+          </label>
+          <label>
+            Vendor Description
+            <input
+              type="text"
+              name="vendor_description"
+              value={newVendor.vendor_description}
+              onChange={handleAddChange}
+              className="w-full p-2 border rounded"
+            />
+          </label>
+          <label>
+            Building
+            <input
+              type="text"
+              name="building"
+              value={newVendor.building}
+              onChange={handleAddChange}
+              className="w-full p-2 border rounded"
+            />
+          </label>
+          <label>
+            Floor
+            <input
+              type="text"
+              name="floor"
+              value={newVendor.floor}
+              onChange={handleAddChange}
+              className="w-full p-2 border rounded"
+            />
+          </label>
+          <label>
+            Room
+            <input
+              type="text"
+              name="room"
+              value={newVendor.room}
+              onChange={handleAddChange}
+              className="w-full p-2 border rounded"
+            />
+          </label>
+          <label>
+            Age Range
+            <input
+              type="text"
+              name="age_range"
+              value={newVendor.age_range}
+              onChange={handleAddChange}
+              className="w-full p-2 border rounded"
+            />
+          </label>
+          <label>
+            Time Frame
+            <input
+              type="text"
+              name="time_frame"
+              value={newVendor.time_frame}
+              onChange={handleAddChange}
+              className="w-full p-2 border rounded"
+            />
+          </label>
           <button
             type="button"
             onClick={handleAdd}
-            className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
+            className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 rounded"
           >
             Add Vendor
           </button>
@@ -355,7 +369,7 @@ export default function VendorsAdmin() {
 
       {/* Edit Vendor Form */}
       {editingVendor && (
-        <div ref={editFormRef} className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
+        <div ref={editFormRef} className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg mt-4">
           <h4 className="text-lg font-semibold mb-4">Edit Vendor</h4>
           <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <label>
@@ -417,7 +431,7 @@ export default function VendorsAdmin() {
                 onChange={(e) =>
                   setEditingVendor({ ...editingVendor, age_range: e.target.value })
                 }
-                className="w-full p-2 mb-2 border rounded"
+                className="w-full p-2 border rounded"
               />
             </label>
             <label>
@@ -429,13 +443,13 @@ export default function VendorsAdmin() {
                 onChange={(e) =>
                   setEditingVendor({ ...editingVendor, time_frame: e.target.value })
                 }
-                className="w-full p-2 mb-2 border rounded"
+                className="w-full p-2 border rounded"
               />
             </label>
             <button
               type="button"
               onClick={handleSave}
-              className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
+              className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 rounded"
             >
               Save Changes
             </button>

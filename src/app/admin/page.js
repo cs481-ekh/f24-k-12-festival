@@ -26,7 +26,7 @@ export default function Admin() {
     const storedPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
 
     if (username === storedUsername && password === storedPassword) {
-      Cookies.set("admin_token", "logged_in"); // Set cookie for 1 day
+      Cookies.set("admin_token", "logged_in"); // Set session cookie
       setIsLoggedIn(true);
       setError("");
     } else {
@@ -81,9 +81,9 @@ export default function Admin() {
           </form>
         </div>
       ) : (
-        <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-6xl">
+        <div className="bg-white shadow-lg rounded-lg min-w-full p-5">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold text-gray-800">Welcome, Admin!</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 border-b-2 border-orange-500">Welcome, Admin!</h2>
             <button
               onClick={handleLogout}
               className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded ml-2 mr-2"
@@ -91,7 +91,6 @@ export default function Admin() {
               Log Out
             </button>
           </div>
-          <p className="text-gray-600 mb-4">Manage vendors below:</p>
           <VendorsAdmin /> {/* Render the admin-only Vendors component */}
         </div>
       )}
