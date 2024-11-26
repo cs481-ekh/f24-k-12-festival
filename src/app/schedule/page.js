@@ -108,12 +108,12 @@ export default function Schedule() {
   };
 
   return (
-    <div className="p-8 max-w-5xl mx-auto bg-gray-50 min-h-screen flex flex-col justify-between">
+    <div className="p-4 bg-gray-50 min-h-screen flex flex-col justify-between">
       <header>
-        <h1 className="text-4xl font-bold mb-8 text-center text-black">Official Schedule</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center text-black">Create a Schedule</h1>
       </header>
 
-      <div className="flex-grow mb-8">
+      <div className="flex-grow mb-8 gap-4">
         <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3">
             <div>
@@ -173,9 +173,7 @@ export default function Schedule() {
               </select>
             </div>
           </div>
-        </div>
-
-        <div className="flex justify-center gap-4 mb-8">
+          <div className="flex justify-center gap-4 mt-8">
           <button
             onClick={handleAddEvent}
             className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors"
@@ -195,9 +193,12 @@ export default function Schedule() {
             Share via Text
           </button>
         </div>
+        </div>
+
+        
 
         <div className="mt-8 bg-white rounded-lg shadow-lg p-8 overflow-hidden">
-          <h2 className="text-2xl font-semibold mb-4 text-center text-gray-700">Your Official Schedule</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center text-black">Your Official Schedule</h2>
           {officialSchedule.length === 0 ? (
             <p className="text-black text-center">No events added yet.</p>
           ) : (

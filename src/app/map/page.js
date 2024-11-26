@@ -31,7 +31,7 @@ export default function MyComponent() {
   };
 
   return (
-    <div className="flex flex-col items-center text-center mt-5 px-4">
+    <div className="flex flex-col items-center text-center mt-5 p-4">
       <h1 className="text-4xl font-bold mb-5">Interactive Boise State University Campus Map</h1>
 
       <iframe
