@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { FaUniversalAccess, FaCog, FaTimes, FaSearchPlus } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import { FaUniversalAccess, FaCog, FaTimes, FaSearchPlus } from "react-icons/fa";
 
 const translations = {
   en: {
     accessibilityOptions: "Accessibility Options",
     biggerText: "Bigger Text",
-    dyslexicFont: "Dyslexic Font",
     readPage: "Read Page",
     stopReading: "Stop Reading",
     colors: "Colors",
@@ -22,7 +21,6 @@ const translations = {
   es: {
     accessibilityOptions: "Opciones de Accesibilidad",
     biggerText: "Texto Más Grande",
-    dyslexicFont: "Fuente para Dislexia",
     readPage: "Leer Página",
     stopReading: "Detener Lectura",
     colors: "Colores",
@@ -34,36 +32,7 @@ const translations = {
     resetSettings: "Restablecer ajustes",
     settings: "Configuraciones",
   },
-  de: {
-    accessibilityOptions: "Barrierefreiheit Optionen",
-    biggerText: "Größerer Text",
-    dyslexicFont: "Dyslexie Schriftart",
-    readPage: "Seite Vorlesen",
-    stopReading: "Vorlesen Stoppen",
-    colors: "Farben",
-    invertColors: "Farben Invertieren",
-    highContrast: "Hoher Kontrast",
-    brightness: "Helligkeit",
-    contrast: "Kontrast",
-    language: "Sprache",
-    resetSettings: "Einstellungen zurücksetzen",
-    settings: "Einstellungen",
-  },
-  fr: {
-    accessibilityOptions: "Options d'Accessibilité",
-    biggerText: "Texte Plus Grand",
-    dyslexicFont: "Police Dyslexique",
-    readPage: "Lire la Page",
-    stopReading: "Arrêter la Lecture",
-    colors: "Couleurs",
-    invertColors: "Inverser les Couleurs",
-    highContrast: "Contraste Élevé",
-    brightness: "Luminosité",
-    contrast: "Contraste",
-    language: "Langue",
-    resetSettings: "Réinitialiser les paramètres",
-    settings: "Paramètres",
-  },
+  // Add other languages here...
 };
 
 export default function AccessibilityWidget() {
@@ -72,7 +41,6 @@ export default function AccessibilityWidget() {
   const [textSizeLevel, setTextSizeLevel] = useState(0);
   const [brightnessLevel, setBrightnessLevel] = useState(0);
   const [contrastLevel, setContrastLevel] = useState(0);
-  const [isDyslexicFont, setDyslexicFont] = useState(false);
   const [isInverted, setInverted] = useState(false);
   const [isReading, setIsReading] = useState(false);
   const [language, setLanguage] = useState("en");
@@ -126,20 +94,11 @@ export default function AccessibilityWidget() {
     }
   };
 
-  const toggleDyslexicFont = () => {
-    const mainContent = getMainContent();
-    if (mainContent) {
-      setDyslexicFont(!isDyslexicFont);
-      mainContent.classList.toggle("dyslexic-font");
-      setActiveFeature("dyslexicFont");
-    }
-  };
-
   const toggleInvertColors = () => {
     const mainContent = getMainContent();
     if (mainContent) {
       setInverted(!isInverted);
-      mainContent.classList.toggle("invert-colors");
+      mainContent.classList.toggle("invert-colors"); // This applies the inversion effect
       setActiveFeature("invertColors");
     }
   };
@@ -180,14 +139,13 @@ export default function AccessibilityWidget() {
       setTextSizeLevel(0);
       setBrightnessLevel(0);
       setContrastLevel(0);
-      setDyslexicFont(false);
       setInverted(false);
       setIsReading(false);
       setActiveFeature(null);
 
-      mainContent.style.fontSize = '100%';
-      mainContent.style.filter = 'brightness(100%) contrast(100%)';
-      mainContent.classList.remove("high-contrast", "dyslexic-font", "invert-colors");
+      mainContent.style.fontSize = "100%";
+      mainContent.style.filter = "brightness(100%) contrast(100%)";
+      mainContent.classList.remove("high-contrast", "invert-colors");
 
       window.speechSynthesis.cancel();
     }
@@ -206,14 +164,18 @@ export default function AccessibilityWidget() {
       <button
         onClick={toggleWidget}
         className="fixed right-6 w-10 h-10 bg-black text-white rounded-full shadow-lg flex items-center justify-center"
-        style={{ zIndex: 1000, bottom: '20px' }}
+        style={{ zIndex: 1000, bottom: "20px" }}
         aria-label={t.accessibilityOptions}
       >
         <FaUniversalAccess size={32} />
       </button>
 
       {isOpen && (
-        <div className={`fixed top-0 ${window.innerWidth < 768 ? "left-0 w-full" : "right-0 w-80"} bottom-0 bg-white p-4 rounded-lg shadow-lg z-50 overflow-y-auto`}>
+        <div
+          className={`fixed top-0 ${
+            window.innerWidth < 768 ? "left-0 w-full" : "right-0 w-80"
+          } bottom-0 bg-white p-4 rounded-lg shadow-lg z-50 overflow-y-auto`}
+        >
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-bold">{t.accessibilityOptions}</h3>
             <button onClick={openSettings} aria-label={t.settings}>
@@ -233,12 +195,14 @@ export default function AccessibilityWidget() {
                   <span>{t.biggerText}</span>
                   <div className="flex mt-2 space-x-1">
                     {[...Array(3)].map((_, index) => (
-                      <div key={index} className={`h-1 w-8 rounded-full ${index < textSizeLevel ? "bg-gray-400" : "bg-gray-200"}`}></div>
+                      <div
+                        key={index}
+                        className={`h-1 w-8 rounded-full ${
+                          index < textSizeLevel ? "bg-gray-400" : "bg-gray-200"
+                        }`}
+                      ></div>
                     ))}
                   </div>
-                </button>
-                <button onClick={toggleDyslexicFont} className={getButtonStyle("dyslexicFont")}>
-                  {t.dyslexicFont}
                 </button>
                 <button onClick={toggleReadText} className={getButtonStyle("readText")}>
                   {isReading ? t.stopReading : t.readPage}
@@ -270,7 +234,11 @@ export default function AccessibilityWidget() {
           {isSettingsOpen && (
             <div className="mb-4">
               <h4 className="font-semibold mb-2">{t.language}</h4>
-              <select value={language} onChange={handleLanguageChange} className="w-full bg-gray-200 p-2 rounded">
+              <select
+                value={language}
+                onChange={handleLanguageChange}
+                className="w-full bg-gray-200 p-2 rounded"
+              >
                 <option value="en">English</option>
                 <option value="es">Spanish</option>
                 <option value="de">German</option>
