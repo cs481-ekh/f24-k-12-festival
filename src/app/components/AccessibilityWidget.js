@@ -32,34 +32,7 @@ const translations = {
     resetSettings: "Restablecer ajustes",
     settings: "Configuraciones",
   },
-  de: {
-    accessibilityOptions: "Barrierefreiheit Optionen",
-    biggerText: "Größerer Text",
-    readPage: "Seite Vorlesen",
-    stopReading: "Vorlesen Stoppen",
-    colors: "Farben",
-    invertColors: "Farben Invertieren",
-    highContrast: "Hoher Kontrast",
-    brightness: "Helligkeit",
-    contrast: "Kontrast",
-    language: "Sprache",
-    resetSettings: "Einstellungen zurücksetzen",
-    settings: "Einstellungen",
-  },
-  fr: {
-    accessibilityOptions: "Options d'Accessibilité",
-    biggerText: "Texte Plus Grand",
-    readPage: "Lire la Page",
-    stopReading: "Arrêter la Lecture",
-    colors: "Couleurs",
-    invertColors: "Inverser les Couleurs",
-    highContrast: "Contraste Élevé",
-    brightness: "Luminosité",
-    contrast: "Contraste",
-    language: "Langue",
-    resetSettings: "Réinitialiser les paramètres",
-    settings: "Paramètres",
-  },
+  // Add other languages here...
 };
 
 export default function AccessibilityWidget() {
@@ -125,7 +98,7 @@ export default function AccessibilityWidget() {
     const mainContent = getMainContent();
     if (mainContent) {
       setInverted(!isInverted);
-      mainContent.classList.toggle("invert-colors");
+      mainContent.classList.toggle("invert-colors"); // This applies the inversion effect
       setActiveFeature("invertColors");
     }
   };
