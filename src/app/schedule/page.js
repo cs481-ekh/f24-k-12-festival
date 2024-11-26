@@ -75,7 +75,7 @@ export default function Schedule() {
       setSelectedTime('');
       setSelectedLocation('');
     } else {
-      alert("Please select a vendor, time, and location before adding an event.");
+      alert("Please select an activity, time, and location before adding an event.");
     }
   };
 
@@ -117,18 +117,18 @@ export default function Schedule() {
         <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-3">
             <div>
-              <label htmlFor="vendor-select" className="block text-lg font-medium text-black mb-2">Select Vendor</label>
+              <label htmlFor="activity-select" className="block text-lg font-medium text-black mb-2">Select Activity</label>
               <select
-                id="vendor-select"
+                id="-select"
                 value={selectedVendor}
                 onChange={(e) => {
                   setSelectedVendor(e.target.value);
                   setSelectedTime('');
                   setSelectedLocation('');
                 }}
-                className="border border-gray-300 p-3 w-full"
+                className="border border-gray-300 p-3 w-full bg-white rounded-lg"
               >
-                <option value="">Choose a vendor</option>
+                <option value="">Choose an activity</option>
                 {uniqueVendors.map((vendor, index) => (
                   <option key={index} value={vendor}>
                     {vendor}
@@ -205,7 +205,7 @@ export default function Schedule() {
             <table className="w-full border">
               <thead className="bg-bsu-blue border-b">
                 <tr>
-                  <th className="px-3 py-4 border text-left font-medium text-white">Vendor</th>
+                  <th className="px-3 py-4 border text-left font-medium text-white">Activity</th>
                   <th className="px-3 py-4 border text-left font-medium text-white">Time</th>
                   <th className="px-3 py-4 border text-left font-medium text-white">Location</th>
                   <th className="px-3 py-4 border text-left font-medium text-white">Actions</th>

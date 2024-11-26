@@ -43,7 +43,7 @@ export default function Home() {
 
       <section className="mt-12 w-full">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
             Previous Festival Fun!
           </h2>
           <p className="text-lg md:text-xl text-gray-600 mb-6">
@@ -84,8 +84,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-12 w-full">
-        <div className="text-center mb-8">
+      <section className="mt-5 w-full">
+        <div className="text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
             Meet our STEM Outreach Partners!
           </h2>
@@ -105,7 +105,7 @@ export default function Home() {
       <section className="mt-12 w-full">
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
-            Join the Festival!
+            Register for this year&apos;s Engineering and Science Festival!
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-6">
             Sign up to participate in this year&apos;s Engineering and Science Festival. Fill out the form below to get started!
