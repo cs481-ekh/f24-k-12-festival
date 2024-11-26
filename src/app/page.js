@@ -108,7 +108,7 @@ export default function Home() {
             Join the Festival!
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-6">
-            Sign up to participate in this year's Engineering and Science Festival. Fill out the form below to get started!
+            Sign up to participate in this year&apos;s Engineering and Science Festival. Fill out the form below to get started!
           </p>
           <div className="w-full h-[220vh] sm:w-3/4 lg:max-w-1/2 mx-auto">
             <iframe
