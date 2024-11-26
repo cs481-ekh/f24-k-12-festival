@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Cookies from "js-cookie";
 import VendorsAdmin from './adminVendors'; // Adjust the path based on your folder structure
 
 export default function Admin() {
@@ -8,6 +9,14 @@ export default function Admin() {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState('');
+
+   // Check for existing login state from cookie on component mount
+   useEffect(() => {
+    const token = Cookies.get("admin_token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   // Handle login logic
   const handleLogin = (e) => {
@@ -17,10 +26,11 @@ export default function Admin() {
     const storedPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
 
     if (username === storedUsername && password === storedPassword) {
+      Cookies.set("admin_token", "logged_in"); // Set cookie for 1 day
       setIsLoggedIn(true);
-      setError('');
+      setError("");
     } else {
-      setError('Invalid username or password');
+      setError("Invalid username or password");
     }
   };
 
