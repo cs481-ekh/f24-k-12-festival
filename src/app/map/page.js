@@ -1,12 +1,11 @@
-"use client"; // Make this a client component in Next.js
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, { useState } from "react";
+import Image from "next/image";
 
 export default function MyComponent() {
   const [selectedBuilding, setSelectedBuilding] = useState("");
 
-  // Object mapping building names to their corresponding map images
   const buildingMaps = {
     "ENGR-First": `${process.env.NEXT_PUBLIC_BASE_PATH}/ENGR-First.svg`,
     "ENGR-Second": `${process.env.NEXT_PUBLIC_BASE_PATH}/ENGR-Second.svg`,
@@ -24,7 +23,7 @@ export default function MyComponent() {
     "Sub-Second-Floor": `${process.env.NEXT_PUBLIC_BASE_PATH}/Sub-Second-Floor.svg`,
     "Sub-Third-Floor": `${process.env.NEXT_PUBLIC_BASE_PATH}/Sub-Third-Floor.svg`,
     "ERB": `${process.env.NEXT_PUBLIC_BASE_PATH}/ERB.svg`,
-    "CVA": `${process.env.NEXT_PUBLIC_BASE_PATH}/CVA.svg`
+    "CVA": `${process.env.NEXT_PUBLIC_BASE_PATH}/CVA.svg`,
   };
 
   const handleBuildingChange = (event) => {
@@ -32,61 +31,47 @@ export default function MyComponent() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-center mt-5 text-lg">
-      {/* Embedded Boise State University Campus Map */}
+    <div className="flex flex-col items-center text-center mt-5 px-4">
+      <h1 className="text-4xl font-bold mb-5">Interactive Boise State University Campus Map</h1>
+
       <iframe
         src="https://maps.boisestate.edu/?id=715#!s/?mc/43.604355,-116.202606?z/16?lvl/0"
         width="100%"
-        height="600px"
-        title="Boise State University Campus Map"
-        scrolling="no"
+        height="800"
         allow="geolocation"
-        style={{
-          border: '0px solid #fff',
-          margin: 0,
-          padding: 0,
-          maxWidth: '100%',
-          width: '100%',
-        }}
+        className="w-full rounded-lg shadow-lg border border-gray-300 mb-10"
       ></iframe>
 
-      {/* Dropdown for selecting a building */}
-      <label htmlFor="building-select" className="mt-5">Choose a building:</label>
+      <h1 className="text-2xl font-bold mb-5">Looking for more navigation? Internal building maps can be found below</h1>
+
+      <label htmlFor="building-select" className="mt-5 text-lg">
+        Choose a building:
+      </label>
       <select
         id="building-select"
         onChange={handleBuildingChange}
-        className="mt-4 p-2 border rounded"
+        className="mt-2 p-3 border rounded-md shadow-md focus:ring focus:ring-blue-400 mb-10"
       >
         <option value="">Select a building</option>
-        <option value="ENGR-First">Ruch Engineering Building First Floor</option>
-        <option value="ENGR-Second">Ruch Engineering Building Second Floor</option>
-        <option value="ENGR-Third">Ruch Engineering Building Third Floor</option>
-        <option value="HMCV-First">Harry Morrison Civil Engineering First Floor</option>
-        <option value="HMCV-Second">Harry Morrison Civil Engineering Second Floor</option>
-        <option value="MCMR-First">Micron Center for Materials Research First Floor</option>
-        <option value="MCMR-Second">Micron Center for Materials Research Second Floor</option>
-        <option value="MCMR-Third">Micron Center for Materials Research Third Floor</option>
-        <option value="Kinesiology-Building-First">Kinesiology Building First Floor</option>
-        <option value="Kinesiology-Building-Second">Kinesiology Building Second Floor</option>
-        <option value="ALBR-First">Albertson Library First</option>
-        <option value="ALBR-Second">Albertson Library Second</option>
-        <option value="Sub-First-Floor">Student Union Building First Floor</option>
-        <option value="Sub-Second-Floor">Student Union Building Second Floor</option>
-        <option value="Sub-Third-Floor">Student Union Building Third Floor</option>
-        <option value="ERB">Environmental Research Building First & Second</option>
-        <option value="CVA">Center for the Visual Arts</option>
+        {Object.keys(buildingMaps).map((key) => (
+          <option key={key} value={key}>
+            {key.replace(/-/g, " ")}
+          </option>
+        ))}
       </select>
 
-      {/* Conditionally render the selected map */}
       {selectedBuilding && (
         <div className="mt-5 w-full max-w-[90vw] md:max-w-[600px] lg:max-w-[800px]">
-          <h3>Selected Building: {selectedBuilding}</h3>
+          <h3 className="text-xl font-semibold mb-3">
+            Selected Building: {selectedBuilding.replace(/-/g, " ")}
+          </h3>
           <Image
             src={buildingMaps[selectedBuilding]}
             alt={`Map of ${selectedBuilding}`}
             layout="responsive"
             width={1000}
             height={1000}
+            className="rounded-lg shadow-md border border-gray-300 mb-10"
           />
         </div>
       )}
