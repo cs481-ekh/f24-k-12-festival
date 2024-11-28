@@ -64,6 +64,8 @@ async function deleteVendor(id) {
 
 export default function VendorsAdmin() {
   const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const [editingVendor, setEditingVendor] = useState(null);
   const editFormRef = useRef(null);
   const [csvFile, setCsvFile] = useState(null); // For storing the selected CSV file
@@ -89,6 +91,24 @@ export default function VendorsAdmin() {
   const handleFileChange = (e) => {
     setCsvFile(e.target.files[0]);
   };
+
+  const handleSearch = () => {
+  const query = searchQuery.toLowerCase();
+  const filtered = data.filter((vendor) =>
+    (vendor.vendor_name || "").toLowerCase().includes(query)
+  );
+  setFilteredData(filtered);
+  };
+
+
+  useEffect(() => {
+    async function getData() {
+      const fetchedData = await fetchVendors();
+      setData(fetchedData);
+      setFilteredData(fetchedData);
+    }
+    getData();
+  }, []);
 
   const handleCsvUpload = async () => {
     if (!csvFile) {
@@ -206,8 +226,8 @@ export default function VendorsAdmin() {
           Upload CSV
         </button>
       </div>
-      {/* Add New Vendor Form */}
-      <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
+       {/* Add New Vendor Form */}
+       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
         <h4 className="text-lg font-semibold mb-4">Add New Vendor</h4>
         <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <input
@@ -275,25 +295,48 @@ export default function VendorsAdmin() {
           </button>
         </form>
       </div>
-      {/* Table layout on large screens, Card layout on small screens */}
-      <div>
-        {/* Table layout */}
-        <div className="hidden lg:block">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="text-sm text-gray-700 bg-gray-50 border">
-              <tr>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">Building</th>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">Host Name</th>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">Activity Description</th>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">Age Range</th>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">Time Frame</th>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((vendor) => (
+    
+    {/* Search Section */}
+      <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
+        <h4 className="text-lg font-semibold mb-4">Search Vendors</h4>
+        <div className="flex items-center space-x-4">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by Vendor Name"
+            className="flex-grow w-full p-2 border rounded"
+          />
+          <button
+            type="button"
+            onClick={handleSearch}
+            className="bg-bsu-blue text-white font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      
+    {/* Table layout on large screens, Card layout on small screens */}
+    <div>
+      {/* Table layout */}
+      <div className="hidden lg:block">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="text-sm text-gray-700 bg-gray-50 border">
+            <tr>
+              <th className="px-6 py-3 border bg-bsu-blue text-white">Building</th>
+              <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
+              <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
+              <th className="px-6 py-3 border bg-bsu-blue text-white">Host Name</th>
+              <th className="px-6 py-3 border bg-bsu-blue text-white">Activity Description</th>
+              <th className="px-6 py-3 border bg-bsu-blue text-white">Age Range</th>
+              <th className="px-6 py-3 border bg-bsu-blue text-white">Time Frame</th>
+              <th className="px-6 py-3 border bg-bsu-blue text-white">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredData.length > 0 ? (
+              filteredData.map((vendor) => (
                 <tr key={vendor.id} className="border-l border-r text-center">
                   <td className="px-6 py-3 border">{vendor.building}</td>
                   <td className="px-6 py-3 border">{vendor.floor}</td>
@@ -317,14 +360,21 @@ export default function VendorsAdmin() {
                     </button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8" className="text-center py-4">
+                  No vendors found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
         {/* Card layout */}
         <div className="lg:hidden grid gap-4 grid-cols-1 sm:grid-cols-2">
-          {data.map((vendor) => (
+          {filteredData.map((vendor) => (
             <div key={vendor.id} className="p-4 bg-white shadow-lg rounded-lg">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">{vendor.vendor_name}</h3>
               <p className="text-gray-600"><strong>Building:</strong> {vendor.building}</p>
@@ -350,9 +400,6 @@ export default function VendorsAdmin() {
             </div>
           ))}
         </div>
-      </div>
-
-
       {/* Edit Vendor Form */}
       {editingVendor && (
         <div ref={editFormRef} className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
