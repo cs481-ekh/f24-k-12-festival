@@ -23,8 +23,10 @@ export default function Footer() {
         <p>&copy; {new Date().getFullYear()} Boise State University. All rights reserved.</p>
       </div>
       <div className="flex p-2 font-bold">
-          <p>V1.4</p>
-        </div>
+        <a href="mailto:visitCOEN@boisestate.edu" className="text-white hover:underline">
+          visitCOEN@boisestate.edu
+        </a>
+      </div>
     </footer>
   );
 }
