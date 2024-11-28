@@ -190,6 +190,22 @@ export default function VendorsAdmin() {
   
   const handleAdd = async () => {
     try {
+      // Check if the vendor already exists in the list
+      const vendorExists = data.some((existingVendor) => {
+        return existingVendor.vendor_name.toLowerCase() === newVendor.vendor_name.toLowerCase() &&
+          existingVendor.vendor_description.toLowerCase() === newVendor.vendor_description.toLowerCase() &&
+          existingVendor.building.toLowerCase() === newVendor.building.toLowerCase() &&
+          existingVendor.floor.toLowerCase() === newVendor.floor.toLowerCase() &&
+          existingVendor.room.toLowerCase() === newVendor.room.toLowerCase() &&
+          existingVendor.age_range.toLowerCase() === newVendor.age_range.toLowerCase() &&
+          existingVendor.time_frame.toLowerCase() === newVendor.time_frame.toLowerCase();
+      });
+
+      if (vendorExists) {
+        alert("Duplicate vendor. This vendor was not added.");
+        return; // Prevent further execution
+      }
+
       const result = await addVendor(newVendor);
       if (result.added) {
         await refreshData();
@@ -249,10 +265,10 @@ export default function VendorsAdmin() {
 
   return (
     <div className="min-w-full">
-      <h3 className="text-2xl mb-4">Manage Vendors</h3>
+      <h3 className="text-2xl mb-4">Manage Activities</h3>
       {/* CSV Upload Section */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
-        <h4 className="text-lg font-semibold mb-4">Upload Vendors from CSV</h4>
+        <h4 className="text-lg font-semibold mb-4">Upload Activities from CSV</h4>
         <input
           type="file"
           accept=".csv"
@@ -269,10 +285,10 @@ export default function VendorsAdmin() {
       </div>
       {/* Add New Vendor Form */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
-        <h4 className="text-lg font-semibold mb-4">Add New Vendor</h4>
+        <h4 className="text-lg font-semibold mb-4">Add New Activity</h4>
         <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <label>
-            Vendor Name
+            Host Name
             <input
               type="text"
               name="vendor_name"
@@ -282,7 +298,7 @@ export default function VendorsAdmin() {
             />
           </label>
           <label>
-            Vendor Description
+            Activity Description
             <input
               type="text"
               name="vendor_description"
@@ -353,13 +369,13 @@ export default function VendorsAdmin() {
 
       {/* Search Section */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
-        <h4 className="text-lg font-semibold mb-4">Search Vendors</h4>
+        <h4 className="text-lg font-semibold mb-4">Search Activities</h4>
         <div className="flex items-center space-x-4">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by Vendor Name"
+            placeholder="Search by activity"
             className="flex-grow w-full p-2 border rounded"
           />
           <button
