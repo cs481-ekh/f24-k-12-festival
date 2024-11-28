@@ -371,18 +371,20 @@ export default function VendorsAdmin() {
                   <td className="px-6 py-3 border">{vendor.age_range}</td>
                   <td className="px-6 py-3 border">{vendor.time_frame}</td>
                   <td className="px-6 py-3 border">
-                    <button
-                      onClick={() => handleEditClick(vendor)}
-                      className="text-blue-500 hover:underline"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(vendor.id)}
-                      className="text-red-600 hover:underline"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex flex-col">
+                      <button
+                        onClick={() => handleEditClick(vendor)}
+                        className="text-blue-500 hover:underline"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(vendor.id)}
+                        className="text-red-600 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
