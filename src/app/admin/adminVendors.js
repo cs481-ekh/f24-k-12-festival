@@ -29,7 +29,7 @@ async function updateVendor(vendor) {
   return data;
 }
 
-// Function to add a new vendor
+//function to add a row
 async function addVendor(vendor) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
     method: 'POST',
@@ -40,7 +40,7 @@ async function addVendor(vendor) {
   return await response.json();
 }
 
-// Function to bulk add vendors via a CSV
+//function to bulk add vendors via a csv
 async function bulkAddVendors(vendors) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
     method: "POST",
@@ -51,7 +51,7 @@ async function bulkAddVendors(vendors) {
   return await response.json();
 }
 
-// Function to delete a single vendor
+//function to delete a row
 async function deleteVendor(id) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
     method: 'DELETE',
@@ -62,21 +62,10 @@ async function deleteVendor(id) {
   return await response.json();
 }
 
-// Function to bulk delete vendors
-async function bulkDeleteVendors(ids) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ids }),
-  });
-  if (!response.ok) throw new Error('Failed to delete vendors');
-  return await response.json();
-}
-
 export default function VendorsAdmin() {
   const [data, setData] = useState([]);
-  const [selectedVendors, setSelectedVendors] = useState([]); // Track selected vendors
   const [editingVendor, setEditingVendor] = useState(null);
+  const editFormRef = useRef(null);
   const [csvFile, setCsvFile] = useState(null); // For storing the selected CSV file
   const [newVendor, setNewVendor] = useState({
     vendor_name: '',
@@ -88,6 +77,7 @@ export default function VendorsAdmin() {
     time_frame: '',
   });
 
+  // Fetch vendor data on component mount
   useEffect(() => {
     async function getData() {
       const fetchedData = await fetchVendors();
@@ -146,6 +136,7 @@ export default function VendorsAdmin() {
     });
   };
 
+  // Handle input change for the add vendor form
   const handleAddChange = (e) => {
     setNewVendor({ ...newVendor, [e.target.name]: e.target.value });
   };
@@ -166,36 +157,11 @@ export default function VendorsAdmin() {
     setData(updatedData);
   };
 
-  // Handle checkbox changes
-  const handleCheckboxChange = (id) => {
-    setSelectedVendors((prevSelected) => {
-      if (prevSelected.includes(id)) {
-        return prevSelected.filter((vendorId) => vendorId !== id);
-      } else {
-        return [...prevSelected, id];
-      }
-    });
-  };
-
-  // Delete selected vendors with confirmation
-  const handleBulkDelete = async () => {
-    if (selectedVendors.length === 0) {
-      alert("You have not selected any vendors to delete.");
-      return;
-    }
-
-    if (window.confirm("Are you sure you want to delete the selected vendors? This action cannot be undone.")) {
-      try {
-        await bulkDeleteVendors(selectedVendors);
-        setSelectedVendors([]); // Clear selection after delete
-        const updatedData = await fetchVendors();
-        setData(updatedData);
-        alert("Vendors deleted successfully!");
-      } catch (error) {
-        console.error("Error deleting vendors:", error);
-        alert("Failed to delete vendors.");
-      }
-    }
+  // Delete a vendor
+  const handleDelete = async (id) => {
+    await deleteVendor(id);
+    const updatedData = await fetchVendors();
+    setData(updatedData);
   };
 
   // Trigger editing mode for a selected vendor
@@ -223,7 +189,6 @@ export default function VendorsAdmin() {
   return (
     <div className="min-w-full">
       <h3 className="text-2xl mb-4">Manage Vendors</h3>
-
       {/* CSV Upload Section */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
         <h4 className="text-lg font-semibold mb-4">Upload Vendors from CSV</h4>
@@ -241,7 +206,6 @@ export default function VendorsAdmin() {
           Upload CSV
         </button>
       </div>
-
       {/* Add New Vendor Form */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
         <h4 className="text-lg font-semibold mb-4">Add New Vendor</h4>
@@ -325,38 +289,13 @@ export default function VendorsAdmin() {
           </button>
         </form>
       </div>
-
-      {/* Bulk Delete Selected Vendors Button */}
-      {selectedVendors.length > 0 && (
-        <div className="mb-4 flex justify-between items-center">
-          <button
-            onClick={handleBulkDelete}
-            className="bg-bsu-blue text-white text-sm font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded"
-          >
-            Delete Selected Vendors
-          </button>
-        </div>
-      )}
-
-      {/* Table layout */}
+      {/* Table layout on large screens, Card layout on small screens */}
       <div>
+        {/* Table layout */}
         <div className="hidden lg:block">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="text-sm text-gray-700 bg-gray-50 border">
               <tr>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">
-                  <input
-                    type="checkbox"
-                    onChange={() => {
-                      if (selectedVendors.length === data.length) {
-                        setSelectedVendors([]);
-                      } else {
-                        setSelectedVendors(data.map((vendor) => vendor.id));
-                      }
-                    }}
-                    checked={selectedVendors.length === data.length}
-                  />
-                </th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Building</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
@@ -370,13 +309,6 @@ export default function VendorsAdmin() {
             <tbody>
               {data.map((vendor) => (
                 <tr key={vendor.id} className="border-l border-r text-center">
-                  <td className="px-6 py-3 border">
-                    <input
-                      type="checkbox"
-                      checked={selectedVendors.includes(vendor.id)}
-                      onChange={() => handleCheckboxChange(vendor.id)}
-                    />
-                  </td>
                   <td className="px-6 py-3 border">{vendor.building}</td>
                   <td className="px-6 py-3 border">{vendor.floor}</td>
                   <td className="px-6 py-3 border">{vendor.room}</td>
@@ -434,6 +366,96 @@ export default function VendorsAdmin() {
         </div>
       </div>
 
+
+      {/* Edit Vendor Form */}
+      {editingVendor && (
+        <div ref={editFormRef} className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg mt-4">
+          <h4 className="text-lg font-semibold mb-4">Edit Vendor</h4>
+          <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <label>
+              Vendor Name
+              <input
+                type="text"
+                name="vendor_name"
+                value={editingVendor.vendor_name || ''}
+                onChange={handleEditChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Description
+              <input
+                type="text"
+                name="vendor_description"
+                value={editingVendor.vendor_description || ''}
+                onChange={handleEditChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Building
+              <input
+                type="text"
+                name="building"
+                value={editingVendor.building || ''}
+                onChange={handleEditChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Floor
+              <input
+                type="text"
+                name="floor"
+                value={editingVendor.floor || ''}
+                onChange={handleEditChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Room
+              <input
+                type="text"
+                name="room"
+                value={editingVendor.room || ''}
+                onChange={handleEditChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Age Range
+              <input
+                type="text"
+                name="age_range"
+                value={editingVendor.age_range || ""}
+                onChange={(e) =>
+                  setEditingVendor({ ...editingVendor, age_range: e.target.value })
+                }
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Time Frame
+              <input
+                type="text"
+                name="time_frame"
+                value={editingVendor.time_frame || ""}
+                onChange={(e) =>
+                  setEditingVendor({ ...editingVendor, time_frame: e.target.value })
+                }
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={handleSave}
+              className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 rounded"
+            >
+              Save Changes
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
