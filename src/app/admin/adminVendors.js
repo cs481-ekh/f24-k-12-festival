@@ -159,9 +159,20 @@ export default function VendorsAdmin() {
 
   // Delete a vendor
   const handleDelete = async (id) => {
-    await deleteVendor(id);
-    const updatedData = await fetchVendors();
-    setData(updatedData);
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this vendor? This action cannot be undone."
+    );
+    if (!isConfirmed) return;
+
+    try {
+      await deleteVendor(id);
+      const updatedData = await fetchVendors();
+      setData(updatedData);
+      alert("Vendor deleted successfully!");
+    } catch (error) {
+      console.error("Failed to delete vendor:", error);
+      alert("An error occurred while deleting the vendor. Please try again.");
+    }
   };
 
   // Trigger editing mode for a selected vendor
@@ -196,12 +207,12 @@ export default function VendorsAdmin() {
           type="file"
           accept=".csv"
           onChange={handleFileChange}
-          className="block w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-600 bg-white cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-bsu-blue focus:border-bsu-blue mb-4"
+          className="block w-50 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 bg-white cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-bsu-blue focus:border-bsu-blue mb-4"
         />
         <button
           type="button"
           onClick={handleCsvUpload}
-          className="bg-bsu-blue text-white text-lg font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded"
+          className="bg-bsu-blue text-white text-lg font-bold w-40 px-6 py-1 rounded shadow-lg hover:bg-orange-500 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
         >
           Upload CSV
         </button>
@@ -280,14 +291,14 @@ export default function VendorsAdmin() {
               className="w-full p-2 border rounded"
             />
           </label>
-          <button
+        </form>
+        <button
             type="button"
             onClick={handleAdd}
-            className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 rounded"
+            className="bg-green-500 text-white text-lg font-bold w-40 px-6 py-1 mt-4 rounded shadow-lg hover:bg-green-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
           >
             Add Vendor
           </button>
-        </form>
       </div>
       {/* Table layout on large screens, Card layout on small screens */}
       <div>
@@ -446,14 +457,23 @@ export default function VendorsAdmin() {
                 className="w-full p-2 border rounded"
               />
             </label>
+          </form>
+          <div className="flex space-x-4 mt-4">
             <button
               type="button"
               onClick={handleSave}
-              className="bg-bsu-blue text-white text-lg text-center font-bold hover:bg-orange-500 rounded"
+              className="bg-green-500 text-white text-lg font-bold w-40 px-6 py-1 rounded shadow-lg hover:bg-green-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
             >
               Save Changes
             </button>
-          </form>
+            <button
+              type="button"
+              onClick={() => setEditingVendor(null)}
+              className="bg-red-500 text-white text-lg font-bold w-40 px-6 py-1 rounded shadow-lg hover:bg-red-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
     </div>
