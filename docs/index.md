@@ -44,7 +44,7 @@ between Boise State University and the community.
 
 ![Schedule Page](https://imgur.com/4Za55ro.png)
 
-### A maps page
+### A map page
 
 ![Maps Page](https://imgur.com/2CKexlS.png)
 ![Maps Page](https://imgur.com/NRbwbyt.png)
