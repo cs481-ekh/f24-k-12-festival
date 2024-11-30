@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
@@ -54,7 +55,6 @@ async function addVendor(vendor) {
   }
 }
 
-
 // Function to delete a single vendor
 async function deleteVendor(id) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
@@ -79,6 +79,7 @@ async function bulkDeleteVendors(ids) {
 
 export default function VendorsAdmin() {
   const [data, setData] = useState([]);
+  const [selectedVendors, setSelectedVendors] = useState([]); // Initialize selectedVendors state
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [editingVendor, setEditingVendor] = useState(null);
@@ -98,6 +99,7 @@ export default function VendorsAdmin() {
     async function getData() {
       const fetchedData = await fetchVendors();
       setData(fetchedData);
+      setFilteredData(fetchedData);
     }
     getData();
   }, []);
@@ -112,7 +114,6 @@ export default function VendorsAdmin() {
     setFilteredData(updatedData);
   };
 
-
   const handleSearch = () => {
     const query = searchQuery.toLowerCase();
     const filtered = data.filter((vendor) =>
@@ -120,16 +121,6 @@ export default function VendorsAdmin() {
     );
     setFilteredData(filtered);
   };
-
-
-  useEffect(() => {
-    async function getData() {
-      const fetchedData = await fetchVendors();
-      setData(fetchedData);
-      setFilteredData(fetchedData);
-    }
-    getData();
-  }, []);
 
   const handleCsvUpload = async () => {
     if (!csvFile) {
