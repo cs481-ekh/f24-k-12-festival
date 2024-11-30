@@ -103,10 +103,11 @@ export default function VendorsAdmin() {
   };
   
 
-  const handleSearch = () => {
-    const query = searchQuery.toLowerCase();
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
     const filtered = data.filter((vendor) =>
-      (vendor.vendor_name || "").toLowerCase().includes(query)
+      vendor.vendor_name?.toLowerCase().includes(query)
     );
     setFilteredData(filtered);
   };
@@ -374,7 +375,7 @@ export default function VendorsAdmin() {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleSearch}
             placeholder="Search by activity"
             className="flex-grow w-full p-2 border rounded"
           />
