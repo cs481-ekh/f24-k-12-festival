@@ -42,7 +42,7 @@ export default function MyComponent() {
         className="w-full rounded-lg shadow-lg border border-gray-300 mb-10"
       ></iframe>
 
-      <h1 className="text-2xl font-bold mb-5">Looking for more navigation? Internal building maps can be found below</h1>
+      <h1 className="text-2xl font-bold mb-5">Internal Building Maps</h1>
 
       <label htmlFor="building-select" className="mt-5 text-lg">
         Choose a building:

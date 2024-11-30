@@ -105,10 +105,10 @@ export default function Home() {
       <section className="mt-12 w-full">
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
-            Register for this year&apos;s Engineering and Science Festival!
+            Register for the Engineering and Science Festival!
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-6">
-            Sign up to participate in this year&apos;s Engineering and Science Festival. Fill out the form below to get started!
+            Fill out the form below to register for this year&apos;s Engineering and Science Festival.
           </p>
           <div className="w-full h-[100vh] sm:w-3/4 lg:max-w-1/2 mx-auto">
             <iframe
