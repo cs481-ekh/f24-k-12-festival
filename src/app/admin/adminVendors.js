@@ -31,25 +31,29 @@ async function updateVendor(vendor) {
 
 //function to add a row
 async function addVendor(vendor) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(vendor),
-  });
-  if (!response.ok) throw new Error('Failed to add vendor');
-  return await response.json();
+  try {
+    const vendorData = { vendors: [vendor] };
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(vendorData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error adding vendor:', errorData);
+      throw new Error(errorData.error || 'Failed to add vendor');
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error('Unexpected error:', error);
+    throw error;
+  }
 }
 
-//function to bulk add vendors via a csv
-async function bulkAddVendors(vendors) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ vendors }),
-  });
-  if (!response.ok) throw new Error("Failed to add vendors in bulk");
-  return await response.json();
-}
 
 //function to delete a row
 async function deleteVendor(id) {
@@ -64,6 +68,8 @@ async function deleteVendor(id) {
 
 export default function VendorsAdmin() {
   const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const [editingVendor, setEditingVendor] = useState(null);
   const editFormRef = useRef(null);
   const [csvFile, setCsvFile] = useState(null); // For storing the selected CSV file
@@ -90,6 +96,31 @@ export default function VendorsAdmin() {
     setCsvFile(e.target.files[0]);
   };
 
+  const refreshData = async () => {
+    const updatedData = await fetchVendors();
+    setData(updatedData);
+    setFilteredData(updatedData);
+  };
+  
+
+  const handleSearch = () => {
+    const query = searchQuery.toLowerCase();
+    const filtered = data.filter((vendor) =>
+      (vendor.vendor_name || "").toLowerCase().includes(query)
+    );
+    setFilteredData(filtered);
+  };
+
+
+  useEffect(() => {
+    async function getData() {
+      const fetchedData = await fetchVendors();
+      setData(fetchedData);
+      setFilteredData(fetchedData);
+    }
+    getData();
+  }, []);
+
   const handleCsvUpload = async () => {
     if (!csvFile) {
       alert("Please select a CSV file to upload.");
@@ -100,17 +131,15 @@ export default function VendorsAdmin() {
       header: true,
       skipEmptyLines: true,
       complete: async (results) => {
-        console.log("Parsed CSV Data:", results.data); // Log parsed data for debugging
+        console.log("Parsed CSV Data:", results.data);
 
         try {
           const vendors = results.data;
 
-          // Check if parsed data is an array and not empty
           if (!Array.isArray(vendors) || vendors.length === 0) {
             throw new Error("No valid data found in the CSV file.");
           }
 
-          // Send data to the backend
           const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -118,12 +147,30 @@ export default function VendorsAdmin() {
           });
 
           if (!response.ok) {
-            throw new Error("Failed to upload vendors.");
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Failed to upload vendors.");
           }
 
-          const updatedData = await fetchVendors(); // Refresh the table
-          setData(updatedData);
-          alert("Vendors uploaded successfully!");
+          const result = await response.json();
+
+          const { added = [], skipped = [], errors = [] } = result;
+          const messages = [];
+
+          if (added.length > 0) {
+            messages.push(`${added.length} vendors added successfully.`);
+          }
+          if (skipped.length > 0) {
+            messages.push(`${skipped.length} duplicate vendors skipped.`);
+          }
+          if (errors.length > 0) {
+            messages.push(`${errors.length} vendors failed to upload. Check logs for details.`);
+            console.error("Upload errors:", errors);
+          }
+
+          // Refresh data
+          await refreshData();
+
+          alert(messages.join("\n"));
         } catch (error) {
           console.error("Error uploading vendors:", error);
           alert("Failed to upload vendors. Please ensure the file is correctly formatted.");
@@ -140,21 +187,42 @@ export default function VendorsAdmin() {
   const handleAddChange = (e) => {
     setNewVendor({ ...newVendor, [e.target.name]: e.target.value });
   };
-
-  // Add a new vendor
+  
   const handleAdd = async () => {
-    await addVendor(newVendor);
-    setNewVendor({
-      vendor_name: '',
-      vendor_description: '',
-      building: '',
-      floor: '',
-      room: '',
-      age_range: '',
-      time_frame: '',
-    });
-    const updatedData = await fetchVendors();
-    setData(updatedData);
+    try {
+      // Check if the vendor already exists in the list
+      const vendorExists = data.some((existingVendor) => {
+        return existingVendor.vendor_name.toLowerCase() === newVendor.vendor_name.toLowerCase() &&
+          existingVendor.vendor_description.toLowerCase() === newVendor.vendor_description.toLowerCase() &&
+          existingVendor.building.toLowerCase() === newVendor.building.toLowerCase() &&
+          existingVendor.floor.toLowerCase() === newVendor.floor.toLowerCase() &&
+          existingVendor.room.toLowerCase() === newVendor.room.toLowerCase() &&
+          existingVendor.age_range.toLowerCase() === newVendor.age_range.toLowerCase() &&
+          existingVendor.time_frame.toLowerCase() === newVendor.time_frame.toLowerCase();
+      });
+
+      if (vendorExists) {
+        alert("Duplicate vendor. This vendor was not added.");
+        return; // Prevent further execution
+      }
+
+      const result = await addVendor(newVendor);
+      if (result.added) {
+        await refreshData();
+        alert("Vendor added successfully.");
+        setNewVendor({
+          vendor_name: '',
+          vendor_description: '',
+          building: '',
+          floor: '',
+          room: '',
+          age_range: '',
+          time_frame: '',
+        });
+      }
+    } catch (error) {
+      alert("Error adding vendor.");
+    }
   };
 
   // Delete a vendor
@@ -166,8 +234,7 @@ export default function VendorsAdmin() {
 
     try {
       await deleteVendor(id);
-      const updatedData = await fetchVendors();
-      setData(updatedData);
+      await refreshData();
       alert("Vendor deleted successfully!");
     } catch (error) {
       console.error("Failed to delete vendor:", error);
@@ -193,16 +260,15 @@ export default function VendorsAdmin() {
   const handleSave = async () => {
     await updateVendor(editingVendor);
     setEditingVendor(null);
-    const updatedData = await fetchVendors(); // Refresh data after update
-    setData(updatedData);
+    await refreshData();
   };
 
   return (
     <div className="min-w-full">
-      <h3 className="text-2xl mb-4">Manage Vendors</h3>
+      <h3 className="text-2xl mb-4">Manage Activities</h3>
       {/* CSV Upload Section */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
-        <h4 className="text-lg font-semibold mb-4">Upload Vendors from CSV</h4>
+        <h4 className="text-lg font-semibold mb-4">Upload Activities from CSV</h4>
         <input
           type="file"
           accept=".csv"
@@ -219,10 +285,10 @@ export default function VendorsAdmin() {
       </div>
       {/* Add New Vendor Form */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
-        <h4 className="text-lg font-semibold mb-4">Add New Vendor</h4>
+        <h4 className="text-lg font-semibold mb-4">Add New Activity</h4>
         <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <label>
-            Vendor Name
+            Host Name
             <input
               type="text"
               name="vendor_name"
@@ -232,7 +298,7 @@ export default function VendorsAdmin() {
             />
           </label>
           <label>
-            Vendor Description
+            Activity Description
             <input
               type="text"
               name="vendor_description"
@@ -293,13 +359,35 @@ export default function VendorsAdmin() {
           </label>
         </form>
         <button
-            type="button"
-            onClick={handleAdd}
-            className="bg-green-500 text-white text-lg font-bold w-40 px-6 py-1 mt-4 rounded shadow-lg hover:bg-green-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
-          >
-            Add Vendor
-          </button>
+          type="button"
+          onClick={handleAdd}
+          className="bg-green-500 text-white text-lg font-bold w-40 px-6 py-1 mt-4 rounded shadow-lg hover:bg-green-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
+        >
+          Add Vendor
+        </button>
       </div>
+
+      {/* Search Section */}
+      <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
+        <h4 className="text-lg font-semibold mb-4">Search Activities</h4>
+        <div className="flex items-center space-x-4">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by activity"
+            className="flex-grow w-full p-2 border rounded"
+          />
+          <button
+            type="button"
+            onClick={handleSearch}
+            className="bg-bsu-blue text-white font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+
       {/* Table layout on large screens, Card layout on small screens */}
       <div>
         {/* Table layout */}
@@ -318,66 +406,73 @@ export default function VendorsAdmin() {
               </tr>
             </thead>
             <tbody>
-              {data.map((vendor) => (
-                <tr key={vendor.id} className="border-l border-r text-center">
-                  <td className="px-6 py-3 border">{vendor.building}</td>
-                  <td className="px-6 py-3 border">{vendor.floor}</td>
-                  <td className="px-6 py-3 border">{vendor.room}</td>
-                  <td className="px-6 py-3 border">{vendor.vendor_name}</td>
-                  <td className="px-6 py-3 border">{vendor.vendor_description}</td>
-                  <td className="px-6 py-3 border">{vendor.age_range}</td>
-                  <td className="px-6 py-3 border">{vendor.time_frame}</td>
-                  <td className="px-6 py-3 border">
-                    <button
-                      onClick={() => handleEditClick(vendor)}
-                      className="text-blue-500 hover:underline"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(vendor.id)}
-                      className="text-red-600 hover:underline"
-                    >
-                      Delete
-                    </button>
+              {filteredData.length > 0 ? (
+                filteredData.map((vendor) => (
+                  <tr key={vendor.id} className="border-l border-r text-center">
+                    <td className="px-6 py-3 border">{vendor.building}</td>
+                    <td className="px-6 py-3 border">{vendor.floor}</td>
+                    <td className="px-6 py-3 border">{vendor.room}</td>
+                    <td className="px-6 py-3 border">{vendor.vendor_name}</td>
+                    <td className="px-6 py-3 border">{vendor.vendor_description}</td>
+                    <td className="px-6 py-3 border">{vendor.age_range}</td>
+                    <td className="px-6 py-3 border">{vendor.time_frame}</td>
+                    <td className="px-6 py-3 border">
+                      <div className="flex flex-col">
+                        <button
+                          onClick={() => handleEditClick(vendor)}
+                          className="text-blue-500 hover:underline"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(vendor.id)}
+                          className="text-red-600 hover:underline"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="text-center py-4">
+                    No vendors found.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
-
-        {/* Card layout */}
-        <div className="lg:hidden grid gap-4 grid-cols-1 sm:grid-cols-2">
-          {data.map((vendor) => (
-            <div key={vendor.id} className="p-4 bg-white shadow-lg rounded-lg">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">{vendor.vendor_name}</h3>
-              <p className="text-gray-600"><strong>Building:</strong> {vendor.building}</p>
-              <p className="text-gray-600"><strong>Floor:</strong> {vendor.floor}</p>
-              <p className="text-gray-600"><strong>Room:</strong> {vendor.room}</p>
-              <p className="text-gray-600"><strong>Age Range:</strong> {vendor.age_range}</p>
-              <p className="text-gray-600"><strong>Time Frame:</strong> {vendor.time_frame}</p>
-              <p className="text-gray-600"><strong>Description:</strong> {vendor.vendor_description}</p>
-              <div className="flex mt-3 space-x-2">
-                <button
-                  onClick={() => handleEditClick(vendor)}
-                  className="text-blue-500 underline"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(vendor.id)}
-                  className="text-red-600 underline"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
-
-
+      {/* Card layout */}
+      <div className="lg:hidden grid gap-4 grid-cols-1 sm:grid-cols-2">
+        {filteredData.map((vendor) => (
+          <div key={vendor.id} className="p-4 bg-white shadow-lg rounded-lg">
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">{vendor.vendor_name}</h3>
+            <p className="text-gray-600"><strong>Building:</strong> {vendor.building}</p>
+            <p className="text-gray-600"><strong>Floor:</strong> {vendor.floor}</p>
+            <p className="text-gray-600"><strong>Room:</strong> {vendor.room}</p>
+            <p className="text-gray-600"><strong>Age Range:</strong> {vendor.age_range}</p>
+            <p className="text-gray-600"><strong>Time Frame:</strong> {vendor.time_frame}</p>
+            <p className="text-gray-600"><strong>Description:</strong> {vendor.vendor_description}</p>
+            <div className="flex mt-3 space-x-2">
+              <button
+                onClick={() => handleEditClick(vendor)}
+                className="text-blue-500 underline"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(vendor.id)}
+                className="text-red-600 underline"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
       {/* Edit Vendor Form */}
       {editingVendor && (
         <div ref={editFormRef} className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg mt-4">
