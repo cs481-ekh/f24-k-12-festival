@@ -82,6 +82,7 @@ export default function VendorsAdmin() {
     age_range: '',
     time_frame: '',
   });
+  const [showForm, setShowForm] = useState(false);
 
   // Fetch vendor data on component mount
   useEffect(() => {
@@ -101,7 +102,7 @@ export default function VendorsAdmin() {
     setData(updatedData);
     setFilteredData(updatedData);
   };
-  
+
 
   const handleSearch = () => {
     const query = searchQuery.toLowerCase();
@@ -187,7 +188,7 @@ export default function VendorsAdmin() {
   const handleAddChange = (e) => {
     setNewVendor({ ...newVendor, [e.target.name]: e.target.value });
   };
-  
+
   const handleAdd = async () => {
     try {
       // Check if the vendor already exists in the list
@@ -219,6 +220,7 @@ export default function VendorsAdmin() {
           age_range: '',
           time_frame: '',
         });
+        setShowForm(false);
       }
     } catch (error) {
       alert("Error adding vendor.");
@@ -283,89 +285,110 @@ export default function VendorsAdmin() {
           Upload CSV
         </button>
       </div>
-      {/* Add New Vendor Form */}
+      
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
-        <h4 className="text-lg font-semibold mb-4">Add New Activity</h4>
-        <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <label>
-            Host Name
-            <input
-              type="text"
-              name="vendor_name"
-              value={newVendor.vendor_name}
-              onChange={handleAddChange}
-              className="w-full p-2 border rounded"
-            />
-          </label>
-          <label>
-            Activity Description
-            <input
-              type="text"
-              name="vendor_description"
-              value={newVendor.vendor_description}
-              onChange={handleAddChange}
-              className="w-full p-2 border rounded"
-            />
-          </label>
-          <label>
-            Building
-            <input
-              type="text"
-              name="building"
-              value={newVendor.building}
-              onChange={handleAddChange}
-              className="w-full p-2 border rounded"
-            />
-          </label>
-          <label>
-            Floor
-            <input
-              type="text"
-              name="floor"
-              value={newVendor.floor}
-              onChange={handleAddChange}
-              className="w-full p-2 border rounded"
-            />
-          </label>
-          <label>
-            Room
-            <input
-              type="text"
-              name="room"
-              value={newVendor.room}
-              onChange={handleAddChange}
-              className="w-full p-2 border rounded"
-            />
-          </label>
-          <label>
-            Age Range
-            <input
-              type="text"
-              name="age_range"
-              value={newVendor.age_range}
-              onChange={handleAddChange}
-              className="w-full p-2 border rounded"
-            />
-          </label>
-          <label>
-            Time Frame
-            <input
-              type="text"
-              name="time_frame"
-              value={newVendor.time_frame}
-              onChange={handleAddChange}
-              className="w-full p-2 border rounded"
-            />
-          </label>
-        </form>
-        <button
-          type="button"
-          onClick={handleAdd}
-          className="bg-green-500 text-white text-lg font-bold w-40 px-6 py-1 mt-4 rounded shadow-lg hover:bg-green-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
-        >
-          Add Activity
-        </button>
+      <button
+        onClick={() => setShowForm(true)}
+        className="bg-bsu-blue text-white text-lg font-bold w-50 px-6 py-1 rounded shadow-lg hover:bg-orange-500 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
+      >
+        Add New Activity
+      </button>
       </div>
+
+      {/* Add New Vendor Form */}
+      {showForm && (
+        <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
+          <h4 className="text-lg font-semibold mb-4">Add New Activity</h4>
+          <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <label>
+              Host Name
+              <input
+                type="text"
+                name="vendor_name"
+                value={newVendor.vendor_name}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Activity Description
+              <input
+                type="text"
+                name="vendor_description"
+                value={newVendor.vendor_description}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Building
+              <input
+                type="text"
+                name="building"
+                value={newVendor.building}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Floor
+              <input
+                type="text"
+                name="floor"
+                value={newVendor.floor}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Room
+              <input
+                type="text"
+                name="room"
+                value={newVendor.room}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Age Range
+              <input
+                type="text"
+                name="age_range"
+                value={newVendor.age_range}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+            <label>
+              Time Frame
+              <input
+                type="text"
+                name="time_frame"
+                value={newVendor.time_frame}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+          </form>
+          <div className="flex space-x-4 mt-4">
+            <button
+              type="button"
+              onClick={handleAdd}
+              className="bg-green-500 text-white text-lg font-bold w-40 px-6 py-1 rounded shadow-lg hover:bg-green-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
+            >
+              Add activity
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowForm(null)}
+              className="bg-red-500 text-white text-lg font-bold w-40 px-6 py-1 rounded shadow-lg hover:bg-red-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Search Section */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
