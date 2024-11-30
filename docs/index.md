@@ -36,24 +36,36 @@ between Boise State University and the community.
 
 ### A landing page
 
+This page includes an introduction video, previous festival images, a sponsors section, and a sign up form.
+
 ![Landing Page](https://imgur.com/HyLz29i.png)
 ![Landing Page](https://imgur.com/OQ3Dlen.png)
 ![Landing Page](https://imgur.com/uRduEdq.png)
 
 ### An activities page
 
+This page renders all of the database contents such as activity name,
+descriptions, building, floor, room, ages, and time frames. This page
+features filtering and a dynamic search bar.
+
 ![Activities Page](https://imgur.com/UIEXMeM.png)
 
 ### A schedule page
+
+This page consists of a customizable schedule page where users can add, remove, and share a custom schedule of activities from the database.
 
 ![Schedule Page](https://imgur.com/4Za55ro.png)
 
 ### A map page
 
+This page contains the interactive Boise State University campus map and also features an internal building map section for users who need a bit more detailed navigation of relevant festival buildings.
+
 ![Maps Page](https://imgur.com/2CKexlS.png)
 ![Maps Page](https://imgur.com/NRbwbyt.png)
 
 ### An admin dashboard
+
+This page contains a login page which leads to an admin dashboard where admins can update the activity list via CSV upload and manual single vendor upload. CSV upload will not duplicate existing activities so one master CSV file may be edited and reuploaded as needed. Admins can also edit existing activity entries on the fly as well as delete entries. A dynamic search bar is also present to help searching through potentially large activity lists.
 
 ![Admin Page](https://imgur.com/U97q2wQ.png)
 ![Admin Page](https://imgur.com/2hMsygL.png)
