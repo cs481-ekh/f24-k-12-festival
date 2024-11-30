@@ -105,7 +105,7 @@ export async function DELETE(req) {
 
 export async function PUT(req) {
   const db = await openDB();
-  const { id, vendor_name = '', vendor_description = '', building = '', floor = '', room = '' } = await req.json();
+  const { id, vendor_name = '', vendor_description = '', building = '', floor = '', room = '', age_range = '', time_frame = ''} = await req.json();
 
   if (!id) {
     return NextResponse.json({ message: 'Vendor ID is required' }, { status: 400 });
@@ -114,8 +114,8 @@ export async function PUT(req) {
   try {
     // Update the vendor in the database, allowing empty fields
     await db.run(
-      'UPDATE vendors SET vendor_name = ?, vendor_description = ?, building = ?, floor = ?, room = ? WHERE id = ?',
-      [vendor_name, vendor_description, building, floor, room, id]
+      'UPDATE vendors SET vendor_name = ?, vendor_description = ?, building = ?, floor = ?, room = ?, age_range = ?, time_frame = ? WHERE id = ?',
+      [vendor_name, vendor_description, building, floor, room, age_range, time_frame, id]
     );
 
     return NextResponse.json({ message: 'Vendor updated successfully' });
