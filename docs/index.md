@@ -30,6 +30,10 @@ between Boise State University and the community.
 
 ## What we built
 
+### Live web page
+
+[K-12 Festival](https://sdp.boisestate.edu/f24-k-12-festival)
+
 ### A landing page
 
 ![Landing Page](https://imgur.com/HyLz29i.png)
