@@ -32,18 +32,26 @@ between Boise State University and the community.
 
 ### A landing page
 
-![Landing Page](https://imgur.com/HyLz29i)
-![Landing Page](https://imgur.com/OQ3Dlen)
-![Landing Page](https://imgur.com/uRduEdq)
+![Landing Page](https://imgur.com/HyLz29i.png)
+![Landing Page](https://imgur.com/OQ3Dlen.png)
+![Landing Page](https://imgur.com/uRduEdq.png)
 
-![Activities Page](https://imgur.com/UIEXMeM)
+### An activities page
 
-![Schedule Page](https://imgur.com/4Za55ro)
+![Activities Page](https://imgur.com/UIEXMeM.png)
 
-![Maps Page](https://imgur.com/2CKexlS)
-![Maps Page](https://imgur.com/NRbwbyt)
+### A schedule page
 
-![Admin Page](https://imgur.com/U97q2wQ)
-![Admin Page](https://imgur.com/2hMsygL)
+![Schedule Page](https://imgur.com/4Za55ro.png)
+
+### A maps page
+
+![Maps Page](https://imgur.com/2CKexlS.png)
+![Maps Page](https://imgur.com/NRbwbyt.png)
+
+### An admin dashboard
+
+![Admin Page](https://imgur.com/U97q2wQ.png)
+![Admin Page](https://imgur.com/2hMsygL.png)
 
 ---
