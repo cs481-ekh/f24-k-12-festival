@@ -363,7 +363,7 @@ export default function VendorsAdmin() {
           onClick={handleAdd}
           className="bg-green-500 text-white text-lg font-bold w-40 px-6 py-1 mt-4 rounded shadow-lg hover:bg-green-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
         >
-          Add Vendor
+          Add Activity
         </button>
       </div>
 

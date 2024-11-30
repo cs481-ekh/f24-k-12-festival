@@ -1,6 +1,6 @@
 ---
 title: K-12 Engineering and Science Festival
-description: A web page dedicated to enhancing attendees festival experience.
+description: A mobile-friendly web page designed to enhance the festival experience for attendees and administration.
 ---
 
 # Abstract
@@ -29,5 +29,21 @@ between Boise State University and the community.
 - Will England
 
 ## What we built
+
+### A landing page
+
+![Landing Page](https://imgur.com/HyLz29i)
+![Landing Page](https://imgur.com/OQ3Dlen)
+![Landing Page](https://imgur.com/uRduEdq)
+
+![Activities Page](https://imgur.com/UIEXMeM)
+
+![Schedule Page](https://imgur.com/4Za55ro)
+
+![Maps Page](https://imgur.com/2CKexlS)
+![Maps Page](https://imgur.com/NRbwbyt)
+
+![Admin Page](https://imgur.com/U97q2wQ)
+![Admin Page](https://imgur.com/2hMsygL)
 
 ---
