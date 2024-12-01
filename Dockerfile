@@ -20,7 +20,7 @@ RUN npm install
 COPY . .
 
 # Copy database file
-COPY /vendors.db ./data/
+COPY /data/vendors.db ./data/
 
 # Build the Next.js app
 RUN npm run build
