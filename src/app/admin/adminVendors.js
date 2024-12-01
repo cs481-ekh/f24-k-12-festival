@@ -114,10 +114,11 @@ export default function VendorsAdmin() {
     setFilteredData(updatedData);
   };
 
-  const handleSearch = () => {
-    const query = searchQuery.toLowerCase();
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
     const filtered = data.filter((vendor) =>
-      (vendor.vendor_name || "").toLowerCase().includes(query)
+      vendor.vendor_name?.toLowerCase().includes(query)
     );
     setFilteredData(filtered);
   };
@@ -411,20 +412,12 @@ export default function VendorsAdmin() {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleSearch}
             placeholder="Search by activity"
             className="flex-grow w-full p-2 border rounded"
           />
-          <button
-            type="button"
-            onClick={handleSearch}
-            className="bg-bsu-blue text-white font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded"
-          >
-            Search
-          </button>
         </div>
       </div>
-
 
       {/* Bulk Delete Selected Vendors Button */}
       {selectedVendors.length > 0 && (
@@ -437,8 +430,7 @@ export default function VendorsAdmin() {
           </button>
         </div>
       )}
-
-      {/* Table layout */}
+      {/* Table layout on large screens, Card layout on small screens */}
       <div>
         <div className="hidden lg:block">
           <table className="min-w-full divide-y divide-gray-200">
