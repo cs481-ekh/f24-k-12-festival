@@ -272,21 +272,21 @@ export default function VendorsAdmin() {
       alert("You have not selected any vendors to delete.");
       return;
     }
-  
+
     const confirmed = window.confirm(
       "Are you sure you want to delete the selected vendors? This action cannot be undone."
     );
-  
+
     if (!confirmed) return;
-  
+
     console.log("Deleting vendors with IDs:", selectedVendors); // Debug log
-  
+
     try {
       const result = await bulkDeleteVendors(selectedVendors);
-  
+
       // Handle result if it contains a valid response
       console.log("Delete result:", result);
-  
+
       setData((prevData) =>
         prevData.filter((vendor) => !selectedVendors.includes(vendor.id))
       );
@@ -294,15 +294,15 @@ export default function VendorsAdmin() {
         prevFilteredData.filter((vendor) => !selectedVendors.includes(vendor.id))
       );
       setSelectedVendors([]); // Clear selection after deletion
-  
+
       alert("Selected vendors have been deleted successfully!");
     } catch (error) {
       console.error("Error deleting vendors:", error);
       alert("Failed to delete vendors. Please try again.");
     }
   };
-  
-  
+
+
   const handleCheckboxChange = (id) => {
     setSelectedVendors((prevSelected) =>
       prevSelected.includes(id)
@@ -361,14 +361,14 @@ export default function VendorsAdmin() {
           Upload CSV
         </button>
       </div>
-      
+
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
-      <button
-        onClick={() => setShowForm(true)}
-        className="bg-bsu-blue text-white text-lg font-bold w-50 px-6 py-1 rounded shadow-lg hover:bg-orange-500 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
-      >
-        Add New Activity
-      </button>
+        <button
+          onClick={() => setShowForm(true)}
+          className="bg-bsu-blue text-white text-lg font-bold w-50 px-6 py-1 rounded shadow-lg hover:bg-orange-500 hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
+        >
+          Add New Activity
+        </button>
       </div>
 
       {/* Add New Vendor Form */}
@@ -465,17 +465,6 @@ export default function VendorsAdmin() {
           </div>
         </div>
       )}
-      {/* Bulk Delete Selected Vendors Button */}
-      {selectedVendors.length > 0 && (
-        <div className="mb-4 flex justify-between items-center">
-          <button
-            onClick={handleBulkDelete}
-            className="bg-bsu-blue text-white text-sm font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded"
-          >
-            Delete Selected Vendors
-          </button>
-        </div>
-      )}
 
       {/* Search Section */}
       <div className="bg-gray-100 p-4 rounded-lg mb-6 shadow-lg">
@@ -490,13 +479,26 @@ export default function VendorsAdmin() {
           />
         </div>
       </div>
+
+      {/* Bulk Delete Selected Vendors Button */}
+      {selectedVendors.length > 0 && (
+        <div className="mb-4 flex justify-between items-center">
+          <button
+            onClick={handleBulkDelete}
+            className="bg-bsu-blue text-white text-sm font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded"
+          >
+            Delete Selected Vendors
+          </button>
+        </div>
+      )}
+
       {/* Table layout on large screens, Card layout on small screens */}
       <div>
         {/* Table layout */}
         <div className="hidden lg:block">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="text-sm text-gray-700 bg-gray-50 border">
-            <tr>
+              <tr>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">
                   <input
                     type="checkbox"
@@ -524,7 +526,7 @@ export default function VendorsAdmin() {
               {filteredData.length > 0 ? (
                 filteredData.map((vendor) => (
                   <tr key={vendor.id} className="border-l border-r text-center">
-                    <td>
+                    <td className="px-6 py-3 border">
                       <input
                         type="checkbox"
                         onChange={() => handleCheckboxChange(vendor.id)}
