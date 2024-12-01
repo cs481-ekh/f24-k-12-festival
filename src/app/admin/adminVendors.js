@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
@@ -30,7 +29,7 @@ async function updateVendor(vendor) {
   return data;
 }
 
-// Function to add a new vendor
+//function to add a row
 async function addVendor(vendor) {
   try {
     const vendorData = { vendors: [vendor] };
@@ -55,7 +54,8 @@ async function addVendor(vendor) {
   }
 }
 
-// Function to delete a single vendor
+
+//function to delete a row
 async function deleteVendor(id) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
     method: 'DELETE',
@@ -66,23 +66,12 @@ async function deleteVendor(id) {
   return await response.json();
 }
 
-// Function to bulk delete vendors
-async function bulkDeleteVendors(ids) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/vendors`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ids }),
-  });
-  if (!response.ok) throw new Error('Failed to delete vendors');
-  return await response.json();
-}
-
 export default function VendorsAdmin() {
   const [data, setData] = useState([]);
-  const [selectedVendors, setSelectedVendors] = useState([]); // Initialize selectedVendors state
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [editingVendor, setEditingVendor] = useState(null);
+  const editFormRef = useRef(null);
   const [csvFile, setCsvFile] = useState(null); // For storing the selected CSV file
   const [newVendor, setNewVendor] = useState({
     vendor_name: '',
@@ -95,11 +84,11 @@ export default function VendorsAdmin() {
   });
   const [showForm, setShowForm] = useState(false);
 
+  // Fetch vendor data on component mount
   useEffect(() => {
     async function getData() {
       const fetchedData = await fetchVendors();
       setData(fetchedData);
-      setFilteredData(fetchedData);
     }
     getData();
   }, []);
@@ -114,6 +103,7 @@ export default function VendorsAdmin() {
     setFilteredData(updatedData);
   };
 
+
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
@@ -122,6 +112,16 @@ export default function VendorsAdmin() {
     );
     setFilteredData(filtered);
   };
+
+
+  useEffect(() => {
+    async function getData() {
+      const fetchedData = await fetchVendors();
+      setData(fetchedData);
+      setFilteredData(fetchedData);
+    }
+    getData();
+  }, []);
 
   const handleCsvUpload = async () => {
     if (!csvFile) {
@@ -185,6 +185,7 @@ export default function VendorsAdmin() {
     });
   };
 
+  // Handle input change for the add vendor form
   const handleAddChange = (e) => {
     setNewVendor({ ...newVendor, [e.target.name]: e.target.value });
   };
@@ -227,35 +228,20 @@ export default function VendorsAdmin() {
     }
   };
 
-  // Handle checkbox changes
-  const handleCheckboxChange = (id) => {
-    setSelectedVendors((prevSelected) => {
-      if (prevSelected.includes(id)) {
-        return prevSelected.filter((vendorId) => vendorId !== id);
-      } else {
-        return [...prevSelected, id];
-      }
-    });
-  };
+  // Delete a vendor
+  const handleDelete = async (id) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this vendor? This action cannot be undone."
+    );
+    if (!isConfirmed) return;
 
-  // Delete selected vendors with confirmation
-  const handleBulkDelete = async () => {
-    if (selectedVendors.length === 0) {
-      alert("You have not selected any vendors to delete.");
-      return;
-    }
-
-    if (window.confirm("Are you sure you want to delete the selected vendors? This action cannot be undone.")) {
-      try {
-        await bulkDeleteVendors(selectedVendors);
-        setSelectedVendors([]); // Clear selection after delete
-        const updatedData = await fetchVendors();
-        setData(updatedData);
-        alert("Vendors deleted successfully!");
-      } catch (error) {
-        console.error("Error deleting vendors:", error);
-        alert("Failed to delete vendors.");
-      }
+    try {
+      await deleteVendor(id);
+      await refreshData();
+      alert("Vendor deleted successfully!");
+    } catch (error) {
+      console.error("Failed to delete vendor:", error);
+      alert("An error occurred while deleting the vendor. Please try again.");
     }
   };
 
@@ -418,37 +404,13 @@ export default function VendorsAdmin() {
           />
         </div>
       </div>
-
-      {/* Bulk Delete Selected Vendors Button */}
-      {selectedVendors.length > 0 && (
-        <div className="mb-4 flex justify-between items-center">
-          <button
-            onClick={handleBulkDelete}
-            className="bg-bsu-blue text-white text-sm font-bold hover:bg-orange-500 hover:scale-110 duration-300 px-4 py-2 rounded"
-          >
-            Delete Selected Vendors
-          </button>
-        </div>
-      )}
       {/* Table layout on large screens, Card layout on small screens */}
       <div>
+        {/* Table layout */}
         <div className="hidden lg:block">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="text-sm text-gray-700 bg-gray-50 border">
               <tr>
-                <th className="px-6 py-3 border bg-bsu-blue text-white">
-                  <input
-                    type="checkbox"
-                    onChange={() => {
-                      if (selectedVendors.length === data.length) {
-                        setSelectedVendors([]);
-                      } else {
-                        setSelectedVendors(data.map((vendor) => vendor.id));
-                      }
-                    }}
-                    checked={selectedVendors.length === data.length}
-                  />
-                </th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Building</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
@@ -463,14 +425,7 @@ export default function VendorsAdmin() {
               {filteredData.length > 0 ? (
                 filteredData.map((vendor) => (
                   <tr key={vendor.id} className="border-l border-r text-center">
-                    <td className="px-6 py-3 border">
-                    <input
-                      type="checkbox"
-                      checked={selectedVendors.includes(vendor.id)}
-                      onChange={() => handleCheckboxChange(vendor.id)}
-                    />
-                  </td>
-                  <td className="px-6 py-3 border">{vendor.building}</td>
+                    <td className="px-6 py-3 border">{vendor.building}</td>
                     <td className="px-6 py-3 border">{vendor.floor}</td>
                     <td className="px-6 py-3 border">{vendor.room}</td>
                     <td className="px-6 py-3 border">{vendor.vendor_name}</td>
