@@ -48,7 +48,7 @@ export default function Schedule() {
 
   const availableLocations = useMemo(() => {
     const filtered = data.filter(item => item.vendor_name === selectedVendor);
-    return Array.from(new Set(filtered.map(item => `${item.building} - ${item.room}`))).sort();
+    return Array.from(new Set(filtered.map(item => `${item.building} - ${item.floor} - ${item.room}`))).sort();
   }, [data, selectedVendor]);
 
   useEffect(() => {
@@ -174,62 +174,107 @@ export default function Schedule() {
             </div>
           </div>
           <div className="flex justify-center gap-4 mt-8">
-          <button
-            onClick={handleAddEvent}
-            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors"
-          >
-            Add to Schedule
-          </button>
-          <button
-            onClick={handleShareSchedule}
-            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors"
-          >
-            Share via Email
-          </button>
-          <button
-            onClick={handleShareScheduleText}
-            className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors"
-          >
-            Share via Text
-          </button>
-        </div>
+            <button
+              onClick={handleAddEvent}
+              className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors"
+            >
+              Add to Schedule
+            </button>
+            <button
+              onClick={handleShareSchedule}
+              className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors"
+            >
+              Share via Email
+            </button>
+            <button
+              onClick={handleShareScheduleText}
+              className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors"
+            >
+              Share via Text
+            </button>
+          </div>
         </div>
 
-        
 
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-8 overflow-hidden">
-          <h2 className="text-3xl font-bold mb-8 text-center text-black">Your Official Schedule</h2>
-          {officialSchedule.length === 0 ? (
-            <p className="text-black text-center">No events added yet.</p>
-          ) : (
-            <table className="w-full border">
-              <thead className="bg-bsu-blue border-b">
-                <tr>
-                  <th className="px-3 py-4 border text-left font-medium text-white">Activity</th>
-                  <th className="px-3 py-4 border text-left font-medium text-white">Time</th>
-                  <th className="px-3 py-4 border text-left font-medium text-white">Location</th>
-                  <th className="px-3 py-4 border text-left font-medium text-white">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {officialSchedule.map((event, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
-                    <td className="px-3 py-4 border-b text-gray-700">{event.vendor}</td>
-                    <td className="px-3 py-4 border-b text-gray-700">{event.time}</td>
-                    <td className="px-3 py-4 border-b text-gray-700">{event.location}</td>
-                    <td className="px-3 py-4 border-b text-gray-700">
-                      <button
-                        onClick={() => handleRemoveEvent(index)}
-                        className="text-red-500 hover:underline"
-                      >
-                        Remove
-                      </button>
-                    </td>
+        <div>
+          <div className="hidden lg:block">
+            <div className="mt-8 bg-white rounded-lg shadow-lg p-8 overflow-hidden">
+              <h2 className="text-3xl font-bold mb-8 text-center text-black">Your Official Schedule</h2>
+              {officialSchedule.length === 0 ? (
+                <p className="text-black text-center">No events added yet.</p>
+              ) : (
+                <table className="w-full border">
+                  <thead className="bg-bsu-blue border-b">
+                    <tr>
+                      <th className="px-3 py-4 border text-left font-medium text-white">Activity</th>
+                      <th className="px-3 py-4 border text-left font-medium text-white">Time</th>
+                      <th className="px-3 py-4 border text-left font-medium text-white">Location</th>
+                      <th className="px-3 py-4 border text-left font-medium text-white">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {officialSchedule.map((event, index) => (
+                      <tr key={index} className="hover:bg-gray-50">
+                        <td className="px-3 py-4 border-b text-gray-700">{event.vendor}</td>
+                        <td className="px-3 py-4 border-b text-gray-700">{event.time}</td>
+                        <td className="px-3 py-4 border-b text-gray-700">
+                        {event.location.split(' - ').map((line, i) => (
+                          <div key={i}>{line}</div>
+                        ))}
+                      </td>
+                        <td className="px-3 py-4 border-b text-gray-700">
+                          <button
+                            onClick={() => handleRemoveEvent(index)}
+                            className="text-red-500 hover:underline"
+                          >
+                            Remove
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+
+          <div className="lg:hidden grid gap-4 grid-cols-1 sm:grid-cols-2">
+            {officialSchedule.length === 0 ? (
+              <p className="text-black text-center">No events added yet.</p>
+            ) : (
+              <table className="w-full border">
+                <thead className="bg-bsu-blue border-b">
+                  <tr>
+                    <th className="px-3 py-4 border text-left font-medium text-white">Activity</th>
+                    <th className="px-3 py-4 border text-left font-medium text-white">Time</th>
+                    <th className="px-3 py-4 border text-left font-medium text-white">Location</th>
+                    <th className="px-3 py-4 border text-left font-medium text-white">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                </thead>
+                <tbody>
+                  {officialSchedule.map((event, index) => (
+                    <tr key={index} className="p-4 bg-white shadow-lg rounded-lg">
+                      <td className="px-3 py-4 border-b text-gray-700">{event.vendor}</td>
+                      <td className="px-3 py-4 border-b text-gray-700">{event.time}</td>
+                      <td className="px-3 py-4 border-b text-gray-700">
+                        {event.location.split(' - ').map((line, i) => (
+                          <div key={i}>{line}</div>
+                        ))}
+                      </td>
+                      <td className="px-3 py-4 border-b text-gray-700">
+                        <button
+                          onClick={() => handleRemoveEvent(index)}
+                          className="text-red-500 hover:underline"
+                        >
+                          Remove
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       </div>
     </div>
