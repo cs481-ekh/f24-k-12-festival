@@ -94,7 +94,7 @@ export default function Home() {
             <br></br>
             Discover our sponsors and learn more about them by clicking the button below.
           </p>
-          <Link href="https://www.boisestate.edu/coen-mssc-old/outreach-recruitment/engineering-and-science-festival-sponsors/">
+          <Link href="https://www.boisestate.edu/coen-mssc/engineering-and-science-festival-outreach-partners/">
             <button className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors">
               Learn more
             </button>
