@@ -35,7 +35,7 @@ export default function MyComponent() {
       <h1 className="text-4xl font-bold mb-8">Boise State University Campus Map</h1>
 
       <iframe
-        src="https://maps.boisestate.edu/?id=715#!s/?mc/43.604355,-116.202606?z/16?lvl/0"
+        src="https://map.concept3d.com/?id=715#!ce/76269?ct/76269?s/"
         width="100%"
         height="800"
         allow="geolocation"
