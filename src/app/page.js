@@ -101,6 +101,22 @@ export default function Home() {
           </Link>
         </div>
       </section>
+              
+      <section className="mt-5 w-full">
+        <div className="text-center mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
+            Parking and Food: Check out our map!
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 mb-6">
+            Click the button below to see an interactive map of parking and food locations.
+          </p>
+          <Link href="/map">
+            <button className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors">
+              Map
+            </button>
+          </Link>
+        </div>
+      </section>
 
       <section className="mt-12 w-full">
         <div className="text-center mb-8">
