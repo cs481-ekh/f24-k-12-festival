@@ -1,7 +1,10 @@
 import { openDB } from "../../../../lib/db";
 import { NextResponse } from "next/server";
+import { connection } from 'next/server'
 
-export async function GET() {
+export async function Page() {
+  await connection();
+
   const db = await openDB();
 
   const ageOptions = await db.all('SELECT DISTINCT age_range FROM vendors');
