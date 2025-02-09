@@ -94,6 +94,7 @@ export default function VendorsAdmin() {
   const [csvFile, setCsvFile] = useState(null); // For storing the selected CSV file
   const [newVendor, setNewVendor] = useState({
     vendor_name: '',
+    activity: '',
     vendor_description: '',
     building: '',
     floor: '',
@@ -216,6 +217,7 @@ export default function VendorsAdmin() {
       // Check if the vendor already exists in the list
       const vendorExists = data.some((existingVendor) => {
         return existingVendor.vendor_name.toLowerCase() === newVendor.vendor_name.toLowerCase() &&
+          existingVendor.activity.toLowerCase() === newVendor.activity.toLowerCase() &&
           existingVendor.vendor_description.toLowerCase() === newVendor.vendor_description.toLowerCase() &&
           existingVendor.building.toLowerCase() === newVendor.building.toLowerCase() &&
           existingVendor.floor.toLowerCase() === newVendor.floor.toLowerCase() &&
@@ -235,6 +237,7 @@ export default function VendorsAdmin() {
         alert("Vendor added successfully.");
         setNewVendor({
           vendor_name: '',
+          activity: '',
           vendor_description: '',
           building: '',
           floor: '',
@@ -386,6 +389,18 @@ export default function VendorsAdmin() {
                 className="w-full p-2 border rounded"
               />
             </label>
+                  
+            <label>
+              Activity
+              <input
+                type="text"
+                name="activity"
+                value={newVendor.activity}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+                  
             <label>
               Activity Description
               <input
@@ -516,6 +531,7 @@ export default function VendorsAdmin() {
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Host Name</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Activity</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Activity Description</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Age Range</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Time Frame</th>
@@ -537,6 +553,7 @@ export default function VendorsAdmin() {
                     <td className="px-6 py-3 border">{vendor.floor}</td>
                     <td className="px-6 py-3 border">{vendor.room}</td>
                     <td className="px-6 py-3 border">{vendor.vendor_name}</td>
+                    <td className="px-6 py-3 border">{vendor.activity}</td>
                     <td className="px-6 py-3 border">{vendor.vendor_description}</td>
                     <td className="px-6 py-3 border">{vendor.age_range}</td>
                     <td className="px-6 py-3 border">{vendor.time_frame}</td>
@@ -579,6 +596,7 @@ export default function VendorsAdmin() {
             <p className="text-gray-600"><strong>Room:</strong> {vendor.room}</p>
             <p className="text-gray-600"><strong>Age Range:</strong> {vendor.age_range}</p>
             <p className="text-gray-600"><strong>Time Frame:</strong> {vendor.time_frame}</p>
+            <p className="text-gray-600"><strong>Activity:</strong> {vendor.activity}</p>
             <p className="text-gray-600"><strong>Description:</strong> {vendor.vendor_description}</p>
             <div className="flex mt-3 space-x-2">
               <button
@@ -612,6 +630,17 @@ export default function VendorsAdmin() {
                 className="w-full p-2 border rounded"
               />
             </label>
+            <label>
+              Activity
+              <input
+                type="text"
+                name="activity"
+                value={editingVendor.activity || ''}
+                onChange={handleEditChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+
             <label>
               Description
               <input
