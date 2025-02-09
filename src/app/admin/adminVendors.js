@@ -390,7 +390,7 @@ export default function VendorsAdmin() {
               />
             </label>
 
-                  <label>
+            <label>
               Building
               <input
                 type="text"
@@ -401,17 +401,6 @@ export default function VendorsAdmin() {
               />
             </label>
                         
-            <label>
-              Activity Description
-              <input
-                type="text"
-                name="vendor_description"
-                value={newVendor.vendor_description}
-                onChange={handleAddChange}
-                className="w-full p-2 border rounded"
-              />
-            </label>
-
             <label>
               Activity
               <input
@@ -433,6 +422,18 @@ export default function VendorsAdmin() {
                 className="w-full p-2 border rounded"
               />
             </label>
+
+            <label>
+              Activity Description
+              <input
+                type="text"
+                name="vendor_description"
+                value={newVendor.vendor_description}
+                onChange={handleAddChange}
+                className="w-full p-2 border rounded"
+              />
+            </label>
+
             <label>
               Room
               <input
@@ -443,6 +444,7 @@ export default function VendorsAdmin() {
                 className="w-full p-2 border rounded"
               />
             </label>
+                  
             <label>
               Age Range
               <input
@@ -453,6 +455,7 @@ export default function VendorsAdmin() {
                 className="w-full p-2 border rounded"
               />
             </label>
+                  
             <label>
               Time Frame
               <input
