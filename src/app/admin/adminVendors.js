@@ -389,18 +389,18 @@ export default function VendorsAdmin() {
                 className="w-full p-2 border rounded"
               />
             </label>
-                  
-            <label>
-              Activity
+
+                  <label>
+              Building
               <input
                 type="text"
-                name="activity"
-                value={newVendor.activity}
+                name="building"
+                value={newVendor.building}
                 onChange={handleAddChange}
                 className="w-full p-2 border rounded"
               />
             </label>
-                  
+                        
             <label>
               Activity Description
               <input
@@ -411,16 +411,18 @@ export default function VendorsAdmin() {
                 className="w-full p-2 border rounded"
               />
             </label>
+
             <label>
-              Building
+              Activity
               <input
                 type="text"
-                name="building"
-                value={newVendor.building}
+                name="activity"
+                value={newVendor.activity}
                 onChange={handleAddChange}
                 className="w-full p-2 border rounded"
               />
             </label>
+
             <label>
               Floor
               <input
