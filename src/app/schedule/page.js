@@ -37,7 +37,7 @@ export default function Schedule() {
   }, []);
 
   const uniqueVendors = useMemo(() =>
-    Array.from(new Set(data.map(item => item.vendor_name))).sort(),
+    Array.from(new Set(data.map(item => item.activity))).sort(),
     [data]
   );
 
