@@ -1,9 +1,7 @@
 import { openDB } from "../../../../lib/db";
 import { NextResponse } from "next/server";
-import { connection } from 'next/server'
 
-export async function Page() {
-  await connection();
+export default async function handler() {
 
   const db = await openDB();
 
