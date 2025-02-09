@@ -33,7 +33,7 @@ export default function Footer() {
       </div>
 
       <div className="pl-2 font-bold">
-        <p>V1.6</p>
+        <p>V1.7</p>
       </div>
 
       <div className="flex justify-center items-center p-2 font-bold">
