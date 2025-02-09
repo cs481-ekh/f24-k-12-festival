@@ -1,7 +1,9 @@
 import { openDB } from "../../../../lib/db";
 import { NextResponse } from "next/server";
 
-export default async function handler() {
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
 
   const db = await openDB();
 
