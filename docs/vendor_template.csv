@@ -1,3 +1,3 @@
-vendor_name,vendor_description,building,floor,room,age_range,time_frame
+vendor_name,activity,vendor_description,building,floor,room,age_range,time_frame
 # Replace this line and the sample below with your entries - do not change or delete the line above
-Sample Vendor Company,A sample vendor,RUCH Engineering Building,1,Room 106,Ages 7-12,12:00 - 1:00 PM
+Sample Vendor Company,The Activity Title,The description of the activtiy with NO COMMAS,RUCH Engineering Building,1,Room 106,Ages 7-12,12:00 - 1:00 PM
