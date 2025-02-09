@@ -11,15 +11,13 @@ RUN apk add --no-cache bash
 WORKDIR /app
 
 # Copy the package.json and package-lock.json and other config files to the working directory
-COPY *.json .
-COPY *.js .
+COPY package*.json .
 
 # Install the project dependencies
 RUN npm install
 
 # Copy the entire project to the working directory
-COPY src .
-COPY public .
+COPY . .
 
 # Build the Next.js app
 RUN npm run build
