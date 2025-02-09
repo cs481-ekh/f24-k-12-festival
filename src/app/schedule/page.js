@@ -11,7 +11,7 @@ async function fetchVendors() {
 
 export default function Schedule() {
   const [data, setData] = useState([]);
-  const [selectedVendor, setSelectedVendor] = useState('');
+  const [selectedEvent, setselectedEvent] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [officialSchedule, setOfficialSchedule] = useState([]);
@@ -37,19 +37,19 @@ export default function Schedule() {
   }, []);
 
   const uniqueVendors = useMemo(() =>
-    Array.from(new Set(data.map(item => item.vendor_name))).sort(),
+    Array.from(new Set(data.map(item => item.activity))).sort(),
     [data]
   );
 
   const availableTimeSlots = useMemo(() => {
-    const filtered = data.filter(item => item.vendor_name === selectedVendor);
+    const filtered = data.filter(item => item.activity === selectedEvent);
     return Array.from(new Set(filtered.map(item => item.time_frame))).sort();
-  }, [data, selectedVendor]);
+  }, [data, selectedEvent]);
 
   const availableLocations = useMemo(() => {
-    const filtered = data.filter(item => item.vendor_name === selectedVendor);
+    const filtered = data.filter(item => item.activity === selectedEvent);
     return Array.from(new Set(filtered.map(item => `${item.building} - ${item.floor} - ${item.room}`))).sort();
-  }, [data, selectedVendor]);
+  }, [data, selectedEvent]);
 
   useEffect(() => {
     if (!selectedTime || !availableTimeSlots.includes(selectedTime)) {
@@ -58,12 +58,12 @@ export default function Schedule() {
     if (!selectedLocation || !availableLocations.includes(selectedLocation)) {
       setSelectedLocation(availableLocations[0] || '');
     }
-  }, [selectedVendor, availableTimeSlots, availableLocations]);
+  }, [selectedEvent, availableTimeSlots, availableLocations]);
 
   const handleAddEvent = () => {
-    if (selectedVendor && selectedTime && selectedLocation) {
+    if (selectedEvent && selectedTime && selectedLocation) {
       const newEvent = {
-        vendor: selectedVendor,
+        event: selectedEvent,
         time: selectedTime,
         location: selectedLocation,
       };
@@ -71,7 +71,7 @@ export default function Schedule() {
         .sort((a, b) => new Date(`1970/01/01 ${a.time}`) - new Date(`1970/01/01 ${b.time}`));
       setOfficialSchedule(updatedSchedule);
       Cookies.set('officialSchedule', JSON.stringify(updatedSchedule), { expires: 7 });
-      setSelectedVendor('');
+      setselectedEvent('');
       setSelectedTime('');
       setSelectedLocation('');
     } else {
@@ -120,9 +120,9 @@ export default function Schedule() {
               <label htmlFor="activity-select" className="block text-lg font-medium text-black mb-2">Select Activity</label>
               <select
                 id="-select"
-                value={selectedVendor}
+                value={selectedEvent}
                 onChange={(e) => {
-                  setSelectedVendor(e.target.value);
+                  setselectedEvent(e.target.value);
                   setSelectedTime('');
                   setSelectedLocation('');
                 }}
@@ -144,7 +144,7 @@ export default function Schedule() {
                 value={selectedTime}
                 onChange={(e) => setSelectedTime(e.target.value)}
                 className="border border-gray-300 rounded-lg p-3 w-full"
-                disabled={!selectedVendor || availableTimeSlots.length === 0}
+                disabled={!selectedEvent || availableTimeSlots.length === 0}
               >
                 <option value="">Choose a time slot</option>
                 {availableTimeSlots.map((time, index) => (
@@ -162,7 +162,7 @@ export default function Schedule() {
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
                 className="border border-gray-300 rounded-lg p-3 w-full"
-                disabled={!selectedVendor || availableLocations.length === 0}
+                disabled={!selectedEvent || availableLocations.length === 0}
               >
                 <option value="">Choose a location</option>
                 {availableLocations.map((location, index) => (

@@ -1,7 +1,10 @@
 import { openDB } from "../../../../lib/db";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
+
   const db = await openDB();
 
   const ageOptions = await db.all('SELECT DISTINCT age_range FROM vendors');

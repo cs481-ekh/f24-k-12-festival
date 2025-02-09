@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Data directory - do not commit - this is mapped into the container for persistence
+/data
+
 # dependencies
 /node_modules
 /.pnp

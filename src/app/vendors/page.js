@@ -56,6 +56,7 @@ export default function Vendors() {
       vendor.building.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.floor.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.room.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vendor.activity.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vendor.vendor_description.toLowerCase().includes(searchTerm.toLowerCase());
 
     const ageMatch = ageFilter === "" || vendor.age_range === ageFilter;
@@ -206,6 +207,7 @@ export default function Vendors() {
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Floor</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Room</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Host Name</th>
+                <th className="px-6 py-3 border bg-bsu-blue text-white">Activity</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Activity Description</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Age Range</th>
                 <th className="px-6 py-3 border bg-bsu-blue text-white">Time Frame</th>
@@ -219,6 +221,7 @@ export default function Vendors() {
                     <td className="px-6 py-3 border">{row.floor}</td>
                     <td className="px-6 py-3 border">{row.room}</td>
                     <td className="px-6 py-3 border">{row.vendor_name}</td>
+                    <td className="px-6 py-3 border">{row.activity}</td>
                     <td className="px-6 py-3 border">{row.vendor_description}</td>
                     <td className="px-6 py-3 border">{row.age_range}</td>
                     <td className="px-6 py-3 border">{row.time_frame}</td>
@@ -244,6 +247,7 @@ export default function Vendors() {
                 <p className="text-gray-600"><strong>Room:</strong> {vendor.room}</p>
                 <p className="text-gray-600"><strong>Age Range:</strong> {vendor.age_range}</p>
                 <p className="text-gray-600"><strong>Time Frame:</strong> {vendor.time_frame}</p>
+                <p className="text-gray-600"><strong>Activity:</strong> {vendor.activity}</p>
                 <br></br>
                 <strong>Description:</strong>
                 <p className="text-black"> {vendor.vendor_description}</p>
