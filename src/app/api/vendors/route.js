@@ -26,6 +26,7 @@ export async function POST(req) {
           const existing = await db.get(
             `SELECT * FROM vendors WHERE 
              vendor_name = ? AND 
+             activity = ? AND
              vendor_description = ? AND 
              building = ? AND 
              floor = ? AND 
@@ -34,6 +35,7 @@ export async function POST(req) {
              time_frame = ?`,
             [
               vendor.vendor_name,
+              vendor.activity,
               vendor.vendor_description,
               vendor.building,
               vendor.floor,
@@ -48,10 +50,11 @@ export async function POST(req) {
           } else {
             // Insert new entry
             await db.run(
-              `INSERT INTO vendors (vendor_name, vendor_description, building, floor, room, age_range, time_frame)
-               VALUES (?, ?, ?, ?, ?, ?, ?)`,
+              `INSERT INTO vendors (vendor_name, activity, vendor_description, building, floor, room, age_range, time_frame)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
               [
                 vendor.vendor_name,
+                vendor.activity,
                 vendor.vendor_description,
                 vendor.building,
                 vendor.floor,
@@ -105,7 +108,7 @@ export async function DELETE(req) {
 
 export async function PUT(req) {
   const db = await openDB();
-  const { id, vendor_name = '', vendor_description = '', building = '', floor = '', room = '', age_range = '', time_frame = ''} = await req.json();
+  const { id, vendor_name = '', activity = '', vendor_description = '', building = '', floor = '', room = '', age_range = '', time_frame = ''} = await req.json();
 
   if (!id) {
     return NextResponse.json({ message: 'Vendor ID is required' }, { status: 400 });
@@ -114,8 +117,8 @@ export async function PUT(req) {
   try {
     // Update the vendor in the database, allowing empty fields
     await db.run(
-      'UPDATE vendors SET vendor_name = ?, vendor_description = ?, building = ?, floor = ?, room = ?, age_range = ?, time_frame = ? WHERE id = ?',
-      [vendor_name, vendor_description, building, floor, room, age_range, time_frame, id]
+      'UPDATE vendors SET vendor_name = ?, activity = ?, vendor_description = ?, building = ?, floor = ?, room = ?, age_range = ?, time_frame = ? WHERE id = ?',
+      [vendor_name, activity, vendor_description, building, floor, room, age_range, time_frame, id]
     );
 
     return NextResponse.json({ message: 'Vendor updated successfully' });
