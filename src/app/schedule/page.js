@@ -30,13 +30,13 @@ export default function Schedule() {
 
   useEffect(() => {
     async function getData() {
-      const Data = await fetchs();
-      setData(Data);
+      const vendorData = await fetchVendors();
+      setData(vendorData);
     }
     getData();
   }, []);
 
-  const uniques = useMemo(() =>
+  const uniqueVendors = useMemo(() =>
     Array.from(new Set(data.map(item => item.activity))).sort(),
     [data]
   );
