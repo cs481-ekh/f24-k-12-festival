@@ -87,7 +87,7 @@ export default function Schedule() {
   // Share schedule via email
   const handleShareSchedule = () => {
     const scheduleText = officialSchedule
-      .map((event) => `${event.vendor} - ${event.time} at ${event.location}`)
+      .map((event) => `${event.activity} - ${event.time} at ${event.location}`)
       .join('\n');
 
     const emailSubject = "My Official STEM Festival Schedule";
@@ -100,7 +100,7 @@ export default function Schedule() {
   // Share schedule via text (sms:)
   const handleShareScheduleText = () => {
     const scheduleText = officialSchedule
-      .map((event) => `${event.vendor} - ${event.time} at ${event.location}`)
+      .map((event) => `${event.activity} - ${event.time} at ${event.location}`)
       .join('\n');
 
     const smsLink = `sms:?body=My%20STEM%20Festival%20Schedule:%0A%0A${encodeURIComponent(scheduleText)}`;
@@ -215,7 +215,7 @@ export default function Schedule() {
                   <tbody>
                     {officialSchedule.map((event, index) => (
                       <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-3 py-4 border-b text-gray-700">{event.vendor}</td>
+                        <td className="px-3 py-4 border-b text-gray-700">{event.activity}</td>
                         <td className="px-3 py-4 border-b text-gray-700">{event.time}</td>
                         <td className="px-3 py-4 border-b text-gray-700">
                         {event.location.split(' - ').map((line, i) => (
@@ -254,7 +254,7 @@ export default function Schedule() {
                 <tbody>
                   {officialSchedule.map((event, index) => (
                     <tr key={index} className="p-4 bg-white shadow-lg rounded-lg">
-                      <td className="px-3 py-4 border-b text-gray-700">{event.vendor}</td>
+                      <td className="px-3 py-4 border-b text-gray-700">{event.activity}</td>
                       <td className="px-3 py-4 border-b text-gray-700">{event.time}</td>
                       <td className="px-3 py-4 border-b text-gray-700">
                         {event.location.split(' - ').map((line, i) => (
