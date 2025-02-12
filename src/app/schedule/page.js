@@ -63,7 +63,7 @@ export default function Schedule() {
   const handleAddEvent = () => {
     if (selectedEvent && selectedTime && selectedLocation) {
       const newEvent = {
-        event: selectedEvent,
+        activity: selectedEvent,
         time: selectedTime,
         location: selectedLocation,
       };
