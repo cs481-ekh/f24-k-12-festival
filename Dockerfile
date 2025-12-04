@@ -1,5 +1,5 @@
 # Use Node.js base image from the official Node repository
-FROM node:18-alpine
+FROM node:20-alpine
 
 ARG NEXT_PUBLIC_BASE_PATH=""
 ENV NEXT_PUBLIC_BASE_PATH $NEXT_PUBLIC_BASE_PATH
