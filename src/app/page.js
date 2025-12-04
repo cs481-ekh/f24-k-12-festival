@@ -41,49 +41,6 @@ export default function Home() {
         </video>
       </div>
 
-      <section className="mt-12 w-full">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
-            Previous Festival Fun!
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 mb-6">
-            Take a look at some photos from last year&apos;s festival below and get ready for another exciting year of fun and learning!
-          </p>
-
-          <Carousel
-            className="w-full sm:w-3/4 lg:max-w-1/2 mx-auto relative"
-            opts={{
-              align: "center",
-              loop: true,
-              arrows: true,
-              watchResize: true,
-              containScroll: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 3000,
-              }),
-            ]}
-          >
-            <CarouselContent className="flex gap-4">
-              {previousFestivalImages.map((image, index) => (
-                <CarouselItem key={index} className="relative flex-shrink-0 w-full h-[calc(100vw*3/4)] sm:h-[calc(75vw*3/4)] lg:h-[calc(50vw*3/4)]">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    width={1280}
-                    height={960}
-                    className="w-full h-full object-cover rounded-lg shadow-lg"
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </div>
-      </section>
-
       <section className="mt-5 w-full">
         <div className="text-center mb-6">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
@@ -102,22 +59,6 @@ export default function Home() {
         </div>
       </section>
               
-      <section className="mt-5 w-full">
-        <div className="text-center mb-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
-            Parking and Food: Check out our map!
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 mb-6">
-            Click the button below to see an interactive map of parking and food locations.
-          </p>
-          <Link href="/map">
-            <button className="bg-bsu-blue text-white px-6 py-3 rounded hover:bg-orange-500 transition-colors">
-              Map
-            </button>
-          </Link>
-        </div>
-      </section>
-
       <section className="mt-12 w-full">
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
@@ -128,7 +69,7 @@ export default function Home() {
           </p>
           <div className="w-full h-[100vh] sm:w-3/4 lg:max-w-1/2 mx-auto">
             <iframe
-              src="https://app.smartsheet.com/b/form/b46202be87ce478ab9ff37ad1fb9c1a1"
+              src="https://docs.google.com/forms/d/e/1FAIpQLSc9mDQptutJnY5wVKwdO3vnXXLvmTWqoAb05OIYb-x4hsIS1A/viewform"
               className="w-full h-[100vh] rounded-lg shadow-lg border-2 border-gray-300"
             />
           </div>
